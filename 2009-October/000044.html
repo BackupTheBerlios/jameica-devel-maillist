@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Tipp%3A%20Versionsnummer%20des%20Plugins%20in%20build.xml%0A%09direkt%20aus%20plugin.xml%20auslesen&In-Reply-To=%3C200910291237.38500.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000045.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Tipp%3A%20Versionsnummer%20des%20Plugins%20in%20build.xml%0A%09direkt%20aus%20plugin.xml%20auslesen&In-Reply-To=%3C200910291237.38500.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Do Okt 29 12:37:38 CET 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000043.html">[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000045.html">[jameica-devel] Automatische Updates nochmal ueberarbeitet
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#44">[ Datum ]</a>
+              <a href="thread.html#44">[ Thema ]</a>
+              <a href="subject.html#44">[ Betreff (Subject) ]</a>
+              <a href="author.html#44">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+heute ein Tipp, mit dem ich endlich die doppelte Pflege der
+Versionsnummer (einmal in plugin.xml fuer Jameica und dann
+dann nochmal in build/RELEASE fuer das Ant-Script) abschaffen
+konnte.
+
+Apache Ant kann naemlich beliebige XML-Dateien einlesen
+und die enthaltenen Elemente und Attribute in Ant-Properties
+umwandeln.
+
+Damit kann man den Wert des Attributes &quot;version&quot; im Element
+&quot;plugin&quot; der plugin.xml komfortabel auslesen und im Build-
+Script nutzen:
+
+&lt;xmlproperty file=&quot;plugin.xml&quot; collapseattributes=&quot;true&quot;/&gt;
+
+Fertig. Die Versionsnummer ist jetzt unter ${plugin.version}
+verfuegbar.
+
+Wenn man daraus jetzt noch ein CVS-Tag generieren (die duerfen
+das Zeichen &quot;.&quot; leider nicht enthalten), kann man das so
+machen:
+
+&lt;propertyfile file=&quot;TAG&quot;&gt;
+  &lt;entry key=&quot;tag&quot; value=&quot;${plugin.version}&quot; /&gt;
+&lt;/propertyfile&gt;
+&lt;replaceregexp flags=&quot;g&quot; file=&quot;TAG&quot; match=&quot;\.&quot; replace=&quot;_&quot; /&gt;
+&lt;loadproperties srcFile=&quot;TAG&quot;/&gt;
+&lt;delete file=&quot;TAG&quot; /&gt;
+
+Jetzt hat man ein Property ${tag} mit der Versionsnummer,
+in der jedoch die &quot;.&quot; gegen &quot;_&quot; ersetzt sind.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000043.html">[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000045.html">[jameica-devel] Automatische Updates nochmal ueberarbeitet
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#44">[ Datum ]</a>
+              <a href="thread.html#44">[ Thema ]</a>
+              <a href="subject.html#44">[ Betreff (Subject)]</a>
+              <a href="author.html#44">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

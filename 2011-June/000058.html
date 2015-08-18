@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Diagnose-Backup/Restore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2011-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Diagnose-Backup/Restore&In-Reply-To=%3C4E0B6FA0.8020703%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000057.html">
+   <LINK REL="Next"  HREF="000059.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Diagnose-Backup/Restore</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Diagnose-Backup/Restore&In-Reply-To=%3C4E0B6FA0.8020703%40willuhn.de%3E"
+           TITLE="[jameica-devel] Diagnose-Backup/Restore">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mi Jun 29 20:32:00 CEST 2011</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000057.html">[jameica-devel] Diagnose-Backup/Restore
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000059.html">[jameica-devel] Diagnose-Backup/Restore
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#58">[ Datum ]</a>
+              <a href="thread.html#58">[ Thema ]</a>
+              <a href="subject.html#58">[ Betreff (Subject) ]</a>
+              <a href="author.html#58">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi,
+
+&gt;<i> ich habe zur JVerein-Version 2.0.0 in der Datenbank den Datentyp für
+</I>&gt;<i> booleans von CHAR(5) (Inhalt TRUE oder FALSE) auf Boolean (H2) und
+</I>&gt;<i> BIT(1) (MySQL) umgestellt.
+</I>&gt;<i> 
+</I>&gt;<i> Beim Import in eine MySQL-Datenbank werden Exceptions geworfen:
+</I>[...]
+&gt;<i> Caused by: com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too
+</I>&gt;<i> long for column 'individuellebeitraege' at row 1
+</I>[...]
+&gt;<i> Die XML-Datei sieht so aus:
+</I>[...]
+&gt;<i> &lt;individuellebeitraege
+</I>&gt;<i> type=&quot;java.lang.Boolean&quot;&gt;false&lt;/individuellebeitraege&gt;
+</I>[...]
+&gt;<i> Anscheinend wird &quot;true&quot; und nicht true in das DBObject übertragen. Das
+</I>&gt;<i> ist doch sicher ein Jameica-Problem. Oder?
+</I>
+Das datasource-Package von Jameica unterstuetzt kein Boolean, weil es
+diesen Datentyp nicht in SQL gibt. Ich meine, woher soll jetzt Jameica
+wissen, wie es hier automatisiert eine Typ-Konvertierung von Boolean -&gt;
+char(5) -&gt; bit(1) machen soll?
+
+Das Fachobjekt liefert bei o.getAttribute(&quot;individuellebeitraege&quot;) halt
+ein Boolean zurueck. Das kann ich doch beim Einlesen nicht einfach
+automatisch in int konvertieren.
+
+Wenn du dein Fachobjekt so aenderst, dass
+&quot;o.getAttribute(&quot;individuellebeitraege&quot;)&quot; ein int zurueckliefert, sollte
+das gehen.
+
+Gruss
+Olaf
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.16 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOC2+gAAoJEFqO2c/A22xwjyIIAKhtQ/tp8vhl37a4wUe6Gfd7
+Em6HXdPwNg6GOjxW6e/3TgIQTq7rdqi34PaSP51HEnGqEtlRH3WpGjsiL9OV1yfV
+u0RYgvIK4/8sqYdheS5Lf6D8n6uBiV9QYEeVGsgFfYlC8ec3RJM4+5sOFQnwCjoa
+XVxoGnnVizlTvMOdwf3hhTGsgNsNd3UACH/l3+Xdf+PdJBJj3fObFkJGM/uyR65v
+ZUQQO00n8EznTujCRkS2R44eSbvQ+vH1cI3D1xt21EpFLm0YziKhXuv3WKYLDrrm
+ttlguHR3EiHU2LK/QoL6dOCA92nzSSLB3vXI4heqiTVEfs4pUFzzUEaxhhznPt8=
+=3zgT
+-----END PGP SIGNATURE-----
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000057.html">[jameica-devel] Diagnose-Backup/Restore
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000059.html">[jameica-devel] Diagnose-Backup/Restore
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#58">[ Datum ]</a>
+              <a href="thread.html#58">[ Thema ]</a>
+              <a href="subject.html#58">[ Betreff (Subject)]</a>
+              <a href="author.html#58">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

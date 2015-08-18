@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] SearchInput
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-May/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SearchInput&In-Reply-To=%3C4A07C0AA.1070700%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000002.html">
+   <LINK REL="Next"  HREF="000004.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] SearchInput</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SearchInput&In-Reply-To=%3C4A07C0AA.1070700%40jost-net.de%3E"
+           TITLE="[jameica-devel] SearchInput">heiner at jost-net.de
+                  </A><BR>
+    <I>Mo Mai 11 08:07:38 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000002.html">[jameica-devel] SearchInput
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000004.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#3">[ Datum ]</a>
+              <a href="thread.html#3">[ Thema ]</a>
+              <a href="subject.html#3">[ Betreff (Subject) ]</a>
+              <a href="author.html#3">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo Olaf,
+
+jetzt ist die Eingabe schon angenehmer. Noch besser wäre es, wenn der 
+Focus in dem Eingabefeld bliebe. Dann könnte weiter getippt werden. 
+Sobald der gewünschte Eintrag auftaucht, kann er angeklickt oder 
+sonstwie mit der Tastatur ausgewählt werden.
+
+Heiner
+
+Olaf Willuhn schrieb:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> ich finde die Bedienung des SearchInputs nicht so ganz gelungen.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Z. B. in Hibiscus bei der Eingabe des Empfängers einer neuen Überweisung
+</I>&gt;&gt;<i> wird die Suche im Adressbuch sofort gestartet. Möchte ich einen
+</I>&gt;&gt;<i> Empfänger eingeben, der noch nicht im Adressbuch gespeichert ist, muss
+</I>&gt;&gt;<i> ich extrem schnell tippen. Ansonsten ist schon ein Wert aus der
+</I>&gt;&gt;<i> Auswahlliste ausgewählt. Klicke ich dann wieder in das Eingabefeld, wird
+</I>&gt;&gt;<i> der vorher selektierte Wert übernommen. Den muss ich dann wieder löschen
+</I>&gt;&gt;<i> und dann wieder von vorne beginnen.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Meiner Meinung nach sollte die Vorschlagsliste erst 2 Sekunden (evtl.
+</I>&gt;&gt;<i> sollte der Wert auch konfigurierbar sein) nach dem letzten
+</I>&gt;&gt;<i> Tastenanschlag aufpoppen. 
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> Das SearchInput hatte bisher ein Delay von 360ms. Keine Ahnung, wie
+</I>&gt;<i> ich auf diesen Wert gekommen bin - vermutlich erschien er mir bei
+</I>&gt;<i> meinen Tests am komfortabelsten. Ich habe ihn jetzt mal auf 1000ms -
+</I>&gt;<i> also 1 Sekunde - erhoeht. Ich hab den Wert konfigurierbar gemacht.
+</I>&gt;<i> Mach einfach ein CVS-Update. Anschliessend wird in .jameica/cfg
+</I>&gt;<i> eine Config-Datei &quot;de.willuhn.jameica.gui.input.SearchInput.properties&quot;
+</I>&gt;<i> angelegt, in der du den Wert des Parameters &quot;delay&quot; aendern kannst.
+</I>&gt;<i> 2 Sekunden kamen mir bei meinen Tests etwas zu lang vor.
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Trotz offener Vorschlagsliste muss weiterhin die Eingabe in dem Textfeld
+</I>&gt;&gt;<i> möglich sein. Erst durch einen Klick in die Vorschlagsliste wird der 
+</I>&gt;&gt;<i> Wert übernommen. 
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> Das Weitertippen geht (indirekt). Man muss hierzu Escape druecken.
+</I>&gt;<i> Dadurch wird das Popup wieder geschlossen und man kann weitertippen.
+</I>&gt;<i> Tippt man ohne Escape weiter, oeffnet sich unten rechts neben dem
+</I>&gt;<i> Popup ein weiteres, in dem wiederrum ein Suchbegriff eingegeben werden
+</I>&gt;<i> kann, um innerhalb der Ergebnisliste nochmals zu suchen. Das ist
+</I>&gt;<i> ein Feature von GTK - kann durchaus sein, dass das auf anderen
+</I>&gt;<i> Plattformen nicht existiert. Da das Popup mit den Suchergebnissen
+</I>&gt;<i> nicht von mir selbst programmiert ist sondern direkt von SWT
+</I>&gt;<i> stammt (org.eclipse.swt.custom.PopupList), wuesste ich auch gar
+</I>&gt;<i> nicht, wie ich das derzeitige Verhalten unterbinden sollte.
+</I>&gt;<i> Und ausserdem finde ich es so eigentlich ganz praktisch.
+</I>&gt;<i>
+</I>&gt;<i> Gruss
+</I>&gt;<i> Olaf
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> jameica-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000002.html">[jameica-devel] SearchInput
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000004.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#3">[ Datum ]</a>
+              <a href="thread.html#3">[ Thema ]</a>
+              <a href="subject.html#3">[ Betreff (Subject)]</a>
+              <a href="author.html#3">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

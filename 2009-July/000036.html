@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Erfolgs- und Fehlermeldungen aus der Statusleiste	fuer GUI-Unit-Test abfragen
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-July/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Erfolgs-%20und%20Fehlermeldungen%20aus%20der%20Statusleiste%0A%09fuer%20GUI-Unit-Test%20abfragen&In-Reply-To=%3C200907171430.15440.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000035.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Erfolgs- und Fehlermeldungen aus der Statusleiste	fuer GUI-Unit-Test abfragen</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Erfolgs-%20und%20Fehlermeldungen%20aus%20der%20Statusleiste%0A%09fuer%20GUI-Unit-Test%20abfragen&In-Reply-To=%3C200907171430.15440.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Erfolgs- und Fehlermeldungen aus der Statusleiste	fuer GUI-Unit-Test abfragen">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Fr Jul 17 14:30:15 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000035.html">[jameica-devel] Neue Entwicklerversion
+</A></li>
+        
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#36">[ Datum ]</a>
+              <a href="thread.html#36">[ Thema ]</a>
+              <a href="subject.html#36">[ Betreff (Subject) ]</a>
+              <a href="author.html#36">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+der Code ist gerade entstanden, weil Heiner fuer JVerein automatisierte
+GUI-Tests mittels SWTBot baut und dafuer unter anderem auch die
+System-Meldungen in der Statusleiste auslesen will, um z.Bsp. herauszufinden,
+ob ein Datensatz erfolgreich gespeichert werden konnte.
+
+Die Statusleiste ist ja auch nur ein SWT-Widget. Daher koennte man
+deren Text-Inhalt auch direkt mit SWTBot auslesen. Das hat aber
+ein paar Nachteil:
+
+1) um herauszufinden, ob es sich um eine Erfolgs- oder Fehlermeldung
+   handelt, muesste man entweder die Textfarbe (rot, gruen) ermitteln
+   oder den Textinhalt auslesen und interpretieren. Wird der Hinweis-
+   Text mal umformuliert, schlaegt der Unit-Test ggf. unnoetig fehl.
+
+2) man kriegt immer nur die aktuell angezeigte Meldung. Es kann
+   aber z.Bsp. sein, dass zwei Meldungen unmittelbar aufeinander folgen
+   und dadurch die erste Meldung gleich wieder &quot;ueberdeckt&quot; wird.
+
+3) Die Anzeige auf der Statusleiste erfolgt asynchron. Es kann also
+   durchaus sein, dass sie Zehntel-Sekunden verzoegert erscheint, und
+   zu dem Zeitpunkt, zu dem man die Statusbar auswertest, noch gar
+   nicht da ist. Sprich: Wenn man z.Bsp. unmittelbar nach dem Speichern
+   eines Objektes mit SWTBot in der Statusleiste nachschaut, kann
+   es sein, dass da &quot;Objekt gespeichert&quot; noch gar nicht drin steht.
+
+Die Alternative lautet - wie immer - Jameica-Messaging. ;)
+
+Der Statusbar-Text wird generell via Jameica-Messaging geschickt.
+Die Klasse &quot;StatusbarTextItem&quot; macht ja auch nichts anderes, als
+Nachrichten vom Typ &quot;StatusbarMessage&quot; zu abonnieren und anzuzeigen.
+
+Damit sich das fuer Unit-Tests besser handhaben laesst, hab
+ich eine Hilfsklasse &quot;MessageCollector&quot; geschrieben und in
+Jameica eingecheckt. Mit der kann man Messages beliebiger Art
+mitschneiden.
+
+Code-Beispiel fuer den o.g. Anwendungsfall:
+
+
+// Collector erzeugen
+MessageCollector collector = new MessageCollector();
+
+// Festlegen, welche Art von Nachricht wir mitschneiden wollen
+// Wir moechten die Textmeldungen aus der Statuszeile
+collector.collect(StatusBarMessage.class);
+
+// Registrieren.
+Application.getMessagingFactory().registerMessageConsumer(collector);
+
+// Das &quot;collector&quot;-Objekt kann man jetzt irgendwo in
+// einer statischen Variable speichern, damit man jederzeit
+// Zugriff darauf hat.
+
+
+// Hier kann jetzt der Unit-Test durchgefuehrt werden.
+// Z.Bsp. Mitglied speichern
+.....
+
+// Checken, ob in der Statusleiste Erfolg gemeldet wurde:
+StatusbarMessage m = (StatusbarMessage) collector.pop();
+if (m.getType == StatusbarMessage.TYPE_ERROR)
+  throw new Exception(&quot;Test fehlgeschlagen, Speichern nicht erfolgreich&quot;);
+
+   
+// Collector nach Beenden der Tests wieder deregistrieren.
+Application.getMessagingFactory().unRegisterMessageConsumer(collector);
+
+
+
+Natuerlich kann der MessageCollector auch fuer andere
+Zwecke genutzt werden. 
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000035.html">[jameica-devel] Neue Entwicklerversion
+</A></li>
+	
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#36">[ Datum ]</a>
+              <a href="thread.html#36">[ Thema ]</a>
+              <a href="subject.html#36">[ Betreff (Subject)]</a>
+              <a href="author.html#36">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

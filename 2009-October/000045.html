@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Automatische Updates nochmal ueberarbeitet
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Automatische%20Updates%20nochmal%20ueberarbeitet&In-Reply-To=%3C200910300125.02562.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000044.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Automatische Updates nochmal ueberarbeitet</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Automatische%20Updates%20nochmal%20ueberarbeitet&In-Reply-To=%3C200910300125.02562.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Automatische Updates nochmal ueberarbeitet">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Fr Okt 30 01:25:02 CET 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000044.html">[jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen
+</A></li>
+        
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#45">[ Datum ]</a>
+              <a href="thread.html#45">[ Thema ]</a>
+              <a href="subject.html#45">[ Betreff (Subject) ]</a>
+              <a href="author.html#45">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi (schon wieder ;),
+
+ich hab das mit dem Check des &quot;last modified&quot;-Datums jetzt komplett
+rausgeworfen und pruefe nur noch die Versionsnummern. Mit dem
+&quot;last modified&quot; konnte ich nicht wirklich zuverlaessig feststellen,
+ob ich den User nun schon ueber das Update benachrichtigt habe
+oder nicht.
+
+Wenn eine neue Version auf dem Server liegt, wird
+
+a) wenn &quot;automatisch installieren&quot; aktiviert ist:
+   das Plugin heruntergeladen und installiert. Fertig.
+
+b) wenn &quot;nur benachrichtigen&quot; aktiviert ist: Wurde der
+   User ueber diese Version noch nicht informiert, erscheint
+   ein Hinweis-Popup, welches der User mit &lt;OK&gt; bestaetigen
+   muss. Wenn er es nicht installiert, erscheint beim naechsten
+   Check nur noch ein dezenter Hinweis &quot;x Updates gefunden&quot;
+   in der Statusleiste. Er muss nichts mehr wegklicken.
+
+Insbesondere fuer Fall b) gibts nun zusaetzlich noch eine
+manuelle Update-Pruefung. Wenn sich der User irgendwann
+entschliesst, die Updates installieren zu wollen, geht er auf
+Datei-&gt;Einstellungen-&gt;Updates und klickt dort auf den
+Button &quot;Jetzt nach Updates suchen&quot;. Wenn welche vorliegen,
+wird ihm eine Liste angezeigt, die nur genau die Plugins
+anzeigt, die in aktuelleren Versionen verfuegbar sind. Von dort
+kann er sie dann mit Rechtsklick und &quot;herunterladen und installieren...&quot;
+updaten.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000044.html">[jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen
+</A></li>
+	
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#45">[ Datum ]</a>
+              <a href="thread.html#45">[ Thema ]</a>
+              <a href="subject.html#45">[ Betreff (Subject)]</a>
+              <a href="author.html#45">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

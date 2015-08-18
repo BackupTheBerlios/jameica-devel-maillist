@@ -1,0 +1,470 @@
+From hibiscus at willuhn.de  Thu May  7 00:11:19 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Thu, 7 May 2009 00:11:19 +0200
+Subject: [jameica-devel] Erster!!1
+Message-ID: <200905070011.19802.hibiscus@willuhn.de>
+
+Hi,
+
+da Hibiscus ja nun schon seit einiger Zeit nicht mehr das
+einzige Plugin fuer Jameica ist, gibt es inzwischen auch
+Bedarf fuer eine Diskussionsplattform fuer Jameica selbst.
+Das ist hiermit geschehen.
+
+Thema der Mailingliste: Diskussion und Fragen rund
+um Jameica selbst sowie die Extensions (jameica.webadmin,
+jameica.xmlrpc, jameica.update, jameica.soap).
+
+Zielgruppe: Entwickler von Jameica-Plugins
+
+Link zum An- und Abmelden an der Liste:
+https://lists.berlios.de/mailman/listinfo/jameica-devel
+
+Link zum Archiv:
+https://lists.berlios.de/pipermail/jameica-devel/
+
+
+
+Themen rund um Hibiscus sollten weiterhin auf der
+hibiscus-devel Liste bleiben.
+https://developer.berlios.de/mail/?group_id=4386
+
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Sun May 10 11:49:36 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Sun, 10 May 2009 11:49:36 +0200
+Subject: [jameica-devel] SearchInput
+Message-ID: <4A06A330.2090606@jost-net.de>
+
+Hallo,
+
+ich finde die Bedienung des SearchInputs nicht so ganz gelungen.
+
+Z. B. in Hibiscus bei der Eingabe des Empfängers einer neuen Überweisung 
+wird die Suche im Adressbuch sofort gestartet. Möchte ich einen 
+Empfänger eingeben, der noch nicht im Adressbuch gespeichert ist, muss 
+ich extrem schnell tippen. Ansonsten ist schon ein Wert aus der 
+Auswahlliste ausgewählt. Klicke ich dann wieder in das Eingabefeld, wird 
+der vorher selektierte Wert übernommen. Den muss ich dann wieder löschen 
+und dann wieder von vorne beginnen.
+
+Meiner Meinung nach sollte die Vorschlagsliste erst 2 Sekunden (evtl. 
+sollte der Wert auch konfigurierbar sein) nach dem letzten 
+Tastenanschlag aufpoppen. Trotz offener Vorschlagsliste muss weiterhin 
+die Eingabe in dem Textfeld möglich sein. Erst durch einen Klick in die 
+Vorschlagsliste wird der Wert übernommen.
+
+Heiner
+www.jverein.de
+
+
+From hibiscus at willuhn.de  Mon May 11 00:03:33 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Mon, 11 May 2009 00:03:33 +0200
+Subject: [jameica-devel] SearchInput
+In-Reply-To: <4A06A330.2090606@jost-net.de>
+References: <4A06A330.2090606@jost-net.de>
+Message-ID: <200905110003.33775.hibiscus@willuhn.de>
+
+Hi,
+
+> ich finde die Bedienung des SearchInputs nicht so ganz gelungen.
+>
+> Z. B. in Hibiscus bei der Eingabe des Empfängers einer neuen Überweisung
+> wird die Suche im Adressbuch sofort gestartet. Möchte ich einen
+> Empfänger eingeben, der noch nicht im Adressbuch gespeichert ist, muss
+> ich extrem schnell tippen. Ansonsten ist schon ein Wert aus der
+> Auswahlliste ausgewählt. Klicke ich dann wieder in das Eingabefeld, wird
+> der vorher selektierte Wert übernommen. Den muss ich dann wieder löschen
+> und dann wieder von vorne beginnen.
+>
+> Meiner Meinung nach sollte die Vorschlagsliste erst 2 Sekunden (evtl.
+> sollte der Wert auch konfigurierbar sein) nach dem letzten
+> Tastenanschlag aufpoppen. 
+
+Das SearchInput hatte bisher ein Delay von 360ms. Keine Ahnung, wie
+ich auf diesen Wert gekommen bin - vermutlich erschien er mir bei
+meinen Tests am komfortabelsten. Ich habe ihn jetzt mal auf 1000ms -
+also 1 Sekunde - erhoeht. Ich hab den Wert konfigurierbar gemacht.
+Mach einfach ein CVS-Update. Anschliessend wird in .jameica/cfg
+eine Config-Datei "de.willuhn.jameica.gui.input.SearchInput.properties"
+angelegt, in der du den Wert des Parameters "delay" aendern kannst.
+2 Sekunden kamen mir bei meinen Tests etwas zu lang vor.
+
+> Trotz offener Vorschlagsliste muss weiterhin die Eingabe in dem Textfeld
+> möglich sein. Erst durch einen Klick in die Vorschlagsliste wird der 
+> Wert übernommen. 
+
+Das Weitertippen geht (indirekt). Man muss hierzu Escape druecken.
+Dadurch wird das Popup wieder geschlossen und man kann weitertippen.
+Tippt man ohne Escape weiter, oeffnet sich unten rechts neben dem
+Popup ein weiteres, in dem wiederrum ein Suchbegriff eingegeben werden
+kann, um innerhalb der Ergebnisliste nochmals zu suchen. Das ist
+ein Feature von GTK - kann durchaus sein, dass das auf anderen
+Plattformen nicht existiert. Da das Popup mit den Suchergebnissen
+nicht von mir selbst programmiert ist sondern direkt von SWT
+stammt (org.eclipse.swt.custom.PopupList), wuesste ich auch gar
+nicht, wie ich das derzeitige Verhalten unterbinden sollte.
+Und ausserdem finde ich es so eigentlich ganz praktisch.
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Mon May 11 08:07:38 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Mon, 11 May 2009 08:07:38 +0200
+Subject: [jameica-devel] SearchInput
+In-Reply-To: <200905110003.33775.hibiscus@willuhn.de>
+References: <4A06A330.2090606@jost-net.de>
+	<200905110003.33775.hibiscus@willuhn.de>
+Message-ID: <4A07C0AA.1070700@jost-net.de>
+
+Hallo Olaf,
+
+jetzt ist die Eingabe schon angenehmer. Noch besser wäre es, wenn der 
+Focus in dem Eingabefeld bliebe. Dann könnte weiter getippt werden. 
+Sobald der gewünschte Eintrag auftaucht, kann er angeklickt oder 
+sonstwie mit der Tastatur ausgewählt werden.
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+>   
+>> ich finde die Bedienung des SearchInputs nicht so ganz gelungen.
+>>
+>> Z. B. in Hibiscus bei der Eingabe des Empfängers einer neuen Überweisung
+>> wird die Suche im Adressbuch sofort gestartet. Möchte ich einen
+>> Empfänger eingeben, der noch nicht im Adressbuch gespeichert ist, muss
+>> ich extrem schnell tippen. Ansonsten ist schon ein Wert aus der
+>> Auswahlliste ausgewählt. Klicke ich dann wieder in das Eingabefeld, wird
+>> der vorher selektierte Wert übernommen. Den muss ich dann wieder löschen
+>> und dann wieder von vorne beginnen.
+>>
+>> Meiner Meinung nach sollte die Vorschlagsliste erst 2 Sekunden (evtl.
+>> sollte der Wert auch konfigurierbar sein) nach dem letzten
+>> Tastenanschlag aufpoppen. 
+>>     
+>
+> Das SearchInput hatte bisher ein Delay von 360ms. Keine Ahnung, wie
+> ich auf diesen Wert gekommen bin - vermutlich erschien er mir bei
+> meinen Tests am komfortabelsten. Ich habe ihn jetzt mal auf 1000ms -
+> also 1 Sekunde - erhoeht. Ich hab den Wert konfigurierbar gemacht.
+> Mach einfach ein CVS-Update. Anschliessend wird in .jameica/cfg
+> eine Config-Datei "de.willuhn.jameica.gui.input.SearchInput.properties"
+> angelegt, in der du den Wert des Parameters "delay" aendern kannst.
+> 2 Sekunden kamen mir bei meinen Tests etwas zu lang vor.
+>
+>   
+>> Trotz offener Vorschlagsliste muss weiterhin die Eingabe in dem Textfeld
+>> möglich sein. Erst durch einen Klick in die Vorschlagsliste wird der 
+>> Wert übernommen. 
+>>     
+>
+> Das Weitertippen geht (indirekt). Man muss hierzu Escape druecken.
+> Dadurch wird das Popup wieder geschlossen und man kann weitertippen.
+> Tippt man ohne Escape weiter, oeffnet sich unten rechts neben dem
+> Popup ein weiteres, in dem wiederrum ein Suchbegriff eingegeben werden
+> kann, um innerhalb der Ergebnisliste nochmals zu suchen. Das ist
+> ein Feature von GTK - kann durchaus sein, dass das auf anderen
+> Plattformen nicht existiert. Da das Popup mit den Suchergebnissen
+> nicht von mir selbst programmiert ist sondern direkt von SWT
+> stammt (org.eclipse.swt.custom.PopupList), wuesste ich auch gar
+> nicht, wie ich das derzeitige Verhalten unterbinden sollte.
+> Und ausserdem finde ich es so eigentlich ganz praktisch.
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+
+From hibiscus at willuhn.de  Mon May 11 16:49:11 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Mon, 11 May 2009 16:49:11 +0200
+Subject: [jameica-devel] NEU: TablePart#setRememberState(boolean)
+Message-ID: <200905111649.11540.hibiscus@willuhn.de>
+
+Hi,
+
+ein Feature, welches sich Hibiscus-User fuer die lange Tabelle
+mit den Kontoauszuegen oft wuenschen, ist das Speichern des zuletzt
+selektierten Objektes, sodass man wieder an der gleichen Stelle
+in der Tabelle landet, wenn man aus der Detail-Ansicht zurueckkehrt.
+Da das Feature sicher auch an anderen Stellen nuetzlich ist, habe
+ich es gleich direkt in TablePart implementiert.
+
+Das Feature kann einfach mit "table.setRememberState(true)"
+aktiviert werden (aehnlich zu den bereits existierenden Funktionen
+"setRememberOrder(boolean)" und "setRememberColWidths(boolean)").
+
+Die Tabelle speichert daraufhin selbstaendig die gerade selektierten
+Objekte und die Scrollposition in einer Session und haelt diese
+fuer 30 Minuten. Wir die Tabelle binnen dieser Zeit erneut geoeffnet
+(z.Bsp. weil man aus der Detailsseite zurueckkehrt), springt die
+Tabelle automatisch wieder an die Position zurueck und selektiert
+die Objekte wieder (insofern sie noch existieren).
+
+Das Selektieren und Scrollen kann auch manuell durch Aufruf
+der Funktion "restoreState()" durchgefuehrt werden. Ist z.Bsp.
+dann nuetzlich, wenn man TablePart samt der "paint(Composite)"-Methode
+ueberschrieben hat.
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Mon May 11 18:21:17 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Mon, 11 May 2009 18:21:17 +0200
+Subject: [jameica-devel] NEU: TablePart#setRememberState(boolean)
+In-Reply-To: <200905111649.11540.hibiscus@willuhn.de>
+References: <200905111649.11540.hibiscus@willuhn.de>
+Message-ID: <4A08507D.60000@jost-net.de>
+
+Hallo Olaf,
+
+ein sehr schönes neues Feature. Darauf haben auch schon einige 
+JVerein-Nutzer gewartet.
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+> ein Feature, welches sich Hibiscus-User fuer die lange Tabelle
+> mit den Kontoauszuegen oft wuenschen, ist das Speichern des zuletzt
+> selektierten Objektes, sodass man wieder an der gleichen Stelle
+> in der Tabelle landet, wenn man aus der Detail-Ansicht zurueckkehrt.
+> Da das Feature sicher auch an anderen Stellen nuetzlich ist, habe
+> ich es gleich direkt in TablePart implementiert.
+>
+> Das Feature kann einfach mit "table.setRememberState(true)"
+> aktiviert werden (aehnlich zu den bereits existierenden Funktionen
+> "setRememberOrder(boolean)" und "setRememberColWidths(boolean)").
+>
+> Die Tabelle speichert daraufhin selbstaendig die gerade selektierten
+> Objekte und die Scrollposition in einer Session und haelt diese
+> fuer 30 Minuten. Wir die Tabelle binnen dieser Zeit erneut geoeffnet
+> (z.Bsp. weil man aus der Detailsseite zurueckkehrt), springt die
+> Tabelle automatisch wieder an die Position zurueck und selektiert
+> die Objekte wieder (insofern sie noch existieren).
+>
+> Das Selektieren und Scrollen kann auch manuell durch Aufruf
+> der Funktion "restoreState()" durchgefuehrt werden. Ist z.Bsp.
+> dann nuetzlich, wenn man TablePart samt der "paint(Composite)"-Methode
+> ueberschrieben hat.
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+
+From heiner at jost-net.de  Fri May 15 21:20:23 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Fri, 15 May 2009 21:20:23 +0200
+Subject: [jameica-devel] =?iso-8859-15?q?Neuer_Konstruktor_f=FCr_SearchInp?=
+	=?iso-8859-15?q?ut?=
+Message-ID: <4A0DC077.3010807@jost-net.de>
+
+Hallo Olaf,
+
+ich habe der Klasse SearchInput einen neuen Konstruktor hinzugefügt. 
+Damit ist es möglich den angezeigten Initialtexte (Suche...) individuell 
+einzustellen.
+
+
+  /**
+   * Erzeugt eine neue Such-Box.
+   */
+  public SearchInput()
+  {
+    this(Application.getI18n().tr("Suche..."));
+  }
+
+  /**
+   * Erzeugt eine neue Such-Box mit Vorgabe des searchstrings
+   */
+  public SearchInput(String searchstring)
+  {
+    super();
+    this.search = searchstring;
+  }
+
+
+Würdest du die Änderung bitte ins CVS einchecken?
+
+Heiner
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : SearchInput.java
+Dateityp    : text/x-java
+Dateigröße  : 13651 bytes
+Beschreibung: nicht verfügbar
+URL         : <https://lists.berlios.de/pipermail/jameica-devel/attachments/20090515/9d8181ce/attachment.java>
+
+From hibiscus at willuhn.de  Sun May 17 23:56:25 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Sun, 17 May 2009 23:56:25 +0200
+Subject: [jameica-devel]
+	=?iso-8859-1?q?Neuer_Konstruktor_f=FCr_SearchInpu?=
+	=?iso-8859-1?q?t?=
+In-Reply-To: <4A0DC077.3010807@jost-net.de>
+References: <4A0DC077.3010807@jost-net.de>
+Message-ID: <200905172356.25828.hibiscus@willuhn.de>
+
+Hi,
+
+> ich habe der Klasse SearchInput einen neuen Konstruktor hinzugefügt.
+> Damit ist es möglich den angezeigten Initialtexte (Suche...) individuell
+> einzustellen.
+
+Ich habs mal noch leicht geaendert und statt einem neuen Konstruktor
+eine neue Funktion "setSearchString(String)" hinzugefuegt. Dann laesst
+sich das auch noch aendern, nachdem die Instanz bereits existiert und es
+passt besser zu den anderen Attributen, die ja via Setter gesetzt werden ;)
+Ist eingecheckt.
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Mon May 18 19:04:38 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Mon, 18 May 2009 19:04:38 +0200
+Subject: [jameica-devel]
+ =?iso-8859-1?q?Neuer_Konstruktor_f=FCr_SearchInpu?=
+ =?iso-8859-1?q?t?=
+In-Reply-To: <200905172356.25828.hibiscus@willuhn.de>
+References: <4A0DC077.3010807@jost-net.de>
+	<200905172356.25828.hibiscus@willuhn.de>
+Message-ID: <4A119526.50409@jost-net.de>
+
+Hallo Olaf,
+
+so funktioniert es bei mir noch nicht. Ich möchte einen Leerstring ("") 
+übergeben. Ändere die Methode bitte wie folgt:
+
+ public void setSearchString(String text)
+  {
+    if (text != null)
+      this.search = text;
+  }
+
+
+Vielen Dank.
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+>   
+>> ich habe der Klasse SearchInput einen neuen Konstruktor hinzugefügt.
+>> Damit ist es möglich den angezeigten Initialtexte (Suche...) individuell
+>> einzustellen.
+>>     
+>
+> Ich habs mal noch leicht geaendert und statt einem neuen Konstruktor
+> eine neue Funktion "setSearchString(String)" hinzugefuegt. Dann laesst
+> sich das auch noch aendern, nachdem die Instanz bereits existiert und es
+> passt besser zu den anderen Attributen, die ja via Setter gesetzt werden ;)
+> Ist eingecheckt.
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+
+From hibiscus at willuhn.de  Tue May 19 12:21:18 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Tue, 19 May 2009 12:21:18 +0200
+Subject: [jameica-devel]
+	=?iso-8859-1?q?Neuer_Konstruktor_f=FCr_SearchInpu?=
+	=?iso-8859-1?q?t?=
+In-Reply-To: <4A119526.50409@jost-net.de>
+References: <4A0DC077.3010807@jost-net.de>
+	<200905172356.25828.hibiscus@willuhn.de>
+	<4A119526.50409@jost-net.de>
+Message-ID: <200905191221.18134.hibiscus@willuhn.de>
+
+Hi,
+
+> so funktioniert es bei mir noch nicht. Ich möchte einen Leerstring ("")
+> übergeben. Ändere die Methode bitte wie folgt:
+>
+>  public void setSearchString(String text)
+>   {
+>     if (text != null)
+>       this.search = text;
+>   }
+
+Ah, ok. Ich wusste nicht, dass du den Text komplett entfernen willst.
+Habs geaendert.
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Tue May 19 19:50:16 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Tue, 19 May 2009 19:50:16 +0200
+Subject: [jameica-devel]
+ =?iso-8859-1?q?Neuer_Konstruktor_f=FCr_SearchInpu?=
+ =?iso-8859-1?q?t?=
+In-Reply-To: <200905191221.18134.hibiscus@willuhn.de>
+References: <4A0DC077.3010807@jost-net.de>	<200905172356.25828.hibiscus@willuhn.de>	<4A119526.50409@jost-net.de>
+	<200905191221.18134.hibiscus@willuhn.de>
+Message-ID: <4A12F158.7070208@jost-net.de>
+
+Vielen Dank.
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+>   
+>> so funktioniert es bei mir noch nicht. Ich möchte einen Leerstring ("")
+>> übergeben. Ändere die Methode bitte wie folgt:
+>>
+>>  public void setSearchString(String text)
+>>   {
+>>     if (text != null)
+>>       this.search = text;
+>>   }
+>>     
+>
+> Ah, ok. Ich wusste nicht, dass du den Text komplett entfernen willst.
+> Habs geaendert.
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+

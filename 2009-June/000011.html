@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Neue H2-Version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Neue%20H2-Version&In-Reply-To=%3C200906021757.07578.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+   <LINK REL="Next"  HREF="000012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Neue H2-Version</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Neue%20H2-Version&In-Reply-To=%3C200906021757.07578.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Neue H2-Version">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Di Jun  2 17:57:07 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Nächste Nachricht: <A HREF="000012.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#11">[ Datum ]</a>
+              <a href="thread.html#11">[ Thema ]</a>
+              <a href="subject.html#11">[ Betreff (Subject) ]</a>
+              <a href="author.html#11">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+da der 1.0er Zweig der H2-Datenbank nicht mehr gepflegt
+wird, habe ich jetzt auf die aktuelle Version 1.1
+umgeschwenkt und deren letzte Release 1.1.114
+ins Jameica-CVS eingecheckt (lib/h2/h2.jar).
+
+Zu den Aenderungen in der Datenbank siehe auch:
+<A HREF="http://www.h2database.com/html/changelog.html">http://www.h2database.com/html/changelog.html</A>
+
+Hier noch ein Code-Schnipsel fuer jene, die die
+Versionsnummer der H2-Datenbank zu Debugging-Zwecken mit 
+ins Log schreiben wollen:
+
+try {
+  Class c = Application.getClassLoader().load(&quot;org.h2.engine.Constants&quot;);
+  Method m = c.getMethod(&quot;getVersion&quot;,(Class[]) null);
+  Logger.info(&quot;h2 version: &quot; + m.invoke(null,(Object[])null));
+}
+catch (Throwable t) {
+  Logger.warn(&quot;unable to determine h2 version&quot;);
+}
+
+Via Reflection deshalb, damit man die h2.jar zum
+Compilieren nicht in den Classpath aufnehmen muss.
+Die Klasse &quot;org.h2.engine.Constants&quot; wird erst
+zur Laufzeit aufgeloest und existiert dann durch
+den Plugin-Loader auch.
+
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Nächste Nachricht: <A HREF="000012.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#11">[ Datum ]</a>
+              <a href="thread.html#11">[ Thema ]</a>
+              <a href="subject.html#11">[ Betreff (Subject)]</a>
+              <a href="author.html#11">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

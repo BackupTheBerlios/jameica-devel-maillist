@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Nutzt%20jemand%20%22LoginDialog%22%3F&In-Reply-To=%3C200906101346.58369.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000012.html">
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Nutzt%20jemand%20%22LoginDialog%22%3F&In-Reply-To=%3C200906101346.58369.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mi Jun 10 13:46:58 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000012.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000014.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#13">[ Datum ]</a>
+              <a href="thread.html#13">[ Thema ]</a>
+              <a href="subject.html#13">[ Betreff (Subject) ]</a>
+              <a href="author.html#13">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>&gt;<i> Daher meine Frage: Nutzt die Klasse ueberhaupt jemand? Insbesondere
+</I>&gt;<i> sind da die folgenden zwei Funktionen drin:
+</I>
+OK, keiner hat gemeckert - dann hab ich die Aenderungen jetzt vorgenommen.
+Im Prinzip hab ich LoginDialog nur intern umgebaut. An der oeffentlichen
+API habe ich lediglich &quot;setDefaultUsername(String)&quot; gegen &quot;setLogin(Login)&quot;
+ersetzt, damit man auch das Passwort als Default-Wert vorgeben kann.
+Ausserdem ist noch ein HttpAuthDialog dazugekommen. Er wird von Jameica
+automatisch verwendet, um bei passwort-geschutzten Webseiten einen Login-
+Dialog anzuzeigen. In dem Dialog existiert auch eine Checkbox, mit
+der die Login-Daten permanent gespeichert werden koennen. Sie landen dann
+im Wallet .jameica/cfg/de.willuhn.jameica.gui.dialogs.HttpAuthDialog.wallet2
+
+Via de.willuhn.jameica.services.AuthService setzt Jameica nun per Default
+einen eigenen Authenticator. Laeuft die Anwendung mit SWT-GUI wird
+og. HttpAuthDialog verwendet. Im Server-Mode werden Username und Passwort
+an der Console abgefragt.
+
+Damit koennen Login-geschuetzte HTTP(s)-Verbindungen nun von Plugins
+voellig transparent geoeffnet werden, ohne dass man sich um die
+SSL-Zertifikate oder das Login kuemmern muss. Einfach Connection
+oeffnen - Zertifikatsanzeige und Login uebernimmt Jameica automatisch.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000012.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000014.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#13">[ Datum ]</a>
+              <a href="thread.html#13">[ Thema ]</a>
+              <a href="subject.html#13">[ Betreff (Subject)]</a>
+              <a href="author.html#13">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

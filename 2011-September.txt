@@ -1,0 +1,96 @@
+From heiner at jost-net.de  Mon Sep 26 23:11:59 2011
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Mon, 26 Sep 2011 23:11:59 +0200
+Subject: [jameica-devel] =?iso-8859-15?q?Speicherung_der_Gr=F6=DFe_von_Dia?=
+	=?iso-8859-15?q?logen?=
+Message-ID: <4E80EA9F.90501@jost-net.de>
+
+Hallo Olaf,
+
+momentan werden Dialog in einer festen Größe ausgegeben. Das führt unter 
+Umständen bei zu großen Standardschriften (siehe auch 
+http://www.jverein.de/forum/viewtopic.php?f=5&t=711&p=2781) zu Problemen.
+
+Siehst du eine Möglichkeit in Jameica eine generelle Lösung für Dialoge 
+einzubauen. Ich stelle mir das so vor, dass der Benutzer den Dialog in 
+die benötigte Größe zieht. Beim nächsten Aufruf wird der Dialog dann 
+wieder in der letzten Größe dargestellt.
+
+Heiner
+
+
+From hibiscus at willuhn.de  Tue Sep 27 13:15:25 2011
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Tue, 27 Sep 2011 13:15:25 +0200
+Subject: [jameica-devel]
+ =?iso-8859-1?q?Speicherung_der_Gr=F6=DFe_von_Dial?=
+ =?iso-8859-1?q?ogen?=
+In-Reply-To: <4E80EA9F.90501@jost-net.de>
+References: <4E80EA9F.90501@jost-net.de>
+Message-ID: <4E81B04D.6020406@willuhn.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi,
+
+> momentan werden Dialog in einer festen Größe ausgegeben. Das führt
+> unter Umständen bei zu großen Standardschriften (siehe auch 
+> http://www.jverein.de/forum/viewtopic.php?f=5&t=711&p=2781) zu
+> Problemen.
+> 
+> Siehst du eine Möglichkeit in Jameica eine generelle Lösung für
+> Dialoge einzubauen. Ich stelle mir das so vor, dass der Benutzer
+> den Dialog in die benötigte Größe zieht. Beim nächsten Aufruf wird
+> der Dialog dann wieder in der letzten Größe dargestellt.
+
+Das ist leider gar nicht so trivial, wie es klingt. Um Groesse und
+Position speichern zu koennen, brauche ich ja eine eindeutige ID, die
+ich als Schluessel in der Properties-Datei verwenden kann, damit ich
+die Parameter spaeter wieder korrekt zuordnen kann. Leider kann ich
+hier aber nicht den Namen der Dialog-Klasse verwenden (weil es ja auch
+generische Dialoge (wie SimpleDialog, TextDialog, etc) gibt, die an
+unterschiedlichen Stellen genutzt werden). Den Titel des
+Dialog-Fensters kann ich auch nicht nehmen, weil der ja variable Teile
+enthalten kann, die sich bei jedem Aufruf (abhaengig vom Context)
+unterscheiden.
+
+Und selbst wenn das geloest ist, kann es ja sein, dass der Dialog beim
+naechsten Aufruf anderen oder breiteren Inhalt besitzt und die
+gespeicherten Groessen-Angaben dann auch nutzlos waeren. Gerade das
+Beispiel aus dem Forum ist ein solches. Die Auswahl-Box ist so breit
+wie der Inhalt. Der Inhalt ("Buchungsart") kann sich aber aendern.
+Demozufolge kann auch die Auswahlbox unterschiedlich breit sein.
+
+Daher versuche ich das bei meinen Dialogen immer so zu loesen, dass
+sie automatisch die optimale Groesse haben. Also nicht unnoetig gross,
+aber mindestens gross genug, damit der Inhalt reinpasst.
+
+Das geht auf verschiedene Weisen:
+
+1) Mit setSize(x,y) kann man die Groesse hart vorgeben, wobei man
+   fuer einen der Werte auch "SWT.DEFAULT" angegeben kann, wenn nur
+   Hoehe ODER Breite vorgegeben werden sollen.
+
+2) In der ueberschriebenen Funktion
+   "protected void paint(Composite parent) throws Exception"
+   kann man mach dem Erzeugen des Dialog-Inhalts die Fenster-Groesse
+   von SWT passend fuer den Inhalt berechnen lassen. Z.Bsp. so:
+
+   getShell().setMinimumSize(getShell().computeSize(300,SWT.DEFAULT));
+
+Gruss
+Olaf
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.16 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOgbBNAAoJEFqO2c/A22xw1G4H/RoTzW8KFd4UEz9AQFfXIx9F
+QQStD2RmuknjItYvD0n2KMCdftm2HN9YVfzfJfWSGGroTA80kC+TaIUSeuxzaw8P
+NDe/CTQJVH0VLrCw8iFPJwRShiauklbyEfVUAu0bJCFnklrtO9Lmq8hm4SyFGuUk
+LXu9FsrrjoM01iCYOWqVoN2aDw+ELOkpVPbXgxvG+FcTMw2okxhjhTmM5sF/5PM4
+UaKBx3641Zxfx3riy6M5cUv9QxUfJH7huGPjCbkib52XfFD43d5cFKk44qvYPKpe
+/OXF1VXuq+jBkHwQdR7kkyKwKkRxDvDN410GBEBw/n2PvCzZZ42yb+s4wpPT8VY=
+=dJN9
+-----END PGP SIGNATURE-----
+
+

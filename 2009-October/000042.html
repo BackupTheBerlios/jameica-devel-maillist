@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SpinnerInput%20in%20jameica%20und%20automatischer%0A%09Update-Check%20in%20jameica.update&In-Reply-To=%3C200910281824.32460.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000041.html">
+   <LINK REL="Next"  HREF="000043.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SpinnerInput%20in%20jameica%20und%20automatischer%0A%09Update-Check%20in%20jameica.update&In-Reply-To=%3C200910281824.32460.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mi Okt 28 18:24:32 CET 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000041.html">[jameica-devel] Classfinder
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000043.html">[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#42">[ Datum ]</a>
+              <a href="thread.html#42">[ Thema ]</a>
+              <a href="subject.html#42">[ Betreff (Subject) ]</a>
+              <a href="author.html#42">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+zwei neue Features:
+
+1) In Jameica gibts jetzt ein &quot;SpinnerInput&quot;. Das ist z.Bsp.
+   gut fuer die Eingabe von Integer-Werten geeignet, wo nur
+   bestimmter Zahlenbereich moeglich sein soll, eine Selectbox
+   aber zu lang waere.
+   Wer mit dem Begriff &quot;Spinner&quot; (nein, nicht der deutsche
+   Begriff ;)) nichts anfangen kann, das ist sowas hier:
+   <A HREF="http://www.eclipse.org/rap/noteworthy/RapSpinner.png">http://www.eclipse.org/rap/noteworthy/RapSpinner.png</A>
+
+2) Ich hab das Plugin &quot;jameica.update&quot; um automatische Update-Checks
+   Unter Plugins-&gt;Einstellungen-&gt;Updates kann man jetzt 
+   folgende Einstellungen vornehmen:
+
+   - Automatisch nach Updates suchen: [ja/nein]
+   - Nach Updates suchen alle [___] Tage 
+   - Bei neuen Updates:
+       - nur benachrichtigen
+       - automatisch herunterladen und installieren
+
+   Technisch ist die ganze Sache so geloest, dass der Update-
+   Service auf dem Web-Server mit dem Plugin-Repository
+   den Timestamp &quot;Last modified&quot; der ZIP-Dateien abfragt
+   und diese lokal speichert. Bei jedem erneuten Durchlauf
+   werden die lokalen Werte mit den aktuellen auf dem Webserver
+   verglichen. Ist der Timestamp auf dem Webserver aktueller,
+   geht der Update-Service davon aus, dass eine neue Version
+   vorliegt. Er benachrichtigt dann den Benutzer oder laedt
+   das Plugin automatisch herunter und installiert es - je
+   nachdem, was der User als Aktion (s.o.) eingestellt hat.
+
+   Der Update-Service nervt nicht mit immer wiederkehrenden
+   Hinweisen ueber Updates, falls sie nicht installiert wurden.
+   Sprich: Hat der User &quot;Nur benachrichtigen&quot; aktiviert, dann
+   meldet der Update-Service nur einmal, dass ein Update
+   vorliegt. Falls der User es nicht installiert, kommt der
+   Hinweis erst dann wieder, wenn auf dem Server ein weiteres
+   Update bereitsteht. Das soll sicherstellen, dass der User
+   nicht alle 7 Tage (oder je nachdem, welches Intervall
+   er eingestellt hat) immer wieder den gleichen Hinweis kriegt -
+   nur weil, er das Update immer noch nicht installiert hat.
+
+   Hinweis: Der Update-Service prueft ganz bewusst nur den
+   lastmodified-Timestamp (und natuerlich, ob das herunterzuladende
+   aktualisierte Plugin ueberhaupt anhand der Versionsabhaengigkeiten
+   installierbar ist). Damit kann der automatische Update-
+   Service primaer verwendet werden, wenn in einer Plugin-Version
+   nachtraeglich noch Patches/Bugfixes vorgenommen wurden.
+   Der Plugin-Autor laedt lediglich die aktualisierte Version
+   auf seinen Webserver, die Clients kriegen es automatisch
+   mit. Man kann damit also zweigleisig fahren - neue Releases
+   mit neuen Versionsnummern herausbringen und die alten aber
+   weiterhin mit Patches versorgen.
+
+   Bei Gelegenheit erweitere ich das sicher noch so, dass
+   statt des lastmodified-Timestamp auch die 3. Stelle
+   der Versionsnummer (Patch-Version) verwendet wird. Also
+   z.Bsp. bei 1.8.4 die &quot;4&quot;. Bisher nutze ich aber noch nirgends
+   3-stellige Versionsnummern ;)
+
+
+Alles ab morgen im Nightly-Build
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000041.html">[jameica-devel] Classfinder
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000043.html">[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#42">[ Datum ]</a>
+              <a href="thread.html#42">[ Thema ]</a>
+              <a href="subject.html#42">[ Betreff (Subject)]</a>
+              <a href="author.html#42">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

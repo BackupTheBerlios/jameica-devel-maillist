@@ -1,0 +1,916 @@
+From hibiscus at willuhn.de  Tue Jun  2 17:57:07 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Tue, 2 Jun 2009 17:57:07 +0200
+Subject: [jameica-devel] Neue H2-Version
+Message-ID: <200906021757.07578.hibiscus@willuhn.de>
+
+Hi,
+
+da der 1.0er Zweig der H2-Datenbank nicht mehr gepflegt
+wird, habe ich jetzt auf die aktuelle Version 1.1
+umgeschwenkt und deren letzte Release 1.1.114
+ins Jameica-CVS eingecheckt (lib/h2/h2.jar).
+
+Zu den Aenderungen in der Datenbank siehe auch:
+http://www.h2database.com/html/changelog.html
+
+Hier noch ein Code-Schnipsel fuer jene, die die
+Versionsnummer der H2-Datenbank zu Debugging-Zwecken mit 
+ins Log schreiben wollen:
+
+try {
+  Class c = Application.getClassLoader().load("org.h2.engine.Constants");
+  Method m = c.getMethod("getVersion",(Class[]) null);
+  Logger.info("h2 version: " + m.invoke(null,(Object[])null));
+}
+catch (Throwable t) {
+  Logger.warn("unable to determine h2 version");
+}
+
+Via Reflection deshalb, damit man die h2.jar zum
+Compilieren nicht in den Classpath aufnehmen muss.
+Die Klasse "org.h2.engine.Constants" wird erst
+zur Laufzeit aufgeloest und existiert dann durch
+den Plugin-Loader auch.
+
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Tue Jun  9 14:34:40 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Tue, 9 Jun 2009 14:34:40 +0200
+Subject: [jameica-devel] Nutzt jemand "LoginDialog"?
+Message-ID: <200906091434.41159.hibiscus@willuhn.de>
+
+Hi Liste,
+
+Bei HTTP-Verbindungen hat man unter Umstaenden ja ein Login (meist mittels
+HTTP-Basic Authorization). Ich moechte den Support hierfuer gerade in
+das Plugin jameica.update einbauen. Damit waere es dann moeglich, Login-
+geschuetzte Download-Repositories anzubieten. Ist z.Bsp. nuetzlich, wenn
+man bei einem Kunden eine Jameica-basierte Software installiert ist
+und dieser sich Updates bequem installieren koennen soll, ohne dass
+man sie ihm selbst schicken muss. Man kann hierzu ein Jameica-Update-
+Repository fuer ihn einrichten, welches mittels htaccess geschuetzt ist,
+sodass nur der Kunde seine Updates installieren kann.
+
+Konkret moechte ich hierfuer die Klasse de.....dialogs.LoginDialog
+verwenden. Allerdings habe ich gerade festgestellt, dass deren Code
+maechtig alt und unschoen ist. Ich wuerde ihn gleich mal neu machen.
+
+Daher meine Frage: Nutzt die Klasse ueberhaupt jemand? Insbesondere
+sind da die folgenden zwei Funktionen drin:
+
+setPasswordLabelText()
+setUsernameLabelText()
+
+die ich rauswerfen wuerde, wenn sie niemand braucht.
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Wed Jun 10 13:46:58 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 10 Jun 2009 13:46:58 +0200
+Subject: [jameica-devel] Nutzt jemand "LoginDialog"?
+In-Reply-To: <200906091434.41159.hibiscus@willuhn.de>
+References: <200906091434.41159.hibiscus@willuhn.de>
+Message-ID: <200906101346.58369.hibiscus@willuhn.de>
+
+> Daher meine Frage: Nutzt die Klasse ueberhaupt jemand? Insbesondere
+> sind da die folgenden zwei Funktionen drin:
+
+OK, keiner hat gemeckert - dann hab ich die Aenderungen jetzt vorgenommen.
+Im Prinzip hab ich LoginDialog nur intern umgebaut. An der oeffentlichen
+API habe ich lediglich "setDefaultUsername(String)" gegen "setLogin(Login)"
+ersetzt, damit man auch das Passwort als Default-Wert vorgeben kann.
+Ausserdem ist noch ein HttpAuthDialog dazugekommen. Er wird von Jameica
+automatisch verwendet, um bei passwort-geschutzten Webseiten einen Login-
+Dialog anzuzeigen. In dem Dialog existiert auch eine Checkbox, mit
+der die Login-Daten permanent gespeichert werden koennen. Sie landen dann
+im Wallet .jameica/cfg/de.willuhn.jameica.gui.dialogs.HttpAuthDialog.wallet2
+
+Via de.willuhn.jameica.services.AuthService setzt Jameica nun per Default
+einen eigenen Authenticator. Laeuft die Anwendung mit SWT-GUI wird
+og. HttpAuthDialog verwendet. Im Server-Mode werden Username und Passwort
+an der Console abgefragt.
+
+Damit koennen Login-geschuetzte HTTP(s)-Verbindungen nun von Plugins
+voellig transparent geoeffnet werden, ohne dass man sich um die
+SSL-Zertifikate oder das Login kuemmern muss. Einfach Connection
+oeffnen - Zertifikatsanzeige und Login uebernimmt Jameica automatisch.
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Wed Jun 10 13:50:27 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 10 Jun 2009 13:50:27 +0200
+Subject: [jameica-devel] Nutzt jemand "LoginDialog"?
+In-Reply-To: <200906101346.58369.hibiscus@willuhn.de>
+References: <200906091434.41159.hibiscus@willuhn.de>
+	<200906101346.58369.hibiscus@willuhn.de>
+Message-ID: <200906101350.27776.hibiscus@willuhn.de>
+
+> Damit koennen Login-geschuetzte HTTP(s)-Verbindungen nun von Plugins
+> voellig transparent geoeffnet werden, ohne dass man sich um die
+> SSL-Zertifikate oder das Login kuemmern muss. Einfach Connection
+> oeffnen - Zertifikatsanzeige und Login uebernimmt Jameica automatisch.
+
+Nachtrag: Das heisst auch, dass man Jameica Online-Repositories[1]
+nun auch problemlos mit einem .htaccess-Schutz versehen kann, wenn
+nur autorisierte User drauf zugreifen koennen sollen.
+
+Gruss
+Olaf
+
+[1] http://jameica.berlios.de/doku.php?id=develop:repository
+
+
+From heiner at jost-net.de  Sat Jun 20 15:05:32 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Sat, 20 Jun 2009 15:05:32 +0200
+Subject: [jameica-devel] Test von Jameica-Plugins
+Message-ID: <4A3CDE9C.7060707@jost-net.de>
+
+Hallo,
+
+ich bin auf der Suche nach einem Tool zum Test eines Jameica-Plugins.
+
+Im Netz habe ich dazu swtbot (http://www.eclipse.org/swtbot/) und  
+maven-jameica-test-plugin 
+(http://www.emedia-solutions-wolf.de/web/guest/products/maven-jameica-test-plugin) 
+gefunden.
+
+Ich habe da aber noch so meine Probleme, dass ans Laufen zu bringen. 
+Kann mir jemand auf die Sprünge helfen?
+
+Heiner
+
+
+From markus at emedia-solutions-wolf.de  Sat Jun 20 20:03:07 2009
+From: markus at emedia-solutions-wolf.de (Markus Wolf)
+Date: Sat, 20 Jun 2009 20:03:07 +0200
+Subject: [jameica-devel] Test von Jameica-Plugins
+In-Reply-To: <4A3CDE9C.7060707@jost-net.de>
+References: <4A3CDE9C.7060707@jost-net.de>
+Message-ID: <4A3D245B.1010602@emedia-solutions-wolf.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hallo Heiner,
+
+klar kann ich dir dabei helfen. Hab das maven-jameica-test-plugin
+geschrieben. Wo genau ist denn das Problem? Nutzt du Maven um dein
+Plugin zu bauen?
+Theoretisch ist es auch möglich nur JUnit (z.B. mit Ant) zum testen zu
+verwenden, aber das habe ich nie probiert, da ich alles mit Maven mache.
+
+Du kannst auch den SWTBot direkt nutzen (mache ich im maven-plugin
+auch), aber dann kannst du das nicht so einfach in einem
+Integration-Test-Server ausführen. Mit dem Maven-Plugin ist es einfach
+möglich z.B. alle Tests auf einem Nightly-Build auszuführen oder bei
+jedem SVN/CVS Commit.
+
+Gruß
+Markus
+
+Heiner Jostkleigrewe schrieb:
+> Hallo,
+> 
+> ich bin auf der Suche nach einem Tool zum Test eines Jameica-Plugins.
+> 
+> Im Netz habe ich dazu swtbot (http://www.eclipse.org/swtbot/) und  
+> maven-jameica-test-plugin 
+> (http://www.emedia-solutions-wolf.de/web/guest/products/maven-jameica-test-plugin) 
+> gefunden.
+> 
+> Ich habe da aber noch so meine Probleme, dass ans Laufen zu bringen. 
+> Kann mir jemand auf die Sprünge helfen?
+> 
+> Heiner
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+
+
+- --
+> emedia-solutions wolf    web: http://www.emedia-solutions-wolf.de
+> Eimsbüttler Straße 115  mail: markus at emedia-solutions-wolf.de
+> 22769 Hamburg            pgp: http://wwwkeys.de.pgp.net
+> +49 40 432 635 83      taxid: 02 / 372 / 39601
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iEYEARECAAYFAko9JFoACgkQeyJE91ndMG4VBgCfYO1+n03f87XRxaPzcQXBqME3
+aXoAn1+KUay7Y637TUg95rRH5r/3Tufu
+=1AYB
+-----END PGP SIGNATURE-----
+
+
+From heiner at jost-net.de  Sat Jun 20 20:49:56 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Sat, 20 Jun 2009 20:49:56 +0200
+Subject: [jameica-devel] Test von Jameica-Plugins
+In-Reply-To: <4A3D245B.1010602@emedia-solutions-wolf.de>
+References: <4A3CDE9C.7060707@jost-net.de>
+	<4A3D245B.1010602@emedia-solutions-wolf.de>
+Message-ID: <4A3D2F54.9080809@jost-net.de>
+
+Hallo Markus,
+
+hast du Beispielcode für die Nutzung von SWTBot mit Jameica, bzw. einem 
+Plugin? Die Doku ist recht knapp gehalten.
+
+Heiner
+
+Markus Wolf schrieb:
+> -----BEGIN PGP SIGNED MESSAGE-----
+> Hash: SHA1
+>
+> Hallo Heiner,
+>
+> klar kann ich dir dabei helfen. Hab das maven-jameica-test-plugin
+> geschrieben. Wo genau ist denn das Problem? Nutzt du Maven um dein
+> Plugin zu bauen?
+> Theoretisch ist es auch möglich nur JUnit (z.B. mit Ant) zum testen zu
+> verwenden, aber das habe ich nie probiert, da ich alles mit Maven mache.
+>
+> Du kannst auch den SWTBot direkt nutzen (mache ich im maven-plugin
+> auch), aber dann kannst du das nicht so einfach in einem
+> Integration-Test-Server ausführen. Mit dem Maven-Plugin ist es einfach
+> möglich z.B. alle Tests auf einem Nightly-Build auszuführen oder bei
+> jedem SVN/CVS Commit.
+>
+> Gruß
+> Markus
+>
+> Heiner Jostkleigrewe schrieb:
+>   
+>> Hallo,
+>>
+>> ich bin auf der Suche nach einem Tool zum Test eines Jameica-Plugins.
+>>
+>> Im Netz habe ich dazu swtbot (http://www.eclipse.org/swtbot/) und  
+>> maven-jameica-test-plugin 
+>> (http://www.emedia-solutions-wolf.de/web/guest/products/maven-jameica-test-plugin) 
+>> gefunden.
+>>
+>> Ich habe da aber noch so meine Probleme, dass ans Laufen zu bringen. 
+>> Kann mir jemand auf die Sprünge helfen?
+>>
+>> Heiner
+>> _______________________________________________
+>> jameica-devel mailing list
+>> jameica-devel at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>>     
+>
+>
+> - --
+>   
+>> emedia-solutions wolf    web: http://www.emedia-solutions-wolf.de
+>> Eimsbüttler Straße 115  mail: markus at emedia-solutions-wolf.de
+>> 22769 Hamburg            pgp: http://wwwkeys.de.pgp.net
+>> +49 40 432 635 83      taxid: 02 / 372 / 39601
+>>     
+> -----BEGIN PGP SIGNATURE-----
+> Version: GnuPG v1.4.9 (GNU/Linux)
+> Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+>
+> iEYEARECAAYFAko9JFoACgkQeyJE91ndMG4VBgCfYO1+n03f87XRxaPzcQXBqME3
+> aXoAn1+KUay7Y637TUg95rRH5r/3Tufu
+> =1AYB
+> -----END PGP SIGNATURE-----
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+
+From heiner at jost-net.de  Sun Jun 28 14:40:09 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Sun, 28 Jun 2009 14:40:09 +0200
+Subject: [jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+Message-ID: <4A4764A9.2020102@jost-net.de>
+
+Hallo Olaf,
+
+die Blobs der aktuellen in Jameica im Einsatz befindlichen H2-Datenbank 
+sind nicht Jameica-kompatibel. Bitte setze den beigefügten Bugfix ein.
+
+Vielen Dank.
+
+Heiner
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : TypeByteArray.java
+Dateityp    : text/x-java
+Dateigröße  : 2786 bytes
+Beschreibung: nicht verfügbar
+URL         : <https://lists.berlios.de/pipermail/jameica-devel/attachments/20090628/7b3b6230/attachment.java>
+
+From heiner at jost-net.de  Sun Jun 28 15:42:13 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Sun, 28 Jun 2009 15:42:13 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+Message-ID: <4A477335.4070605@jost-net.de>
+
+Hallo,
+
+ich habe folgende Klassen zum Test eines DB-Objektes erstellt:
+
+package de.jost_net.JVerein.server;
+
+import static org.junit.Assert.assertTrue;
+
+import java.rmi.RemoteException;
+
+import org.junit.Test;
+
+import de.jost_net.JVerein.JVereinPluginTest;
+import de.jost_net.JVerein.rmi.Stammdaten;
+
+public class StammdatenTest
+{
+  @Test
+  public void test01()
+  {
+    Stammdaten st = null;
+    try
+    {
+      st = (Stammdaten) JVereinPluginTest.getDB().createObject(
+          Stammdaten.class, "1");
+    }
+    catch (RemoteException e)
+    {
+      assertTrue("Fehler: " + e.getMessage(), false);
+    }
+    assertTrue(st != null);
+  }
+}
+
+
+package de.jost_net.JVerein;
+
+import java.rmi.RemoteException;
+
+import de.willuhn.datasource.db.DBServiceImpl;
+import de.willuhn.datasource.rmi.DBService;
+
+public class JVereinPluginTest
+{
+  private static DBService db;
+
+  public static final int DBTYPE_MYSQL = 1;
+
+  private static int DBTYPE = DBTYPE_MYSQL;
+
+  private static String driver = null;
+
+  private static String url = null;
+
+  private static String user = null;
+
+  private static String password = null;
+
+  public static DBService getDB() throws RemoteException
+  {
+    // Datenbank-Service erstellen.
+    switch (DBTYPE)
+    {
+      case DBTYPE_MYSQL:
+      {
+        driver = "com.mysql.jdbc.Driver";
+        url = 
+"jdbc:mysql://localhost:3306/jverein?useUnicode=Yes&characterEncoding=ISO8859_1";
+        user = "jverein";
+        password = "jverein";
+        break;
+      }
+    }
+    db = new DBServiceImpl(driver, url, user, password);
+    db.start();
+    System.out.println(db.getName());
+    return db;
+  }
+
+  public void setDBType(int dbtype)
+  {
+    DBTYPE = dbtype;
+  }
+}
+
+Bei Ablauf wird folgende Exception geworfen:
+
+java.lang.AssertionError: Fehler: unable to create object 
+de.jost_net.JVerein.rmi.Stammdaten; nested exception is:
+    java.lang.Exception: no classfinder defined: unable to find 
+implementor for interface de.jost_net.JVerein.rmi.Stammdaten
+    at org.junit.Assert.fail(Assert.java:91)
+    at org.junit.Assert.assertTrue(Assert.java:43)
+    at 
+de.jost_net.JVerein.server.StammdatenTest.test01(StammdatenTest.java:26)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at 
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at 
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    at java.lang.reflect.Method.invoke(Method.java:597)
+    at 
+org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+    at 
+org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+    at 
+org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+    at 
+org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+    at 
+org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+    at 
+org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    at 
+org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+    at 
+org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+    at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+    at 
+org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+    at 
+org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+    at 
+org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:46)
+    at 
+org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+
+
+Die erforderlichen Klassen befinden sich im Classpath.
+
+Was ist zu tun?
+
+Heiner
+
+
+From hibiscus at willuhn.de  Mon Jun 29 00:08:04 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Mon, 29 Jun 2009 00:08:04 +0200
+Subject: [jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+In-Reply-To: <4A4764A9.2020102@jost-net.de>
+References: <4A4764A9.2020102@jost-net.de>
+Message-ID: <200906290008.05001.hibiscus@willuhn.de>
+
+Hi,
+
+> die Blobs der aktuellen in Jameica im Einsatz befindlichen H2-Datenbank
+> sind nicht Jameica-kompatibel. Bitte setze den beigefügten Bugfix ein.
+
+Hab das Patch - leicht abgeaendert - uebernommen.
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Mon Jun 29 00:18:21 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Mon, 29 Jun 2009 00:18:21 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A477335.4070605@jost-net.de>
+References: <4A477335.4070605@jost-net.de>
+Message-ID: <200906290018.21973.hibiscus@willuhn.de>
+
+Hi,
+
+> ich habe folgende Klassen zum Test eines DB-Objektes erstellt:
+[...]
+> st = (Stammdaten) JVereinPluginTest.getDB().createObject(Stammdaten.class, "1");
+[...]
+>     db = new DBServiceImpl(driver, url, user, password);
+>     db.start();
+[...]
+>     java.lang.Exception: no classfinder defined: unable to find
+> implementor for interface de.jost_net.JVerein.rmi.Stammdaten
+[...]
+> Die erforderlichen Klassen befinden sich im Classpath.
+
+Ein DBService ist nicht ohne weiteres in der Lage, zu einem
+angegebenen Interface (hier Stammdaten.class) die passende
+Implementierung zu finden. Das soll er auch gar nicht "out-of-the-box"
+koennen, weil das rechen- und ressourcen-intensiv ist. Dafuer
+gibt es einen Classfinder. Bei deinem Service ist keiner angegeben.
+Daher wirft er die Exception mit dem Text "no classfinder defined".
+Das macht er also lediglich deshalb, weil er nicht weiss, wo
+er nach einer passenden Implementierung suchen soll.
+
+
+2 Moeglichkeiten:
+
+a) Du verzichtest auf die Moeglichkeit, dass der Service selbst
+nach der passenden Implementierung sucht und uebernimmst das
+selbst. Hierzu genuegt es, wenn du der createObject-Methode nicht
+das Interface sondern direkt die Implementierung uebergibst. Also
+z.Bsp. so:
+
+...createObject(StammdatenImpl.class,"1");
+
+
+b) Du registrierst im DB-Service einen Classfinder. Der DB-Service
+befragt diesen dann, ob er eine Implementierung zum gewuenschten
+Interface kennt. Schreib hierzu folgenden Code-Schnipsel in den
+Konstruktor deines DBServiceImpl:
+
+MultipleClassLoader cl = Application.getPluginLoader().getPlugin(DeinPlugin.class).getResources().getClassLoader();
+this.setClassloader(cl);
+this.setClassFinder(cl.getClassFinder());
+
+Der uebergebene Classfinder ist jener, der zum Classloader des
+Plugins gehoert. Und der kann die Implementierungen zu genau
+den Klassen finden, die in plugin.xml in der Sektion...
+
+<classfinder>
+  <include>....</include>
+</classfinder>
+
+...angegeben sind.
+
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Mon Jun 29 20:47:12 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Mon, 29 Jun 2009 20:47:12 +0200
+Subject: [jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+In-Reply-To: <200906290008.05001.hibiscus@willuhn.de>
+References: <4A4764A9.2020102@jost-net.de>
+	<200906290008.05001.hibiscus@willuhn.de>
+Message-ID: <4A490C30.2090909@jost-net.de>
+
+Vielen Dank.
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+>   
+>> die Blobs der aktuellen in Jameica im Einsatz befindlichen H2-Datenbank
+>> sind nicht Jameica-kompatibel. Bitte setze den beigefügten Bugfix ein.
+>>     
+>
+> Hab das Patch - leicht abgeaendert - uebernommen.
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+
+From heiner at jost-net.de  Mon Jun 29 21:00:04 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Mon, 29 Jun 2009 21:00:04 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <200906290018.21973.hibiscus@willuhn.de>
+References: <4A477335.4070605@jost-net.de>
+	<200906290018.21973.hibiscus@willuhn.de>
+Message-ID: <4A490F34.5060308@jost-net.de>
+
+Hallo Olaf,
+
+vielen Dank für deine Antwort. Jetzt klemmt es bei der Prüfung der 
+Bankverbindung:
+
+ public final static boolean checkAccountCRC(String blz, String kontonummer)
+  {
+    QueryMessage q = new QueryMessage(blz + ":" + kontonummer);
+    Application.getMessagingFactory().getMessagingQueue(
+        "hibiscus.query.accountcrc").sendSyncMessage(q);
+    Object data = q.getData();
+
+    // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
+    // ist Hibiscus vermutlich nicht installiert. In dem Fall
+    // lassen wir die Konto/BLZ-Kombination mangels besserer
+    // Informationen zu
+    return (data == null || !(data instanceof Boolean)) ? true
+        : ((Boolean) data).booleanValue();
+  }
+
+Wenn das gelöst ist, wird es vermutlich weitere Probleme geben.
+
+Ich habe mich bereits mit Markus Wolf wegen Webbot-Tests in Verbindung 
+gesetzt. Er hat mir Code zur Verfügung gestellt. Der ist allerdings 
+nicht universell einsetzbar. Jameica stellt sich an der Stelle recht 
+störrisch an. Andersherum ausgedrückt bin ich zu blöd zu erkennen, wie 
+die Komponenten zusammenspielen.
+
+Wirst du evtl. Jameica um JUnit- und Webbot-Support erweitern? Der Test 
+der Plugins mit JUnit und Webbot dient sicherlich der Qualitätsverbesserung.
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+>   
+>> ich habe folgende Klassen zum Test eines DB-Objektes erstellt:
+>>     
+> [...]
+>   
+>> st = (Stammdaten) JVereinPluginTest.getDB().createObject(Stammdaten.class, "1");
+>>     
+> [...]
+>   
+>>     db = new DBServiceImpl(driver, url, user, password);
+>>     db.start();
+>>     
+> [...]
+>   
+>>     java.lang.Exception: no classfinder defined: unable to find
+>> implementor for interface de.jost_net.JVerein.rmi.Stammdaten
+>>     
+> [...]
+>   
+>> Die erforderlichen Klassen befinden sich im Classpath.
+>>     
+>
+> Ein DBService ist nicht ohne weiteres in der Lage, zu einem
+> angegebenen Interface (hier Stammdaten.class) die passende
+> Implementierung zu finden. Das soll er auch gar nicht "out-of-the-box"
+> koennen, weil das rechen- und ressourcen-intensiv ist. Dafuer
+> gibt es einen Classfinder. Bei deinem Service ist keiner angegeben.
+> Daher wirft er die Exception mit dem Text "no classfinder defined".
+> Das macht er also lediglich deshalb, weil er nicht weiss, wo
+> er nach einer passenden Implementierung suchen soll.
+>
+>
+> 2 Moeglichkeiten:
+>
+> a) Du verzichtest auf die Moeglichkeit, dass der Service selbst
+> nach der passenden Implementierung sucht und uebernimmst das
+> selbst. Hierzu genuegt es, wenn du der createObject-Methode nicht
+> das Interface sondern direkt die Implementierung uebergibst. Also
+> z.Bsp. so:
+>
+> ...createObject(StammdatenImpl.class,"1");
+>
+>
+> b) Du registrierst im DB-Service einen Classfinder. Der DB-Service
+> befragt diesen dann, ob er eine Implementierung zum gewuenschten
+> Interface kennt. Schreib hierzu folgenden Code-Schnipsel in den
+> Konstruktor deines DBServiceImpl:
+>
+> MultipleClassLoader cl = Application.getPluginLoader().getPlugin(DeinPlugin.class).getResources().getClassLoader();
+> this.setClassloader(cl);
+> this.setClassFinder(cl.getClassFinder());
+>
+> Der uebergebene Classfinder ist jener, der zum Classloader des
+> Plugins gehoert. Und der kann die Implementierungen zu genau
+> den Klassen finden, die in plugin.xml in der Sektion...
+>
+> <classfinder>
+>   <include>....</include>
+> </classfinder>
+>
+> ...angegeben sind.
+>
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+
+From markus at emedia-solutions-wolf.de  Mon Jun 29 21:15:48 2009
+From: markus at emedia-solutions-wolf.de (Markus Wolf)
+Date: Mon, 29 Jun 2009 21:15:48 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A490F34.5060308@jost-net.de>
+References: <4A477335.4070605@jost-net.de>	<200906290018.21973.hibiscus@willuhn.de>
+	<4A490F34.5060308@jost-net.de>
+Message-ID: <4A4912E4.6030504@emedia-solutions-wolf.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi auch,
+
+> Ich habe mich bereits mit Markus Wolf wegen Webbot-Tests in Verbindung 
+> gesetzt. Er hat mir Code zur Verfügung gestellt. Der ist allerdings 
+> nicht universell einsetzbar. Jameica stellt sich an der Stelle recht 
+> störrisch an. Andersherum ausgedrückt bin ich zu blöd zu erkennen, wie 
+> die Komponenten zusammenspielen.
+> 
+ich denke ich kann mich hier mal getrost einmischen. Welcher Teil des
+ganzen Test-Plugins ist denn nicht universell einsetzbar?
+Das Hauptproblem für Tests ist es eben die Laufzeitumgebung von Jameica
+zu bekommen. Das habe ich auch eine Weile so versucht und bin etwas
+daran gescheitert.
+Daher habe ich mir dann ein 'Container-Test' (so etwa wie Cargo für
+Webanwendungen) gebastelt. Dieses startet Jameica und installiert die zu
+testenden Plugins inklusive Abhängigkeiten. Und können anhand von
+JUnit4-Tests mit SwtBot die Plugins/Views/Controller... getestet werden.
+
+Falls das mit dem jameica-test-plugin an einigen Stellen hackt, dann
+gibt mir doch ne Info wo. Ich bin gerne bereit dies zu erweitern. Ich
+selber nutze ausschließlich maven2 + junit4, daher habe ich es bisher
+noch nicht mit ant oder eclipse ausgetestet. Aber das sollte sich auch
+machen lassen.
+
+Gruß
+Markus Wolf
+- --
+> emedia-solutions wolf    web: http://www.emedia-solutions-wolf.de
+> Kieler Straße 21        mail: markus at emedia-solutions-wolf.de
+> 22769 Hamburg            pgp: http://wwwkeys.de.pgp.net
+> +49 40 413 611 00      taxid: 02 / 372 / 39601
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iEYEARECAAYFAkpJEuQACgkQeyJE91ndMG6sQACfW2Quwvb5Rs2FvznfB5soyzZX
+R8IAmwQKzgSti5UyQCizkIdmnEoZdsCk
+=gyeJ
+-----END PGP SIGNATURE-----
+
+
+From hibiscus at willuhn.de  Mon Jun 29 23:38:27 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Mon, 29 Jun 2009 23:38:27 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A490F34.5060308@jost-net.de>
+References: <4A477335.4070605@jost-net.de>
+	<200906290018.21973.hibiscus@willuhn.de>
+	<4A490F34.5060308@jost-net.de>
+Message-ID: <200906292338.27715.hibiscus@willuhn.de>
+
+Hi,
+
+> vielen Dank für deine Antwort. Jetzt klemmt es bei der Prüfung der
+> Bankverbindung:
+>
+>  public final static boolean checkAccountCRC(String blz, String
+> kontonummer) {
+>     QueryMessage q = new QueryMessage(blz + ":" + kontonummer);
+>     Application.getMessagingFactory().getMessagingQueue(
+>         "hibiscus.query.accountcrc").sendSyncMessage(q);
+>     Object data = q.getData();
+>
+>     // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
+>     // ist Hibiscus vermutlich nicht installiert. In dem Fall
+>     // lassen wir die Konto/BLZ-Kombination mangels besserer
+>     // Informationen zu
+>     return (data == null || !(data instanceof Boolean)) ? true
+>
+>         : ((Boolean) data).booleanValue();
+>
+>   }
+>
+> Wenn das gelöst ist, wird es vermutlich weitere Probleme geben.
+
+Was geht denn mit dem Code nicht?
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Tue Jun 30 19:31:32 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Tue, 30 Jun 2009 19:31:32 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <200906292338.27715.hibiscus@willuhn.de>
+References: <4A477335.4070605@jost-net.de>	<200906290018.21973.hibiscus@willuhn.de>	<4A490F34.5060308@jost-net.de>
+	<200906292338.27715.hibiscus@willuhn.de>
+Message-ID: <4A4A4BF4.5050808@jost-net.de>
+
+Hallo,
+
+folgende Exception wird geworfen:
+
+java.lang.ExceptionInInitializerError
+    at 
+de.jost_net.JVerein.server.StammdatenImpl.insertCheck(StammdatenImpl.java:91)
+    at 
+de.willuhn.datasource.db.AbstractDBObject.insert(AbstractDBObject.java:612)
+    at 
+de.willuhn.datasource.db.AbstractDBObject.store(AbstractDBObject.java:303)
+    at 
+de.jost_net.JVerein.server.StammdatenTest.test01(StammdatenTest.java:28)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at 
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at 
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    at java.lang.reflect.Method.invoke(Method.java:597)
+    at 
+org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+    at 
+org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+    at 
+org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+    at 
+org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+    at 
+org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+    at 
+org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    at 
+org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+    at 
+org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+    at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+    at 
+org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+    at 
+org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+    at 
+org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:46)
+    at 
+org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: java.lang.NullPointerException
+    at de.willuhn.jameica.system.Application.getConfig(Application.java:285)
+    at de.willuhn.jameica.system.Settings.<init>(Settings.java:35)
+    at de.jost_net.JVerein.Einstellungen.<clinit>(Einstellungen.java:105)
+    ... 28 more
+
+
+
+Heiner
+
+Olaf Willuhn schrieb:
+> Hi,
+>
+>   
+>> vielen Dank für deine Antwort. Jetzt klemmt es bei der Prüfung der
+>> Bankverbindung:
+>>
+>>  public final static boolean checkAccountCRC(String blz, String
+>> kontonummer) {
+>>     QueryMessage q = new QueryMessage(blz + ":" + kontonummer);
+>>     Application.getMessagingFactory().getMessagingQueue(
+>>         "hibiscus.query.accountcrc").sendSyncMessage(q);
+>>     Object data = q.getData();
+>>
+>>     // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
+>>     // ist Hibiscus vermutlich nicht installiert. In dem Fall
+>>     // lassen wir die Konto/BLZ-Kombination mangels besserer
+>>     // Informationen zu
+>>     return (data == null || !(data instanceof Boolean)) ? true
+>>
+>>         : ((Boolean) data).booleanValue();
+>>
+>>   }
+>>
+>> Wenn das gelöst ist, wird es vermutlich weitere Probleme geben.
+>>     
+>
+> Was geht denn mit dem Code nicht?
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+>   
+
+

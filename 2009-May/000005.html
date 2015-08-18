@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] NEU: TablePart#setRememberState(boolean)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-May/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20NEU%3A%20TablePart%23setRememberState%28boolean%29&In-Reply-To=%3C4A08507D.60000%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000004.html">
+   <LINK REL="Next"  HREF="000006.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] NEU: TablePart#setRememberState(boolean)</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20NEU%3A%20TablePart%23setRememberState%28boolean%29&In-Reply-To=%3C4A08507D.60000%40jost-net.de%3E"
+           TITLE="[jameica-devel] NEU: TablePart#setRememberState(boolean)">heiner at jost-net.de
+                  </A><BR>
+    <I>Mo Mai 11 18:21:17 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000004.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000006.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#5">[ Datum ]</a>
+              <a href="thread.html#5">[ Thema ]</a>
+              <a href="subject.html#5">[ Betreff (Subject) ]</a>
+              <a href="author.html#5">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo Olaf,
+
+ein sehr schönes neues Feature. Darauf haben auch schon einige 
+JVerein-Nutzer gewartet.
+
+Heiner
+
+Olaf Willuhn schrieb:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> ein Feature, welches sich Hibiscus-User fuer die lange Tabelle
+</I>&gt;<i> mit den Kontoauszuegen oft wuenschen, ist das Speichern des zuletzt
+</I>&gt;<i> selektierten Objektes, sodass man wieder an der gleichen Stelle
+</I>&gt;<i> in der Tabelle landet, wenn man aus der Detail-Ansicht zurueckkehrt.
+</I>&gt;<i> Da das Feature sicher auch an anderen Stellen nuetzlich ist, habe
+</I>&gt;<i> ich es gleich direkt in TablePart implementiert.
+</I>&gt;<i>
+</I>&gt;<i> Das Feature kann einfach mit &quot;table.setRememberState(true)&quot;
+</I>&gt;<i> aktiviert werden (aehnlich zu den bereits existierenden Funktionen
+</I>&gt;<i> &quot;setRememberOrder(boolean)&quot; und &quot;setRememberColWidths(boolean)&quot;).
+</I>&gt;<i>
+</I>&gt;<i> Die Tabelle speichert daraufhin selbstaendig die gerade selektierten
+</I>&gt;<i> Objekte und die Scrollposition in einer Session und haelt diese
+</I>&gt;<i> fuer 30 Minuten. Wir die Tabelle binnen dieser Zeit erneut geoeffnet
+</I>&gt;<i> (z.Bsp. weil man aus der Detailsseite zurueckkehrt), springt die
+</I>&gt;<i> Tabelle automatisch wieder an die Position zurueck und selektiert
+</I>&gt;<i> die Objekte wieder (insofern sie noch existieren).
+</I>&gt;<i>
+</I>&gt;<i> Das Selektieren und Scrollen kann auch manuell durch Aufruf
+</I>&gt;<i> der Funktion &quot;restoreState()&quot; durchgefuehrt werden. Ist z.Bsp.
+</I>&gt;<i> dann nuetzlich, wenn man TablePart samt der &quot;paint(Composite)&quot;-Methode
+</I>&gt;<i> ueberschrieben hat.
+</I>&gt;<i>
+</I>&gt;<i> Gruss
+</I>&gt;<i> Olaf
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> jameica-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000004.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000006.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#5">[ Datum ]</a>
+              <a href="thread.html#5">[ Thema ]</a>
+              <a href="subject.html#5">[ Betreff (Subject)]</a>
+              <a href="author.html#5">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

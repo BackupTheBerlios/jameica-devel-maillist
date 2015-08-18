@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Classfinder
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Classfinder&In-Reply-To=%3C4ADB7737.7060103%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000038.html">
+   <LINK REL="Next"  HREF="000040.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Classfinder</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Classfinder&In-Reply-To=%3C4ADB7737.7060103%40jost-net.de%3E"
+           TITLE="[jameica-devel] Classfinder">heiner at jost-net.de
+                  </A><BR>
+    <I>So Okt 18 22:14:47 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000038.html">[jameica-devel] Fehler beim Erstellen des Schlüssels
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000040.html">[jameica-devel] Classfinder
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#39">[ Datum ]</a>
+              <a href="thread.html#39">[ Thema ]</a>
+              <a href="subject.html#39">[ Betreff (Subject) ]</a>
+              <a href="author.html#39">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo,
+
+ich möchte JVerein um Extensions erweitern. Damit sollen individuelle 
+Import-Klassen realisiert werden.
+
+Sofern sich die Klassen im JVerein-Projekt befinden, werden sie vom 
+Classfinder gefunden. Wenn sie sich in einem anderen Projekt befinden 
+klappt es leider nicht. Das gilt sowohl für die Class-Dateien als auch 
+für jar-Dateien.
+
+In der plugin.xml gibt es folgenden Eintrag:
+
+  &lt;classfinder&gt;
+    &lt;include&gt;jverein\.jar&lt;/include&gt;
+    &lt;include&gt;.*\.class&lt;/include&gt;
+    &lt;include&gt;jverein\ext\.jar&lt;/include&gt;
+    &lt;include&gt;../../jverein.import/bin/*\.class&lt;/include&gt;
+  &lt;/classfinder&gt;
+
+Die letzten beiden Einträge habe ich neu hinzugefügt.
+
+Wer kann mir helfen?
+
+Heiner
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000038.html">[jameica-devel] Fehler beim Erstellen des Schlüssels
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000040.html">[jameica-devel] Classfinder
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#39">[ Datum ]</a>
+              <a href="thread.html#39">[ Thema ]</a>
+              <a href="subject.html#39">[ Betreff (Subject)]</a>
+              <a href="author.html#39">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

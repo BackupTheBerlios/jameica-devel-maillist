@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] JUnit-Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A4912E4.6030504%40emedia-solutions-wolf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] JUnit-Test von Jameica-Plugins</H1>
+    <B>Markus Wolf</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A4912E4.6030504%40emedia-solutions-wolf.de%3E"
+           TITLE="[jameica-devel] JUnit-Test von Jameica-Plugins">markus at emedia-solutions-wolf.de
+                  </A><BR>
+    <I>Mo Jun 29 21:15:48 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000023.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000025.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#24">[ Datum ]</a>
+              <a href="thread.html#24">[ Thema ]</a>
+              <a href="subject.html#24">[ Betreff (Subject) ]</a>
+              <a href="author.html#24">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi auch,
+
+&gt;<i> Ich habe mich bereits mit Markus Wolf wegen Webbot-Tests in Verbindung 
+</I>&gt;<i> gesetzt. Er hat mir Code zur Verfügung gestellt. Der ist allerdings 
+</I>&gt;<i> nicht universell einsetzbar. Jameica stellt sich an der Stelle recht 
+</I>&gt;<i> störrisch an. Andersherum ausgedrückt bin ich zu blöd zu erkennen, wie 
+</I>&gt;<i> die Komponenten zusammenspielen.
+</I>&gt;<i> 
+</I>ich denke ich kann mich hier mal getrost einmischen. Welcher Teil des
+ganzen Test-Plugins ist denn nicht universell einsetzbar?
+Das Hauptproblem für Tests ist es eben die Laufzeitumgebung von Jameica
+zu bekommen. Das habe ich auch eine Weile so versucht und bin etwas
+daran gescheitert.
+Daher habe ich mir dann ein 'Container-Test' (so etwa wie Cargo für
+Webanwendungen) gebastelt. Dieses startet Jameica und installiert die zu
+testenden Plugins inklusive Abhängigkeiten. Und können anhand von
+JUnit4-Tests mit SwtBot die Plugins/Views/Controller... getestet werden.
+
+Falls das mit dem jameica-test-plugin an einigen Stellen hackt, dann
+gibt mir doch ne Info wo. Ich bin gerne bereit dies zu erweitern. Ich
+selber nutze ausschließlich maven2 + junit4, daher habe ich es bisher
+noch nicht mit ant oder eclipse ausgetestet. Aber das sollte sich auch
+machen lassen.
+
+Gruß
+Markus Wolf
+- --
+&gt;<i> emedia-solutions wolf    web: <A HREF="http://www.emedia-solutions-wolf.de">http://www.emedia-solutions-wolf.de</A>
+</I>&gt;<i> Kieler Straße 21        mail: <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">markus at emedia-solutions-wolf.de</A>
+</I>&gt;<i> 22769 Hamburg            pgp: <A HREF="http://wwwkeys.de.pgp.net">http://wwwkeys.de.pgp.net</A>
+</I>&gt;<i> +49 40 413 611 00      taxid: 02 / 372 / 39601
+</I>-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - <A HREF="http://enigmail.mozdev.org">http://enigmail.mozdev.org</A>
+
+iEYEARECAAYFAkpJEuQACgkQeyJE91ndMG6sQACfW2Quwvb5Rs2FvznfB5soyzZX
+R8IAmwQKzgSti5UyQCizkIdmnEoZdsCk
+=gyeJ
+-----END PGP SIGNATURE-----
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000023.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000025.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#24">[ Datum ]</a>
+              <a href="thread.html#24">[ Thema ]</a>
+              <a href="subject.html#24">[ Betreff (Subject)]</a>
+              <a href="author.html#24">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

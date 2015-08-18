@@ -1,0 +1,430 @@
+From patrick.hartzsch at gmx.de  Mon Oct 12 20:52:50 2009
+From: patrick.hartzsch at gmx.de (Patrick Hartzsch)
+Date: Mon, 12 Oct 2009 20:52:50 +0200
+Subject: [jameica-devel] =?iso-8859-15?q?Fehler_beim_Erstellen_des_Schl=FC?=
+	=?iso-8859-15?q?ssels?=
+Message-ID: <4AD37B02.6080208@gmx.de>
+
+Hallo,
+
+ich habe mir die aktuelle Version von Jameica in Verbindung mit Hibiscus 
+heruntergeladen. Beim Erstellen des Sicherheitsmediums mit 
+"Schlüsselmedium (RDH)" wird alles soweit an Eingaben angenommen. Der 
+Hashwert, den ich von der Bank mitgeteilt bekommen habe, wird auch 
+richtig berechnet. Klicke ich aber nach Eingabe aller Daten auf 
+"Schlüssel erstellen", bekomme ich die folgenden Fehlermeldung angezeigt:
+
+"Fehler beim Erstellen des Schlüssels; Fehler beim Erzeugen eines 
+HBCIHandler Objekts.
+Quelle: de.willuhn.jameica.messaging.LogMessageConsumer.handleMessage".
+
+Informationen zu meinem OS und Java:
+
+java.runtime.name = Java(TM) 2 Runtime Environment, Standard Edition
+sun.boot.library.path = 
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Libraries
+java.vm.version = 1.5.0_20-141
+awt.nativeDoubleBuffering = true
+gopherProxySet = false
+java.vm.vendor = Apple Inc.
+java.vendor.url = http://www.apple.com/
+path.separator = :
+java.vm.name = Java HotSpot(TM) Client VM
+file.encoding.pkg = sun.io
+user.country = DE
+sun.java.launcher = SUN_STANDARD
+sun.os.patch.level = unknown
+java.vm.specification.name = Java Virtual Machine Specification
+user.dir = /Users/patrick
+java.runtime.version = 1.5.0_20-b02-315
+java.awt.graphicsenv = apple.awt.CGraphicsEnvironment
+java.endorsed.dirs = 
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib/endorsed
+os.arch = i386
+java.io.tmpdir = /var/folders/iv/iv03GG0RExCDdNF97IZMf++++TM/-Tmp-/
+line.separator =
+
+java.vm.specification.vendor = Sun Microsystems Inc.
+os.name = Mac OS X
+sun.jnu.encoding = MacRoman
+java.library.path = 
+.:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.specification.name = Java Platform API Specification
+java.class.version = 49.0
+sun.management.compiler = HotSpot Client Compiler
+os.version = 10.5.8
+http.nonProxyHosts = local|*.local|169.254/16|*.169.254/16
+user.timezone =
+java.awt.printerjob = apple.awt.CPrinterJob
+file.encoding = MacRoman
+java.specification.version = 1.5
+user.name = patrick
+java.class.path = .
+java.vm.specification.version = 1.0
+sun.arch.data.model = 32
+java.home = /System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home
+java.specification.vendor = Sun Microsystems Inc.
+user.language = de
+awt.toolkit = apple.awt.CToolkit
+java.vm.info = mixed mode, sharing
+java.version = 1.5.0_20
+java.ext.dirs = 
+/Library/Java/Extensions:/System/Library/Java/Extensions:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib/ext
+sun.boot.class.path = 
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jsfd.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/ui.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/laf.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/sunrsasign.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jsse.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jce.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/charsets.jar
+java.vendor = Apple Inc.
+file.separator = /
+java.vendor.url.bug = http://bugreport.apple.com/
+sun.cpu.endian = little
+sun.io.unicode.encoding = UnicodeLittle
+mrj.version = 1050.1.5.0_20-315
+socksNonProxyHosts = local|*.local|169.254/16|*.169.254/16
+ftp.nonProxyHosts = local|*.local|169.254/16|*.169.254/16
+
+Gruß
+Patrick
+-------------- nächster Teil --------------
+Ein Dateianhang mit HTML-Daten wurde abgetrennt...
+URL: <https://lists.berlios.de/pipermail/jameica-devel/attachments/20091012/b181d857/attachment.html>
+
+From heiner at jost-net.de  Sun Oct 18 22:14:47 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Sun, 18 Oct 2009 22:14:47 +0200
+Subject: [jameica-devel] Classfinder
+Message-ID: <4ADB7737.7060103@jost-net.de>
+
+Hallo,
+
+ich möchte JVerein um Extensions erweitern. Damit sollen individuelle 
+Import-Klassen realisiert werden.
+
+Sofern sich die Klassen im JVerein-Projekt befinden, werden sie vom 
+Classfinder gefunden. Wenn sie sich in einem anderen Projekt befinden 
+klappt es leider nicht. Das gilt sowohl für die Class-Dateien als auch 
+für jar-Dateien.
+
+In der plugin.xml gibt es folgenden Eintrag:
+
+  <classfinder>
+    <include>jverein\.jar</include>
+    <include>.*\.class</include>
+    <include>jverein\ext\.jar</include>
+    <include>../../jverein.import/bin/*\.class</include>
+  </classfinder>
+
+Die letzten beiden Einträge habe ich neu hinzugefügt.
+
+Wer kann mir helfen?
+
+Heiner
+
+
+From hibiscus at willuhn.de  Mon Oct 19 00:36:08 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Mon, 19 Oct 2009 00:36:08 +0200
+Subject: [jameica-devel] Classfinder
+In-Reply-To: <4ADB7737.7060103@jost-net.de>
+References: <4ADB7737.7060103@jost-net.de>
+Message-ID: <200910190036.08874.hibiscus@willuhn.de>
+
+Hi,
+
+> ich möchte JVerein um Extensions erweitern. Damit sollen individuelle
+> Import-Klassen realisiert werden.
+>
+> Sofern sich die Klassen im JVerein-Projekt befinden, werden sie vom
+> Classfinder gefunden. Wenn sie sich in einem anderen Projekt befinden
+> klappt es leider nicht. Das gilt sowohl für die Class-Dateien als auch
+> für jar-Dateien.
+>
+> In der plugin.xml gibt es folgenden Eintrag:
+>
+>   <classfinder>
+>     <include>jverein\.jar</include>
+>     <include>.*\.class</include>
+>     <include>jverein\ext\.jar</include>
+>     <include>../../jverein.import/bin/*\.class</include>
+>   </classfinder>
+>
+> Die letzten beiden Einträge habe ich neu hinzugefügt.
+>
+> Wer kann mir helfen?
+
+Per Default verwenden die Plugins einen gemeinsamen Classloader, der
+alle Plugins kennt. Es sei denn, man deklariert das Plugin in plugin.xml
+explizit als privat (mit "<plugin .... shared="false">"). Das heisst,
+die Classfinder-Deklarationen koennen auch in dem Erweiterungsplugin
+gemacht werden, damit sie gefunden werden. 
+
+Heisst:
+
+1) Die Erweiterung kann sich entweder in einem separaten Plugin
+   (wir nennen es mal "jverein.foo") befinden. Dann sollte dort der
+   Classfinder entsprechend konfiguriert werden. Also z.Bsp. so:
+
+   <classfinder>
+     <include>jverein\.foo\.jar</include>
+     <include>.*\.class</include>
+   </classfinder>
+
+   In dem Fall muss die plugin.xml von JVerein nicht angepasst werden.
+
+2) Oder die Extension wird als Jar-Datei compiliert und z.Bsp.
+   unter dem Dateinamen "ext_foo.jar" in plugins/jverein/lib
+   abgelegt. Dann muesste in der plugin.xml von Jverein noch folgende
+   Zeile zum Classfinder hinzugefuegt werden, damit Dateien des Schemas
+   ext_*.jar gefunden werden:
+
+   <include>ext_.*\.jar</include>
+
+
+Gruss
+Olaf
+   
+
+
+From heiner at jost-net.de  Wed Oct 21 09:28:20 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 21 Oct 2009 09:28:20 +0200
+Subject: [jameica-devel] Classfinder
+In-Reply-To: <200910190036.08874.hibiscus@willuhn.de>
+References: <4ADB7737.7060103@jost-net.de>
+	<200910190036.08874.hibiscus@willuhn.de>
+Message-ID: <4ADEB814.1050702@jost-net.de>
+
+Hallo Olaf,
+
+vielen Dank für deine Antwort.
+
+
+> 1) Die Erweiterung kann sich entweder in einem separaten Plugin
+>    (wir nennen es mal "jverein.foo") befinden. Dann sollte dort der
+>    Classfinder entsprechend konfiguriert werden. Also z.Bsp. so:
+>
+>    <classfinder>
+>      <include>jverein\.foo\.jar</include>
+>      <include>.*\.class</include>
+>    </classfinder>
+>
+>    In dem Fall muss die plugin.xml von JVerein nicht angepasst werden.
+>
+>   
+So mache ich es jetzt. Funktioniert wunderbar.
+
+
+Heiner
+
+
+From hibiscus at willuhn.de  Wed Oct 28 18:24:32 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 28 Oct 2009 18:24:32 +0100
+Subject: [jameica-devel] SpinnerInput in jameica und automatischer
+	Update-Check in jameica.update
+Message-ID: <200910281824.32460.hibiscus@willuhn.de>
+
+Hi,
+
+zwei neue Features:
+
+1) In Jameica gibts jetzt ein "SpinnerInput". Das ist z.Bsp.
+   gut fuer die Eingabe von Integer-Werten geeignet, wo nur
+   bestimmter Zahlenbereich moeglich sein soll, eine Selectbox
+   aber zu lang waere.
+   Wer mit dem Begriff "Spinner" (nein, nicht der deutsche
+   Begriff ;)) nichts anfangen kann, das ist sowas hier:
+   http://www.eclipse.org/rap/noteworthy/RapSpinner.png
+
+2) Ich hab das Plugin "jameica.update" um automatische Update-Checks
+   Unter Plugins->Einstellungen->Updates kann man jetzt 
+   folgende Einstellungen vornehmen:
+
+   - Automatisch nach Updates suchen: [ja/nein]
+   - Nach Updates suchen alle [___] Tage 
+   - Bei neuen Updates:
+       - nur benachrichtigen
+       - automatisch herunterladen und installieren
+
+   Technisch ist die ganze Sache so geloest, dass der Update-
+   Service auf dem Web-Server mit dem Plugin-Repository
+   den Timestamp "Last modified" der ZIP-Dateien abfragt
+   und diese lokal speichert. Bei jedem erneuten Durchlauf
+   werden die lokalen Werte mit den aktuellen auf dem Webserver
+   verglichen. Ist der Timestamp auf dem Webserver aktueller,
+   geht der Update-Service davon aus, dass eine neue Version
+   vorliegt. Er benachrichtigt dann den Benutzer oder laedt
+   das Plugin automatisch herunter und installiert es - je
+   nachdem, was der User als Aktion (s.o.) eingestellt hat.
+
+   Der Update-Service nervt nicht mit immer wiederkehrenden
+   Hinweisen ueber Updates, falls sie nicht installiert wurden.
+   Sprich: Hat der User "Nur benachrichtigen" aktiviert, dann
+   meldet der Update-Service nur einmal, dass ein Update
+   vorliegt. Falls der User es nicht installiert, kommt der
+   Hinweis erst dann wieder, wenn auf dem Server ein weiteres
+   Update bereitsteht. Das soll sicherstellen, dass der User
+   nicht alle 7 Tage (oder je nachdem, welches Intervall
+   er eingestellt hat) immer wieder den gleichen Hinweis kriegt -
+   nur weil, er das Update immer noch nicht installiert hat.
+
+   Hinweis: Der Update-Service prueft ganz bewusst nur den
+   lastmodified-Timestamp (und natuerlich, ob das herunterzuladende
+   aktualisierte Plugin ueberhaupt anhand der Versionsabhaengigkeiten
+   installierbar ist). Damit kann der automatische Update-
+   Service primaer verwendet werden, wenn in einer Plugin-Version
+   nachtraeglich noch Patches/Bugfixes vorgenommen wurden.
+   Der Plugin-Autor laedt lediglich die aktualisierte Version
+   auf seinen Webserver, die Clients kriegen es automatisch
+   mit. Man kann damit also zweigleisig fahren - neue Releases
+   mit neuen Versionsnummern herausbringen und die alten aber
+   weiterhin mit Patches versorgen.
+
+   Bei Gelegenheit erweitere ich das sicher noch so, dass
+   statt des lastmodified-Timestamp auch die 3. Stelle
+   der Versionsnummer (Patch-Version) verwendet wird. Also
+   z.Bsp. bei 1.8.4 die "4". Bisher nutze ich aber noch nirgends
+   3-stellige Versionsnummern ;)
+
+
+Alles ab morgen im Nightly-Build
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Wed Oct 28 19:14:46 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 28 Oct 2009 19:14:46 +0100
+Subject: [jameica-devel] SpinnerInput in jameica und automatischer
+	Update-Check in jameica.update - Nachtrag
+Message-ID: <200910281914.46815.hibiscus@willuhn.de>
+
+Hi nochmal,
+
+> Bei Gelegenheit erweitere ich das sicher noch so, dass
+> statt des lastmodified-Timestamp auch die 3. Stelle
+> der Versionsnummer (Patch-Version) verwendet wird. Also
+> z.Bsp. bei 1.8.4 die "4". Bisher nutze ich aber noch nirgends
+> 3-stellige Versionsnummern ;)
+
+Habs grad noch eingebaut. Ein Update wird jetzt als solches
+erkannt, wenn
+
+a) die online verfuegbare Version 3-stellig ist (also
+   ein Patchlevel besitzt, z.Bsp. 1.8.3) und sie hoeher als
+   die installierte ist. In dem Fall wird der last-modified-
+   Wert ignoriert. Auf diese Weise kann man auch Nightly-
+   Builds (die ja jede Nacht neu erzeugt werden und sich daher
+   dauernd das last-modified aendert) via Auto-Update ausliefern,
+   ohne dass der User jeden Tag einen Hinweis ueber eine neue
+   Version erhaelt.
+
+   Aber auch hier gilt: Falls "Nur benachrichtigen" aktiviert
+   ist, erfolgt der Hinweis nur einmal. Wenn der User den
+   Hinweis wegklickt und die neue Version nicht installiert,
+   wird er erst dann wieder benachrichtigt, wenn eine noch
+   neuere Version verfuegbar ist.
+
+b) oder wenn die online verfuegbare Version 2-stellig ist
+   (also z.Bsp. 1.8) und last-modified seit der letzten
+   Pruefung aktualisiert wurde.
+
+In beiden Faellen gilt ausserdem: Ist die online verfuegbare
+Versionsnummer kleiner als die installierte, wird das
+Update natuerlich ignoriert.
+
+Zusammengefasst also:
+
+ - wenn die Version 3-stellig ist, muss sie hoeher als die
+   installierte sein
+ - wenn die Version 2-stellig ist, kann sie identisch sein.
+   last-modified muss aber aktueller sein.
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Thu Oct 29 12:37:38 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Thu, 29 Oct 2009 12:37:38 +0100
+Subject: [jameica-devel] Tipp: Versionsnummer des Plugins in build.xml
+	direkt aus plugin.xml auslesen
+Message-ID: <200910291237.38500.hibiscus@willuhn.de>
+
+Hi,
+
+heute ein Tipp, mit dem ich endlich die doppelte Pflege der
+Versionsnummer (einmal in plugin.xml fuer Jameica und dann
+dann nochmal in build/RELEASE fuer das Ant-Script) abschaffen
+konnte.
+
+Apache Ant kann naemlich beliebige XML-Dateien einlesen
+und die enthaltenen Elemente und Attribute in Ant-Properties
+umwandeln.
+
+Damit kann man den Wert des Attributes "version" im Element
+"plugin" der plugin.xml komfortabel auslesen und im Build-
+Script nutzen:
+
+<xmlproperty file="plugin.xml" collapseattributes="true"/>
+
+Fertig. Die Versionsnummer ist jetzt unter ${plugin.version}
+verfuegbar.
+
+Wenn man daraus jetzt noch ein CVS-Tag generieren (die duerfen
+das Zeichen "." leider nicht enthalten), kann man das so
+machen:
+
+<propertyfile file="TAG">
+  <entry key="tag" value="${plugin.version}" />
+</propertyfile>
+<replaceregexp flags="g" file="TAG" match="\." replace="_" />
+<loadproperties srcFile="TAG"/>
+<delete file="TAG" />
+
+Jetzt hat man ein Property ${tag} mit der Versionsnummer,
+in der jedoch die "." gegen "_" ersetzt sind.
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Fri Oct 30 01:25:02 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Fri, 30 Oct 2009 01:25:02 +0100
+Subject: [jameica-devel] Automatische Updates nochmal ueberarbeitet
+Message-ID: <200910300125.02562.hibiscus@willuhn.de>
+
+Hi (schon wieder ;),
+
+ich hab das mit dem Check des "last modified"-Datums jetzt komplett
+rausgeworfen und pruefe nur noch die Versionsnummern. Mit dem
+"last modified" konnte ich nicht wirklich zuverlaessig feststellen,
+ob ich den User nun schon ueber das Update benachrichtigt habe
+oder nicht.
+
+Wenn eine neue Version auf dem Server liegt, wird
+
+a) wenn "automatisch installieren" aktiviert ist:
+   das Plugin heruntergeladen und installiert. Fertig.
+
+b) wenn "nur benachrichtigen" aktiviert ist: Wurde der
+   User ueber diese Version noch nicht informiert, erscheint
+   ein Hinweis-Popup, welches der User mit <OK> bestaetigen
+   muss. Wenn er es nicht installiert, erscheint beim naechsten
+   Check nur noch ein dezenter Hinweis "x Updates gefunden"
+   in der Statusleiste. Er muss nichts mehr wegklicken.
+
+Insbesondere fuer Fall b) gibts nun zusaetzlich noch eine
+manuelle Update-Pruefung. Wenn sich der User irgendwann
+entschliesst, die Updates installieren zu wollen, geht er auf
+Datei->Einstellungen->Updates und klickt dort auf den
+Button "Jetzt nach Updates suchen". Wenn welche vorliegen,
+wird ihm eine Liste angezeigt, die nur genau die Plugins
+anzeigt, die in aktuelleren Versionen verfuegbar sind. Von dort
+kann er sie dann mit Rechtsklick und "herunterladen und installieren..."
+updaten.
+
+Gruss
+Olaf
+
+

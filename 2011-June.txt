@@ -1,0 +1,175 @@
+From heiner at jost-net.de  Wed Jun 29 20:16:40 2011
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 29 Jun 2011 20:16:40 +0200
+Subject: [jameica-devel] Diagnose-Backup/Restore
+Message-ID: <4E0B6C08.6060404@jost-net.de>
+
+Hallo Olaf,
+
+ich habe zur JVerein-Version 2.0.0 in der Datenbank den Datentyp für 
+booleans von CHAR(5) (Inhalt TRUE oder FALSE) auf Boolean (H2) und 
+BIT(1) (MySQL) umgestellt.
+
+Beim Import in eine MySQL-Datenbank werden Exceptions geworfen:
+
+[Wed Jun 29 20:08:57 CEST 
+2011][ERROR][de.jost_net.JVerein.gui.action.BackupRestoreAction$1.run] 
+unable to import de.jost_net.JVerein.server.EinstellungImpl:null, skipping
+java.rmi.RemoteException: insert failed, rollback successful; nested 
+exception is:
+     com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long 
+for column 'individuellebeitraege' at row 1
+     at 
+de.willuhn.datasource.db.AbstractDBObject.insert(AbstractDBObject.java:672)
+     at 
+de.jost_net.JVerein.gui.action.BackupRestoreAction$1.run(BackupRestoreAction.java:194)
+     at de.willuhn.jameica.gui.GUI$6.run(GUI.java:917)
+Caused by: com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too 
+long for column 'individuellebeitraege' at row 1
+     at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2983)
+     at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1631)
+     at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:1723)
+     at com.mysql.jdbc.Connection.execSQL(Connection.java:3256)
+     at 
+com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1313)
+     at 
+com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1585)
+     at 
+com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1500)
+     at 
+com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1485)
+     at 
+de.willuhn.datasource.db.AbstractDBObject.insert(AbstractDBObject.java:633)
+     ... 2 more
+
+Die XML-Datei sieht so aus:
+
+    :
+<object type="de.jost_net.JVerein.server.EinstellungImpl" id="1">
+    :
+    :
+<individuellebeitraege 
+type="java.lang.Boolean">false</individuellebeitraege>
+    :
+    :
+</object>
+
+Anscheinend wird "true" und nicht true in das DBObject übertragen. Das 
+ist doch sicher ein Jameica-Problem. Oder?
+
+Heiner
+
+
+From hibiscus at willuhn.de  Wed Jun 29 20:32:00 2011
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 29 Jun 2011 20:32:00 +0200
+Subject: [jameica-devel] Diagnose-Backup/Restore
+In-Reply-To: <4E0B6C08.6060404@jost-net.de>
+References: <4E0B6C08.6060404@jost-net.de>
+Message-ID: <4E0B6FA0.8020703@willuhn.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi,
+
+> ich habe zur JVerein-Version 2.0.0 in der Datenbank den Datentyp für
+> booleans von CHAR(5) (Inhalt TRUE oder FALSE) auf Boolean (H2) und
+> BIT(1) (MySQL) umgestellt.
+> 
+> Beim Import in eine MySQL-Datenbank werden Exceptions geworfen:
+[...]
+> Caused by: com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too
+> long for column 'individuellebeitraege' at row 1
+[...]
+> Die XML-Datei sieht so aus:
+[...]
+> <individuellebeitraege
+> type="java.lang.Boolean">false</individuellebeitraege>
+[...]
+> Anscheinend wird "true" und nicht true in das DBObject übertragen. Das
+> ist doch sicher ein Jameica-Problem. Oder?
+
+Das datasource-Package von Jameica unterstuetzt kein Boolean, weil es
+diesen Datentyp nicht in SQL gibt. Ich meine, woher soll jetzt Jameica
+wissen, wie es hier automatisiert eine Typ-Konvertierung von Boolean ->
+char(5) -> bit(1) machen soll?
+
+Das Fachobjekt liefert bei o.getAttribute("individuellebeitraege") halt
+ein Boolean zurueck. Das kann ich doch beim Einlesen nicht einfach
+automatisch in int konvertieren.
+
+Wenn du dein Fachobjekt so aenderst, dass
+"o.getAttribute("individuellebeitraege")" ein int zurueckliefert, sollte
+das gehen.
+
+Gruss
+Olaf
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.16 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOC2+gAAoJEFqO2c/A22xwjyIIAKhtQ/tp8vhl37a4wUe6Gfd7
+Em6HXdPwNg6GOjxW6e/3TgIQTq7rdqi34PaSP51HEnGqEtlRH3WpGjsiL9OV1yfV
+u0RYgvIK4/8sqYdheS5Lf6D8n6uBiV9QYEeVGsgFfYlC8ec3RJM4+5sOFQnwCjoa
+XVxoGnnVizlTvMOdwf3hhTGsgNsNd3UACH/l3+Xdf+PdJBJj3fObFkJGM/uyR65v
+ZUQQO00n8EznTujCRkS2R44eSbvQ+vH1cI3D1xt21EpFLm0YziKhXuv3WKYLDrrm
+ttlguHR3EiHU2LK/QoL6dOCA92nzSSLB3vXI4heqiTVEfs4pUFzzUEaxhhznPt8=
+=3zgT
+-----END PGP SIGNATURE-----
+
+
+From hibiscus at willuhn.de  Wed Jun 29 22:00:53 2011
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 29 Jun 2011 22:00:53 +0200
+Subject: [jameica-devel] Diagnose-Backup/Restore
+In-Reply-To: <4E0B6FA0.8020703@willuhn.de>
+References: <4E0B6C08.6060404@jost-net.de> <4E0B6FA0.8020703@willuhn.de>
+Message-ID: <4E0B8475.7000701@willuhn.de>
+
+>> <individuellebeitraege
+>> type="java.lang.Boolean">false</individuellebeitraege>
+
+Ich hab den XMLReader jetzt mal so erweitert, dass er den Wert als
+Boolean einliest. Ich weiss aber nicht, ob die Bean dann korrekt in der
+Datenbank gespeichert werden kann, weil Boolean wie gesagt kein
+Standard-SQL-Typ ist. Das Fix ist in de_willuhn_ds.jar - gerade eingecheckt.
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Wed Jun 29 22:46:14 2011
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 29 Jun 2011 22:46:14 +0200
+Subject: [jameica-devel] Diagnose-Backup/Restore
+In-Reply-To: <4E0B8475.7000701@willuhn.de>
+References: <4E0B6C08.6060404@jost-net.de> <4E0B6FA0.8020703@willuhn.de>
+	<4E0B8475.7000701@willuhn.de>
+Message-ID: <4E0B8F16.3000900@jost-net.de>
+
+Hallo Olaf,
+
+erste Tests sind positiv verlaufen. Sollte es noch Probleme geben, werde 
+ich mich wieder melden.
+
+Vielen Dank.
+
+Heiner
+
+Am 2011/06/29 22:00, schrieb Olaf Willuhn:
+>>> <individuellebeitraege
+>>> type="java.lang.Boolean">false</individuellebeitraege>
+> Ich hab den XMLReader jetzt mal so erweitert, dass er den Wert als
+> Boolean einliest. Ich weiss aber nicht, ob die Bean dann korrekt in der
+> Datenbank gespeichert werden kann, weil Boolean wie gesagt kein
+> Standard-SQL-Typ ist. Das Fix ist in de_willuhn_ds.jar - gerade eingecheckt.
+>
+> Gruss
+> Olaf
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>
+
+

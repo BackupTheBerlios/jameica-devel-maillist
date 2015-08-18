@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Fehler beim Erstellen des Schlüssels
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%3D%3Fiso-8859-15%3Fq%3FFehler_beim_Erstellen_des_Schl%3DFC%3F%3D%0A%09%3D%3Fiso-8859-15%3Fq%3Fssels%3F%3D&In-Reply-To=%3C4AD37B02.6080208%40gmx.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Fehler beim Erstellen des Schlüssels</H1>
+    <B>Patrick Hartzsch</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%3D%3Fiso-8859-15%3Fq%3FFehler_beim_Erstellen_des_Schl%3DFC%3F%3D%0A%09%3D%3Fiso-8859-15%3Fq%3Fssels%3F%3D&In-Reply-To=%3C4AD37B02.6080208%40gmx.de%3E"
+           TITLE="[jameica-devel] Fehler beim Erstellen des Schlüssels">patrick.hartzsch at gmx.de
+                  </A><BR>
+    <I>Mo Okt 12 20:52:50 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Nächste Nachricht: <A HREF="000039.html">[jameica-devel] Classfinder
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#38">[ Datum ]</a>
+              <a href="thread.html#38">[ Thema ]</a>
+              <a href="subject.html#38">[ Betreff (Subject) ]</a>
+              <a href="author.html#38">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo,
+
+ich habe mir die aktuelle Version von Jameica in Verbindung mit Hibiscus 
+heruntergeladen. Beim Erstellen des Sicherheitsmediums mit 
+&quot;Schlüsselmedium (RDH)&quot; wird alles soweit an Eingaben angenommen. Der 
+Hashwert, den ich von der Bank mitgeteilt bekommen habe, wird auch 
+richtig berechnet. Klicke ich aber nach Eingabe aller Daten auf 
+&quot;Schlüssel erstellen&quot;, bekomme ich die folgenden Fehlermeldung angezeigt:
+
+&quot;Fehler beim Erstellen des Schlüssels; Fehler beim Erzeugen eines 
+HBCIHandler Objekts.
+Quelle: de.willuhn.jameica.messaging.LogMessageConsumer.handleMessage&quot;.
+
+Informationen zu meinem OS und Java:
+
+java.runtime.name = Java(TM) 2 Runtime Environment, Standard Edition
+sun.boot.library.path = 
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Libraries
+java.vm.version = 1.5.0_20-141
+awt.nativeDoubleBuffering = true
+gopherProxySet = false
+java.vm.vendor = Apple Inc.
+java.vendor.url = <A HREF="http://www.apple.com/">http://www.apple.com/</A>
+path.separator = :
+java.vm.name = Java HotSpot(TM) Client VM
+file.encoding.pkg = sun.io
+user.country = DE
+sun.java.launcher = SUN_STANDARD
+sun.os.patch.level = unknown
+java.vm.specification.name = Java Virtual Machine Specification
+user.dir = /Users/patrick
+java.runtime.version = 1.5.0_20-b02-315
+java.awt.graphicsenv = apple.awt.CGraphicsEnvironment
+java.endorsed.dirs = 
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib/endorsed
+os.arch = i386
+java.io.tmpdir = /var/folders/iv/iv03GG0RExCDdNF97IZMf++++TM/-Tmp-/
+line.separator =
+
+java.vm.specification.vendor = Sun Microsystems Inc.
+os.name = Mac OS X
+sun.jnu.encoding = MacRoman
+java.library.path = 
+.:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.specification.name = Java Platform API Specification
+java.class.version = 49.0
+sun.management.compiler = HotSpot Client Compiler
+os.version = 10.5.8
+http.nonProxyHosts = local|*.local|169.254/16|*.169.254/16
+user.timezone =
+java.awt.printerjob = apple.awt.CPrinterJob
+file.encoding = MacRoman
+java.specification.version = 1.5
+user.name = patrick
+java.class.path = .
+java.vm.specification.version = 1.0
+sun.arch.data.model = 32
+java.home = /System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home
+java.specification.vendor = Sun Microsystems Inc.
+user.language = de
+awt.toolkit = apple.awt.CToolkit
+java.vm.info = mixed mode, sharing
+java.version = 1.5.0_20
+java.ext.dirs = 
+/Library/Java/Extensions:/System/Library/Java/Extensions:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib/ext
+sun.boot.class.path = 
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jsfd.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/ui.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/laf.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/sunrsasign.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jsse.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jce.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/charsets.jar
+java.vendor = Apple Inc.
+file.separator = /
+java.vendor.url.bug = <A HREF="http://bugreport.apple.com/">http://bugreport.apple.com/</A>
+sun.cpu.endian = little
+sun.io.unicode.encoding = UnicodeLittle
+mrj.version = 1050.1.5.0_20-315
+socksNonProxyHosts = local|*.local|169.254/16|*.169.254/16
+ftp.nonProxyHosts = local|*.local|169.254/16|*.169.254/16
+
+Gruß
+Patrick
+-------------- nächster Teil --------------
+Ein Dateianhang mit HTML-Daten wurde abgetrennt...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/jameica-devel/attachments/20091012/b181d857/attachment.html">https://lists.berlios.de/pipermail/jameica-devel/attachments/20091012/b181d857/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Nächste Nachricht: <A HREF="000039.html">[jameica-devel] Classfinder
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#38">[ Datum ]</a>
+              <a href="thread.html#38">[ Thema ]</a>
+              <a href="subject.html#38">[ Betreff (Subject)]</a>
+              <a href="author.html#38">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

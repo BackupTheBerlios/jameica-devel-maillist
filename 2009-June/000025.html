@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] JUnit-Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C200906292338.27715.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000024.html">
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] JUnit-Test von Jameica-Plugins</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C200906292338.27715.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] JUnit-Test von Jameica-Plugins">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mo Jun 29 23:38:27 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000024.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000026.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#25">[ Datum ]</a>
+              <a href="thread.html#25">[ Thema ]</a>
+              <a href="subject.html#25">[ Betreff (Subject) ]</a>
+              <a href="author.html#25">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> vielen Dank für deine Antwort. Jetzt klemmt es bei der Prüfung der
+</I>&gt;<i> Bankverbindung:
+</I>&gt;<i>
+</I>&gt;<i>  public final static boolean checkAccountCRC(String blz, String
+</I>&gt;<i> kontonummer) {
+</I>&gt;<i>     QueryMessage q = new QueryMessage(blz + &quot;:&quot; + kontonummer);
+</I>&gt;<i>     Application.getMessagingFactory().getMessagingQueue(
+</I>&gt;<i>         &quot;hibiscus.query.accountcrc&quot;).sendSyncMessage(q);
+</I>&gt;<i>     Object data = q.getData();
+</I>&gt;<i>
+</I>&gt;<i>     // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
+</I>&gt;<i>     // ist Hibiscus vermutlich nicht installiert. In dem Fall
+</I>&gt;<i>     // lassen wir die Konto/BLZ-Kombination mangels besserer
+</I>&gt;<i>     // Informationen zu
+</I>&gt;<i>     return (data == null || !(data instanceof Boolean)) ? true
+</I>&gt;<i>
+</I>&gt;<i>         : ((Boolean) data).booleanValue();
+</I>&gt;<i>
+</I>&gt;<i>   }
+</I>&gt;<i>
+</I>&gt;<i> Wenn das gelöst ist, wird es vermutlich weitere Probleme geben.
+</I>
+Was geht denn mit dem Code nicht?
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000024.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000026.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#25">[ Datum ]</a>
+              <a href="thread.html#25">[ Thema ]</a>
+              <a href="subject.html#25">[ Betreff (Subject)]</a>
+              <a href="author.html#25">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

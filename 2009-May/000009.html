@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Neuer Konstruktor für SearchInput
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-May/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%0A%09%3D%3Fiso-8859-1%3Fq%3FNeuer_Konstruktor_f%3DFCr_SearchInpu%3F%3D%0A%09%3D%3Fiso-8859-1%3Fq%3Ft%3F%3D&In-Reply-To=%3C200905191221.18134.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Neuer Konstruktor für SearchInput</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%0A%09%3D%3Fiso-8859-1%3Fq%3FNeuer_Konstruktor_f%3DFCr_SearchInpu%3F%3D%0A%09%3D%3Fiso-8859-1%3Fq%3Ft%3F%3D&In-Reply-To=%3C200905191221.18134.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Neuer Konstruktor für SearchInput">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Di Mai 19 12:21:18 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000008.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000010.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#9">[ Datum ]</a>
+              <a href="thread.html#9">[ Thema ]</a>
+              <a href="subject.html#9">[ Betreff (Subject) ]</a>
+              <a href="author.html#9">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> so funktioniert es bei mir noch nicht. Ich möchte einen Leerstring (&quot;&quot;)
+</I>&gt;<i> übergeben. Ändere die Methode bitte wie folgt:
+</I>&gt;<i>
+</I>&gt;<i>  public void setSearchString(String text)
+</I>&gt;<i>   {
+</I>&gt;<i>     if (text != null)
+</I>&gt;<i>       this.search = text;
+</I>&gt;<i>   }
+</I>
+Ah, ok. Ich wusste nicht, dass du den Text komplett entfernen willst.
+Habs geaendert.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000008.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000010.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#9">[ Datum ]</a>
+              <a href="thread.html#9">[ Thema ]</a>
+              <a href="subject.html#9">[ Betreff (Subject)]</a>
+              <a href="author.html#9">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

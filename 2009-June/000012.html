@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Nutzt%20jemand%20%22LoginDialog%22%3F&In-Reply-To=%3C200906091434.41159.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000011.html">
+   <LINK REL="Next"  HREF="000013.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Nutzt%20jemand%20%22LoginDialog%22%3F&In-Reply-To=%3C200906091434.41159.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Di Jun  9 14:34:40 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000011.html">[jameica-devel] Neue H2-Version
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000013.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#12">[ Datum ]</a>
+              <a href="thread.html#12">[ Thema ]</a>
+              <a href="subject.html#12">[ Betreff (Subject) ]</a>
+              <a href="author.html#12">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi Liste,
+
+Bei HTTP-Verbindungen hat man unter Umstaenden ja ein Login (meist mittels
+HTTP-Basic Authorization). Ich moechte den Support hierfuer gerade in
+das Plugin jameica.update einbauen. Damit waere es dann moeglich, Login-
+geschuetzte Download-Repositories anzubieten. Ist z.Bsp. nuetzlich, wenn
+man bei einem Kunden eine Jameica-basierte Software installiert ist
+und dieser sich Updates bequem installieren koennen soll, ohne dass
+man sie ihm selbst schicken muss. Man kann hierzu ein Jameica-Update-
+Repository fuer ihn einrichten, welches mittels htaccess geschuetzt ist,
+sodass nur der Kunde seine Updates installieren kann.
+
+Konkret moechte ich hierfuer die Klasse de.....dialogs.LoginDialog
+verwenden. Allerdings habe ich gerade festgestellt, dass deren Code
+maechtig alt und unschoen ist. Ich wuerde ihn gleich mal neu machen.
+
+Daher meine Frage: Nutzt die Klasse ueberhaupt jemand? Insbesondere
+sind da die folgenden zwei Funktionen drin:
+
+setPasswordLabelText()
+setUsernameLabelText()
+
+die ich rauswerfen wuerde, wenn sie niemand braucht.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000011.html">[jameica-devel] Neue H2-Version
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000013.html">[jameica-devel] Nutzt jemand &quot;LoginDialog&quot;?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#12">[ Datum ]</a>
+              <a href="thread.html#12">[ Thema ]</a>
+              <a href="subject.html#12">[ Betreff (Subject)]</a>
+              <a href="author.html#12">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

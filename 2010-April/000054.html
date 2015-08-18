@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] SWT-Update auf 3.5.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2010-April/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SWT-Update%20auf%203.5.2&In-Reply-To=%3C4BC45E43.5070200%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] SWT-Update auf 3.5.2</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SWT-Update%20auf%203.5.2&In-Reply-To=%3C4BC45E43.5070200%40willuhn.de%3E"
+           TITLE="[jameica-devel] SWT-Update auf 3.5.2">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Di Apr 13 14:06:27 CEST 2010</I>
+    <P><UL>
+        
+        
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#54">[ Datum ]</a>
+              <a href="thread.html#54">[ Thema ]</a>
+              <a href="subject.html#54">[ Betreff (Subject) ]</a>
+              <a href="author.html#54">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi zusammen,
+
+die von Jameica verwendeten SWT-Versionen waren ja nun schon
+lange nicht mehr aktuell. Jetzt - nach dem Release von Jameica 1.9 -
+ist die Spielwiese fuer Experimente wieder offen. Also hab ich
+das SWT 3.3 gegen die aktuelle 3.5.2 getauscht. Ist im CVS und
+ab morgen im Nightly-Build.
+
+Getestet hab ich bisher nur unter Linux (32Bit). Noch zu
+testen sind:
+
+[ ] Linux 64Bit
+[ ] Windows 32Bit
+[ ] Windows 64Bit
+[ ] Mac OS X 10.5 32Bit-JVM
+[ ] Mac OS X 10.5 64Bit-JVM (gibts das ueberhaupt)
+[ ] Mac OS X 10.6 32Bit-JVM
+[ ] Mac OS X 10.6 64Bit-JVM
+
+Wenn ihr eines dieser Betriebssysteme habt, wuerde ich mich
+ueber Testrueckmeldungen freuen.
+
+PS: In dem Zusammenhang noch eine kleine Falle, die seinerzeit
+dazu fuehrte, dass ich ein schonmal durchgefuehrtes Update auf
+SWT 3.4 wieder zurueckgezogen hatte: Befindet sich in einem
+modalen Dialog (von AbstractDialog abgeleitet) ein SelectInput,
+so konnte die Selectbox zwar aufgeklappt werden, man konnte
+aber nichts da drin auswaehlen. Grund hierfuer war schlicht ein
+Bug in AbstractDialog, den ich erst jetzt gefunden habe.
+
+Alter Code in AbstractDialog:
+
+new Shell(GUI.getDisplay(),... SWT.APPLICATION_MODAL);
+
+&quot;APPLICATION_MODAL&quot; bewirkt, dass Eingaben ausschliesslich in
+dieser Shell (also die vom Dialog selbst) zulaessig sind. Ist soweit
+korrekt - schliesslich soll man ja waehrenddessen nichts im
+Jameica-Hauptfenster eingeben koennen. Das in Jameica implementierte
+&quot;SelectInput&quot; verwendet jedoch intern ein
+&quot;org.eclipse.swt.custom.CCombo&quot;. Und dieses nutzt zum Zeichen
+der Dropdown-Box eine weitere Shell. Die kriegt wegen
+APPLICATION_MODAL keinen Fokus, was zu dem Fehler fuehrte, dass
+man in einem Dialog, der eine Selectbox enthaelt, nichts auswaehlen
+konnte. SWT 3.3 hat das offensichtlich noch toleriert, 3.4+ nicht
+mehr.
+
+
+Neuer Code in AbstractDialog:
+
+new Shell(GUI.getShell(),... SWT.PRIMARY_MODAL);
+
+&quot;PRIMARY_MODAL&quot; bewirkt, dass ausschliesslich in Parent-Shells
+Eingaben unterdrueckt werden. Das betrifft dann also nur noch
+das Jameica-Hauptfenster und nicht mehr die Selectbox. Damit das
+funktioniert, darf der Dialog als Parent nicht aber mehr das Display
+selbst (&quot;GUI.getDisplay()&quot;) haben sondern die Shell des Jameica-
+Hauptfensters (&quot;GUI.getShell()&quot;).
+
+Damit konnte ich den Fehler - zumindest unter Linux/32Bit beheben.
+Ich hoffe, auf den anderen Plattformen funktioniert das auch korrekt.
+
+Gruss
+Olaf
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#54">[ Datum ]</a>
+              <a href="thread.html#54">[ Thema ]</a>
+              <a href="subject.html#54">[ Betreff (Subject)]</a>
+              <a href="author.html#54">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

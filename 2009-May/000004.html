@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] NEU: TablePart#setRememberState(boolean)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-May/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20NEU%3A%20TablePart%23setRememberState%28boolean%29&In-Reply-To=%3C200905111649.11540.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000003.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] NEU: TablePart#setRememberState(boolean)</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20NEU%3A%20TablePart%23setRememberState%28boolean%29&In-Reply-To=%3C200905111649.11540.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] NEU: TablePart#setRememberState(boolean)">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mo Mai 11 16:49:11 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000003.html">[jameica-devel] SearchInput
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000005.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#4">[ Datum ]</a>
+              <a href="thread.html#4">[ Thema ]</a>
+              <a href="subject.html#4">[ Betreff (Subject) ]</a>
+              <a href="author.html#4">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+ein Feature, welches sich Hibiscus-User fuer die lange Tabelle
+mit den Kontoauszuegen oft wuenschen, ist das Speichern des zuletzt
+selektierten Objektes, sodass man wieder an der gleichen Stelle
+in der Tabelle landet, wenn man aus der Detail-Ansicht zurueckkehrt.
+Da das Feature sicher auch an anderen Stellen nuetzlich ist, habe
+ich es gleich direkt in TablePart implementiert.
+
+Das Feature kann einfach mit &quot;table.setRememberState(true)&quot;
+aktiviert werden (aehnlich zu den bereits existierenden Funktionen
+&quot;setRememberOrder(boolean)&quot; und &quot;setRememberColWidths(boolean)&quot;).
+
+Die Tabelle speichert daraufhin selbstaendig die gerade selektierten
+Objekte und die Scrollposition in einer Session und haelt diese
+fuer 30 Minuten. Wir die Tabelle binnen dieser Zeit erneut geoeffnet
+(z.Bsp. weil man aus der Detailsseite zurueckkehrt), springt die
+Tabelle automatisch wieder an die Position zurueck und selektiert
+die Objekte wieder (insofern sie noch existieren).
+
+Das Selektieren und Scrollen kann auch manuell durch Aufruf
+der Funktion &quot;restoreState()&quot; durchgefuehrt werden. Ist z.Bsp.
+dann nuetzlich, wenn man TablePart samt der &quot;paint(Composite)&quot;-Methode
+ueberschrieben hat.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000003.html">[jameica-devel] SearchInput
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000005.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#4">[ Datum ]</a>
+              <a href="thread.html#4">[ Thema ]</a>
+              <a href="subject.html#4">[ Betreff (Subject)]</a>
+              <a href="author.html#4">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

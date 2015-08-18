@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] JUnit-Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-July/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C200907010046.36884.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] JUnit-Test von Jameica-Plugins</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C200907010046.36884.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] JUnit-Test von Jameica-Plugins">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mi Jul  1 00:46:36 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Nächste Nachricht: <A HREF="000028.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#27">[ Datum ]</a>
+              <a href="thread.html#27">[ Thema ]</a>
+              <a href="subject.html#27">[ Betreff (Subject) ]</a>
+              <a href="author.html#27">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> folgende Exception wird geworfen:
+</I>&gt;<i>
+</I>&gt;<i> java.lang.ExceptionInInitializerError
+</I>[...]
+&gt;<i> Caused by: java.lang.NullPointerException at
+</I>&gt;<i> de.willuhn.jameica.system.Application.getConfig(Application.java:285)
+</I>
+Das passiert, wenn man versucht, Plugin-Code ausserhalb
+von Jameica auszufuehren - also ohne das Framework vorher
+gestartet zu haben. Dann existiert die komplette Jameica-
+Infrastruktur nicht. 
+
+Hier gaebe es zwei Moeglichkeiten, das zu umgehen.
+
+1) den zu testenden Code so umbauen, dass er keine Abhaengigkeiten
+   zu Jameica hat (alles, was de.willuhn.util und de.willuhn.ds
+   betrifft, funktioniert auch ohne Jameica). Im konkreten
+   Beispiel StammdatenImpl.class ist das vermutlich ein
+   Aufruf von Application.getConfig() in einer statischen
+   Member-Variable oder in einem static{}-Block. Dort wird
+   der ExceptionInInitializerError geworfen, was dazu fuehrt,
+   dass die Klasse nicht geladen werden kann.
+   Da es nicht immer moeglich ist, saemtliche Jameica-Referenzen
+   zu entfernen, bestuende noch Moeglichkeit 2.
+
+2) Den Test-Code nicht direkt aufrufen sondern indirekt
+   ueber eine Jameica-Instanz (so wie das Markus auch macht).
+
+   Ich hatte das vor langer Zeit auch mal fuer Hibiscus gemacht,
+   dann aber nicht mehr weiter gepflegt. Die Gelegenheit jetzt
+   hab ich mal zum Anlass genommen, das auf einen aktuellen
+   Stand zu bringen. Ist im Hibiscus-CVS unter
+   &quot;hibiscus.junit&quot; eingecheckt.
+   <A HREF="http://cvs.berlios.de/cgi-bin/viewvc.cgi/hibiscus/hibiscus.junit/">http://cvs.berlios.de/cgi-bin/viewvc.cgi/hibiscus/hibiscus.junit/</A>
+
+   Es ist ebenfalls ein Jameica-Plugin, bei dem jedoch in
+   plugin.xml eine Abhaengigkeit zu Hibiscus deklariert ist,
+   sodass sichergestellt wird, dass Hibiscus VOR dem Tester
+   geladen wird.
+
+   Das Projekt enthaelt eine vorgefertigte Launch-Konfiguration
+   mit dem Namen &quot;Hibiscus-Tests&quot;, die automatisch in Eclipse
+   angelegt werden sollte, sobald das Projekt geoeffnet wird.
+   Im Wesentlichen wird hierbei die main()-Methode von
+   de.willuhn.jameica.hbci.junit.AllTests gestartet. Die
+   darin enthaltene Funktion suite() erstellt eine passende
+   Jameica-Konfiguration und startet dann Jameica. Die Tests
+   selbst werden dann in TestPlugin#init() aufgerufen.
+   Wichtig ist, dass die Launch-Konfiguration in Eclipse
+   so eingestellt ist, dass sie aus dem Jameica-Verzeichnis
+   heraus startet. Launch-Configuration-&gt;Arguments-&gt;Working directory
+   auf &quot;Other&quot; mit dem Wert &quot;${workspace_loc:jameica}&quot; stellen.
+   In der beliegenden Launch-Config ist das bereits so
+   eingestellt.
+
+Gruss
+Olaf
+   
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Nächste Nachricht: <A HREF="000028.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#27">[ Datum ]</a>
+              <a href="thread.html#27">[ Thema ]</a>
+              <a href="subject.html#27">[ Betreff (Subject)]</a>
+              <a href="author.html#27">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

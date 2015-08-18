@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] JUnit-Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A477335.4070605%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000022.html">
+   <LINK REL="Next"  HREF="000021.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] JUnit-Test von Jameica-Plugins</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A477335.4070605%40jost-net.de%3E"
+           TITLE="[jameica-devel] JUnit-Test von Jameica-Plugins">heiner at jost-net.de
+                  </A><BR>
+    <I>So Jun 28 15:42:13 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000022.html">[jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000021.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#19">[ Datum ]</a>
+              <a href="thread.html#19">[ Thema ]</a>
+              <a href="subject.html#19">[ Betreff (Subject) ]</a>
+              <a href="author.html#19">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo,
+
+ich habe folgende Klassen zum Test eines DB-Objektes erstellt:
+
+package de.jost_net.JVerein.server;
+
+import static org.junit.Assert.assertTrue;
+
+import java.rmi.RemoteException;
+
+import org.junit.Test;
+
+import de.jost_net.JVerein.JVereinPluginTest;
+import de.jost_net.JVerein.rmi.Stammdaten;
+
+public class StammdatenTest
+{
+  @Test
+  public void test01()
+  {
+    Stammdaten st = null;
+    try
+    {
+      st = (Stammdaten) JVereinPluginTest.getDB().createObject(
+          Stammdaten.class, &quot;1&quot;);
+    }
+    catch (RemoteException e)
+    {
+      assertTrue(&quot;Fehler: &quot; + e.getMessage(), false);
+    }
+    assertTrue(st != null);
+  }
+}
+
+
+package de.jost_net.JVerein;
+
+import java.rmi.RemoteException;
+
+import de.willuhn.datasource.db.DBServiceImpl;
+import de.willuhn.datasource.rmi.DBService;
+
+public class JVereinPluginTest
+{
+  private static DBService db;
+
+  public static final int DBTYPE_MYSQL = 1;
+
+  private static int DBTYPE = DBTYPE_MYSQL;
+
+  private static String driver = null;
+
+  private static String url = null;
+
+  private static String user = null;
+
+  private static String password = null;
+
+  public static DBService getDB() throws RemoteException
+  {
+    // Datenbank-Service erstellen.
+    switch (DBTYPE)
+    {
+      case DBTYPE_MYSQL:
+      {
+        driver = &quot;com.mysql.jdbc.Driver&quot;;
+        url = 
+&quot;jdbc:<A HREF="mysql://localhost:3306/jverein?useUnicode=Yes&amp;characterEncoding=ISO8859_1">mysql://localhost:3306/jverein?useUnicode=Yes&amp;characterEncoding=ISO8859_1</A>&quot;;
+        user = &quot;jverein&quot;;
+        password = &quot;jverein&quot;;
+        break;
+      }
+    }
+    db = new DBServiceImpl(driver, url, user, password);
+    db.start();
+    System.out.println(db.getName());
+    return db;
+  }
+
+  public void setDBType(int dbtype)
+  {
+    DBTYPE = dbtype;
+  }
+}
+
+Bei Ablauf wird folgende Exception geworfen:
+
+java.lang.AssertionError: Fehler: unable to create object 
+de.jost_net.JVerein.rmi.Stammdaten; nested exception is:
+    java.lang.Exception: no classfinder defined: unable to find 
+implementor for interface de.jost_net.JVerein.rmi.Stammdaten
+    at org.junit.Assert.fail(Assert.java:91)
+    at org.junit.Assert.assertTrue(Assert.java:43)
+    at 
+de.jost_net.JVerein.server.StammdatenTest.test01(StammdatenTest.java:26)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at 
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at 
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    at java.lang.reflect.Method.invoke(Method.java:597)
+    at 
+org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+    at 
+org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+    at 
+org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+    at 
+org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+    at 
+org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+    at 
+org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    at 
+org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+    at 
+org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+    at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+    at 
+org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+    at 
+org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+    at 
+org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:46)
+    at 
+org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+    at 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+
+
+Die erforderlichen Klassen befinden sich im Classpath.
+
+Was ist zu tun?
+
+Heiner
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000022.html">[jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000021.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#19">[ Datum ]</a>
+              <a href="thread.html#19">[ Thema ]</a>
+              <a href="subject.html#19">[ Betreff (Subject)]</a>
+              <a href="author.html#19">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Sourcecode von mckoiddb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-December/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Sourcecode%20von%20mckoiddb&In-Reply-To=%3C200912301618.12582.f.koester%40tarent.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000051.html">
+   <LINK REL="Next"  HREF="000053.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Sourcecode von mckoiddb</H1>
+    <B>Fabian Köster</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Sourcecode%20von%20mckoiddb&In-Reply-To=%3C200912301618.12582.f.koester%40tarent.de%3E"
+           TITLE="[jameica-devel] Sourcecode von mckoiddb">f.koester at tarent.de
+                  </A><BR>
+    <I>Mi Dez 30 16:18:07 CET 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000051.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000053.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#52">[ Datum ]</a>
+              <a href="thread.html#52">[ Thema ]</a>
+              <a href="subject.html#52">[ Betreff (Subject) ]</a>
+              <a href="author.html#52">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Am Mittwoch 30 Dezember 2009 15:00:34 schrieb Heiner Jostkleigrewe:
+&gt;<i> Hallo Fabian,
+</I>&gt;<i> 
+</I>&gt;<i> das war mir so nicht bekannt. Dann muss Olaf gelegentlich mal aufräumen ;-)
+</I>
+Ja :)
+
+Ich habe gerade erst verstanden, dass es von der MckoiDB seit Version 1.0.3 
+(16. August 2004) keine Aktualisierungen mehr gibt. Ich glaube, dass Jameica 
+auch diese Version verwendet.
+
+Die nun veröffentlichte Version ist eine vollständige Neuentwicklung namens 
+MckoiDDB (Mckoi _Distributed_ Database).
+
+Die alte MckoiDB gibt es unter <A HREF="http://www.mckoi.com/Mckoi">http://www.mckoi.com/Mckoi</A> SQL Database.html.
+
+Werde daher nun diese paketieren.
+
+Gruß,
+Fabian
+ 
+&gt;<i> Fabian Köster schrieb:
+</I>&gt;<i> &gt; Hallo Heiner,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr.
+</I>&gt;<i> &gt;&gt; Vermutlich wird die Bibliothek nicht mehr gebraucht.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Die Bibliothek de_willuhn_ds benötigt (zumindest zur Compile-Zeit) die
+</I>&gt;<i> &gt; McKoi- DB. Jameica wiederum benötigt de_willuhn_ds.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Gruß,
+</I>&gt;<i> &gt; Fabian
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Fabian Köster schrieb:
+</I>&gt;<i> &gt;&gt;&gt; Hi Olaf,
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; ich erstelle gerade Pakete von Jameica für Debian [1] und wundere
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; mich, wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+</I>&gt;<i> &gt;&gt;&gt;&gt;  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher
+</I>&gt;<i> &gt;&gt;&gt;&gt; aktualisiere ich die Version auch nicht mehr. Zu dieser Entscheidung
+</I>&gt;<i> &gt;&gt;&gt;&gt; bin ich u.a. daher gekommen, weil McKoi scheinbar ein verwaistes
+</I>&gt;<i> &gt;&gt;&gt;&gt; Projekt war (zumindest erschienen da einige Jahre keine neuen Releases
+</I>&gt;<i> &gt;&gt;&gt;&gt; mehr). Inzwischen ist wohl wieder eine neue Version rausgekommen.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Ah ok, so etwas hatte ich bereits vermutet.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; In der Datei lib/mckoi/info.xml wird als Quelle die URL
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; <A HREF="http://mckoi.com">http://mckoi.com</A> genannt. In der Download-Seite der Webseite zu
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; dieser URL findet man eine Zip- Datei [2], welche neben den
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Bytecode-Dateien auch den dazugehörigen Sourcecode enthält, jedoch
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; nicht von den selben Klassen wie sie mit Jameica 1.8 ausgelieferten
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; werden.
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+</I>&gt;<i> &gt;&gt;&gt;&gt; die aktuelle Version.
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Woher kommen diese?
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Urspruenglich von der von dir genannten Webseite. Dass die Version
+</I>&gt;<i> &gt;&gt;&gt;&gt; dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+</I>&gt;<i> &gt;&gt;&gt;&gt; Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+</I>&gt;<i> &gt;&gt;&gt;&gt; Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+</I>&gt;<i> &gt;&gt;&gt;&gt; du unter:
+</I>&gt;<i> &gt;&gt;&gt;&gt; <A HREF="http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi">http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;/
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du
+</I>&gt;<i> &gt;&gt;&gt; die Quellen der Libs ins CVS eingespeist hast!
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann
+</I>&gt;<i> &gt;&gt;&gt; kein großes Problem mehr sein.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Gruß,
+</I>&gt;<i> &gt;&gt;&gt; Fabian
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; -----------------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;-
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt; jameica-devel mailing list
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; jameica-devel mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; jameica-devel mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> jameica-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i> 
+</I>
+-- 
+tarent Gesellschaft für Softwareentwicklung und IT-Beratung mbH
+Geschäftsführer: Boris Esser, Elmar Geese
+HRB AG Bonn 5168 - Ust-ID: DE122264941
+<A HREF="http://www.tarent.com/">http://www.tarent.com/</A>
+
+Heilsbachstr. 24, 53123 Bonn,   fon +49 228 52675-0,   fax +49 228 52675-25
+Weigandufer 45,   12059 Berlin, fon +49 30 5682943-30, fax +49 228 52675-25
+Schützenstr. 18,  10117 Berlin, fon +49 30 27594853,   fax +49 30 78709617
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : signature.asc
+Dateityp    : application/pgp-signature
+Dateigröße  : 664 bytes
+Beschreibung: This is a digitally signed message part.
+URL         : &lt;<A HREF="https://lists.berlios.de/pipermail/jameica-devel/attachments/20091230/46b91608/attachment.pgp">https://lists.berlios.de/pipermail/jameica-devel/attachments/20091230/46b91608/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000051.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000053.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#52">[ Datum ]</a>
+              <a href="thread.html#52">[ Thema ]</a>
+              <a href="subject.html#52">[ Betreff (Subject)]</a>
+              <a href="author.html#52">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Classfinder
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Classfinder&In-Reply-To=%3C200910190036.08874.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000039.html">
+   <LINK REL="Next"  HREF="000041.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Classfinder</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Classfinder&In-Reply-To=%3C200910190036.08874.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] Classfinder">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mo Okt 19 00:36:08 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000039.html">[jameica-devel] Classfinder
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000041.html">[jameica-devel] Classfinder
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#40">[ Datum ]</a>
+              <a href="thread.html#40">[ Thema ]</a>
+              <a href="subject.html#40">[ Betreff (Subject) ]</a>
+              <a href="author.html#40">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> ich möchte JVerein um Extensions erweitern. Damit sollen individuelle
+</I>&gt;<i> Import-Klassen realisiert werden.
+</I>&gt;<i>
+</I>&gt;<i> Sofern sich die Klassen im JVerein-Projekt befinden, werden sie vom
+</I>&gt;<i> Classfinder gefunden. Wenn sie sich in einem anderen Projekt befinden
+</I>&gt;<i> klappt es leider nicht. Das gilt sowohl für die Class-Dateien als auch
+</I>&gt;<i> für jar-Dateien.
+</I>&gt;<i>
+</I>&gt;<i> In der plugin.xml gibt es folgenden Eintrag:
+</I>&gt;<i>
+</I>&gt;<i>   &lt;classfinder&gt;
+</I>&gt;<i>     &lt;include&gt;jverein\.jar&lt;/include&gt;
+</I>&gt;<i>     &lt;include&gt;.*\.class&lt;/include&gt;
+</I>&gt;<i>     &lt;include&gt;jverein\ext\.jar&lt;/include&gt;
+</I>&gt;<i>     &lt;include&gt;../../jverein.import/bin/*\.class&lt;/include&gt;
+</I>&gt;<i>   &lt;/classfinder&gt;
+</I>&gt;<i>
+</I>&gt;<i> Die letzten beiden Einträge habe ich neu hinzugefügt.
+</I>&gt;<i>
+</I>&gt;<i> Wer kann mir helfen?
+</I>
+Per Default verwenden die Plugins einen gemeinsamen Classloader, der
+alle Plugins kennt. Es sei denn, man deklariert das Plugin in plugin.xml
+explizit als privat (mit &quot;&lt;plugin .... shared=&quot;false&quot;&gt;&quot;). Das heisst,
+die Classfinder-Deklarationen koennen auch in dem Erweiterungsplugin
+gemacht werden, damit sie gefunden werden. 
+
+Heisst:
+
+1) Die Erweiterung kann sich entweder in einem separaten Plugin
+   (wir nennen es mal &quot;jverein.foo&quot;) befinden. Dann sollte dort der
+   Classfinder entsprechend konfiguriert werden. Also z.Bsp. so:
+
+   &lt;classfinder&gt;
+     &lt;include&gt;jverein\.foo\.jar&lt;/include&gt;
+     &lt;include&gt;.*\.class&lt;/include&gt;
+   &lt;/classfinder&gt;
+
+   In dem Fall muss die plugin.xml von JVerein nicht angepasst werden.
+
+2) Oder die Extension wird als Jar-Datei compiliert und z.Bsp.
+   unter dem Dateinamen &quot;ext_foo.jar&quot; in plugins/jverein/lib
+   abgelegt. Dann muesste in der plugin.xml von Jverein noch folgende
+   Zeile zum Classfinder hinzugefuegt werden, damit Dateien des Schemas
+   ext_*.jar gefunden werden:
+
+   &lt;include&gt;ext_.*\.jar&lt;/include&gt;
+
+
+Gruss
+Olaf
+   
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000039.html">[jameica-devel] Classfinder
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000041.html">[jameica-devel] Classfinder
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#40">[ Datum ]</a>
+              <a href="thread.html#40">[ Thema ]</a>
+              <a href="subject.html#40">[ Betreff (Subject)]</a>
+              <a href="author.html#40">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

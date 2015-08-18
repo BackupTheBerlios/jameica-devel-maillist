@@ -1,0 +1,59 @@
+From hibiscus at willuhn.de  Wed Aug 25 13:29:44 2010
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 25 Aug 2010 13:29:44 +0200
+Subject: [jameica-devel] Updates: Neue Versionen von SWT und H2
+Message-ID: <4C74FEA8.30408@willuhn.de>
+
+Hi,
+
+1) am 17.08. hab ich die SWT-Libs in jameica/lib/swt
+   auf SWT 3.6 aktualisiert. Bisher wurde 3.5.2 verwendet.
+
+2) Gerade eben hab ich noch die h2.jar in jameica/lib/h2
+   auf die aktuelle Version 1.2.141 vom 2010-08-22 aktualisiert.
+
+   H2 hat mit Version 1.2.129 (2010-02-19) das interne Datenbank-Format
+   (Page-Store) umgestellt. Die erzeugten Datenbanken von H2 1.1.x und
+   1.2.x sind nicht kompatibel zueinander. Gluecklicherweise gabs
+   auf www.h2database.com ein vollautomatisches Konvertierungstool
+   (h2mig_pagestore_addon.jar), welches die Umstellung auf das neue
+   Format ohne jegliche Benutzereingriffe uebernimmt. Daher ist es
+   wichtig, dass in jameica/lib/h2 nun neben h2.jar auch diese
+   h2mig_pagestore_addon.jar enthalten ist.
+
+   Wenn H2 beim Start feststellt, dass die Datenbank noch in dem
+   alten Format vorliegt und das Pagestore-Addon vorhanden ist, wird
+   die Datenbank vollautomatisch auf das neue Format konvertiert.
+   Lediglich der Start dauert dann beim ersten Mal einen Moment
+   laenger.
+
+   Im eigenen Code muss hierfuer nichts geaendert werden - die
+   Umstellung macht H2 ganz allein "unter der Haube".
+
+   Wenn euch in dem Zusammenhang irgendwelche Probleme auffallen,
+   gebt mir bitte Bescheid.
+
+Gruss
+Olaf
+
+
+From hibiscus at willuhn.de  Wed Aug 25 16:48:25 2010
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 25 Aug 2010 16:48:25 +0200
+Subject: [jameica-devel] Updates: Neue Versionen von SWT und H2
+In-Reply-To: <4C74FEA8.30408@willuhn.de>
+References: <4C74FEA8.30408@willuhn.de>
+Message-ID: <4C752D39.5030703@willuhn.de>
+
+Nachtrag:
+
+>  H2 hat mit Version 1.2.129 (2010-02-19) das interne Datenbank-Format
+>  (Page-Store) umgestellt. Die erzeugten Datenbanken von H2 1.1.x und
+>  1.2.x sind nicht kompatibel zueinander. Gluecklicherweise gabs
+>  auf www.h2database.com ein vollautomatisches Konvertierungstool
+
+Unter http://www.h2database.com/html/advanced.html#database_upgrade
+ist das ganze nochmal beschrieben.
+
+
+

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] [jameica-gui] Support fuer Sub-Menus in Contextmenus
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-July/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%5Bjameica-gui%5D%20Support%20fuer%20Sub-Menus%20in%20Contextmenus&In-Reply-To=%3C200907161234.57490.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] [jameica-gui] Support fuer Sub-Menus in Contextmenus</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%5Bjameica-gui%5D%20Support%20fuer%20Sub-Menus%20in%20Contextmenus&In-Reply-To=%3C200907161234.57490.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] [jameica-gui] Support fuer Sub-Menus in Contextmenus">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Do Jul 16 12:34:57 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000033.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000035.html">[jameica-devel] Neue Entwicklerversion
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#34">[ Datum ]</a>
+              <a href="thread.html#34">[ Thema ]</a>
+              <a href="subject.html#34">[ Betreff (Subject) ]</a>
+              <a href="author.html#34">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi zusammen,
+
+mir ist erst jetzt aufgefallen, dass es in Jameica gar keine Moeglichkeit gab,
+in Contextmenus weitere Untermenus anzulegen. Die hatten bisher also nur eine
+Ebene. Gerade bei recht langen Contextmenus kann es durchaus sinnvoll sein,
+zusammengehoerende Menu-Items in ein Sub-Menu auszulagern.
+
+Das hab ich jetzt erweitert. Die Klasse &quot;ContextMenu&quot; hat nun neben der
+Methode &quot;addItem(ContextMenuItem)&quot; (zum Hinzufuegen von Menu-Eintraegen) noch
+eine neue Funktion &quot;addMenu(ContextMenu)&quot; erhalten.
+Damit kann man mehrere Menus ineinander verschachteln.
+
+Wichtig ist hierbei jedoch, dass das ContextMenu einen Namen hat, damit
+es als Sub-Menu angezeigt werden kann. Beispiel.
+
+public class TopMenu extends ContextMenu
+{
+  public TopMenu()
+  {
+    this.addItem(...);
+    this.addMenu(new SubMenu()); // hier wird das Submenu eingefuegt
+    this.addItem(...);
+    this.addItem(ContextMenuItem.SEPARATOR);
+    this.addItem(...);
+
+  }  
+}
+
+public class SubMenu extends ContextMenu
+{
+  public SubMenu()
+  {
+    this.setText(&quot;Sub-Menu&quot;);
+    this.setImage(SWTUtil.getImage(&quot;computer.png&quot;)); // optional: Icon
+    this.addItem(...);
+  }
+}
+
+
+Alternativ koennte man natuerlich auch einen neuen Konstruktor ...
+
+public SubMenu(String text)
+{
+  this.setText(text);
+}
+
+... wenn man den Namen des Sub-Menus im Top-Menu angeben will.
+
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000033.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000035.html">[jameica-devel] Neue Entwicklerversion
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#34">[ Datum ]</a>
+              <a href="thread.html#34">[ Thema ]</a>
+              <a href="subject.html#34">[ Betreff (Subject)]</a>
+              <a href="author.html#34">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

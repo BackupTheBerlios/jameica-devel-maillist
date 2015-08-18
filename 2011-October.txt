@@ -1,0 +1,49 @@
+From hibiscus at willuhn.de  Wed Oct 12 18:28:42 2011
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 12 Oct 2011 18:28:42 +0200
+Subject: [jameica-devel] Umzug des Wikis jameica.berlios.de
+Message-ID: <4E95C03A.4090107@willuhn.de>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi Liste,
+
+Weil Berlios ja Ende des Jahres zu macht[1] und ich dort keine
+Möglichkeit haben werde, Redirects auf die neuen Wiki-URLs
+einzurichten, würden alle im Internet verstreuten Links dann in's
+Leere laufen. Daher hab ich die beiden Wikis für Jameica und Hibiscus
+bereits jetzt auf willuhn.de verschoben - und bei der Gelegenheit
+gleich zu einem zusammengeführt. Neue URL:
+http://www.willuhn.de/wiki/. Bitte verwendet ab sofort nur noch dieses
+Wiki. Die beiden alten werde ich voraussichtlich morgen deaktivieren
+und dort dann stattdessen nochmal den Umzugs-Hinweis posten.
+
+PS: Ich hab das komplette Hibiscus-Wiki migriert und dort dann die
+Seiten aus dem Jameica-Wiki wieder eingepflegt. Auch wenn es jetzt
+etwas anders aussieht - eure bisherigen Accounts aus dem Hibiscus-Wiki
+funktionieren weiterhin. Wenn ihr lediglich fuer das Jameica-Wiki
+einen Account hattet, dann legt euch bitte einen neuen an. Mir war es
+etwas zu auffwaendig, die Userdatenbanken beider Wikis
+zusammenzufuehren - zumal es da Ueberschneidungen gab und ich nicht
+wusste, welchen von beiden Accounts ich haette uebernehmen sollen.
+
+Gruss
+Olaf
+
+[1]
+http://www.willuhn.de/blog/index.php?/archives/582-Berlios-macht-Ende-des-Jahres-zu.html
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.16 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOlcA6AAoJEFqO2c/A22xwdZgH/2Q8ESV49NHD3GPGVlk/mK/e
+f7OpAYHYF6v0giPK7h3MDyOVWDB6DM+TZKD4U+DVAnVUjXRKATuAWaJThbbsh7Hu
+cgURrZQpRytC2jLh+uFKGmJT5QjCO+BWPw86qeJIdM/uCi+BHTZESCQRlMXZS5vr
+B1/WtyNX5cU3GJAKhpEAuytGdESoq+pwKii1uADZmY0OzZ60gLByKK+5G9IejZJI
+M/AaDpfH0GoOwb6jWbQlQNldkAnkQx/moyKXEznFh1TZHjtYqyVeG/9eMhoG2p5x
+Od5NpwhX73Nb33gY783vzxrGU26DZ2F2vF8WXlwcAinmxE5QYTJaZt0xAs3BVfE=
+=7RU3
+-----END PGP SIGNATURE-----
+
+

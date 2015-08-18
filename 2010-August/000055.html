@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Updates: Neue Versionen von SWT und H2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2010-August/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Updates%3A%20Neue%20Versionen%20von%20SWT%20und%20H2&In-Reply-To=%3C4C74FEA8.30408%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+   <LINK REL="Next"  HREF="000056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Updates: Neue Versionen von SWT und H2</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Updates%3A%20Neue%20Versionen%20von%20SWT%20und%20H2&In-Reply-To=%3C4C74FEA8.30408%40willuhn.de%3E"
+           TITLE="[jameica-devel] Updates: Neue Versionen von SWT und H2">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mi Aug 25 13:29:44 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Nächste Nachricht: <A HREF="000056.html">[jameica-devel] Updates: Neue Versionen von SWT und H2
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#55">[ Datum ]</a>
+              <a href="thread.html#55">[ Thema ]</a>
+              <a href="subject.html#55">[ Betreff (Subject) ]</a>
+              <a href="author.html#55">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+1) am 17.08. hab ich die SWT-Libs in jameica/lib/swt
+   auf SWT 3.6 aktualisiert. Bisher wurde 3.5.2 verwendet.
+
+2) Gerade eben hab ich noch die h2.jar in jameica/lib/h2
+   auf die aktuelle Version 1.2.141 vom 2010-08-22 aktualisiert.
+
+   H2 hat mit Version 1.2.129 (2010-02-19) das interne Datenbank-Format
+   (Page-Store) umgestellt. Die erzeugten Datenbanken von H2 1.1.x und
+   1.2.x sind nicht kompatibel zueinander. Gluecklicherweise gabs
+   auf www.h2database.com ein vollautomatisches Konvertierungstool
+   (h2mig_pagestore_addon.jar), welches die Umstellung auf das neue
+   Format ohne jegliche Benutzereingriffe uebernimmt. Daher ist es
+   wichtig, dass in jameica/lib/h2 nun neben h2.jar auch diese
+   h2mig_pagestore_addon.jar enthalten ist.
+
+   Wenn H2 beim Start feststellt, dass die Datenbank noch in dem
+   alten Format vorliegt und das Pagestore-Addon vorhanden ist, wird
+   die Datenbank vollautomatisch auf das neue Format konvertiert.
+   Lediglich der Start dauert dann beim ersten Mal einen Moment
+   laenger.
+
+   Im eigenen Code muss hierfuer nichts geaendert werden - die
+   Umstellung macht H2 ganz allein &quot;unter der Haube&quot;.
+
+   Wenn euch in dem Zusammenhang irgendwelche Probleme auffallen,
+   gebt mir bitte Bescheid.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Nächste Nachricht: <A HREF="000056.html">[jameica-devel] Updates: Neue Versionen von SWT und H2
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#55">[ Datum ]</a>
+              <a href="thread.html#55">[ Thema ]</a>
+              <a href="subject.html#55">[ Betreff (Subject)]</a>
+              <a href="author.html#55">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] JUnit-Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C200906290018.21973.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000023.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] JUnit-Test von Jameica-Plugins</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C200906290018.21973.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] JUnit-Test von Jameica-Plugins">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mo Jun 29 00:18:21 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000019.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000023.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#21">[ Datum ]</a>
+              <a href="thread.html#21">[ Thema ]</a>
+              <a href="subject.html#21">[ Betreff (Subject) ]</a>
+              <a href="author.html#21">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> ich habe folgende Klassen zum Test eines DB-Objektes erstellt:
+</I>[...]
+&gt;<i> st = (Stammdaten) JVereinPluginTest.getDB().createObject(Stammdaten.class, &quot;1&quot;);
+</I>[...]
+&gt;<i>     db = new DBServiceImpl(driver, url, user, password);
+</I>&gt;<i>     db.start();
+</I>[...]
+&gt;<i>     java.lang.Exception: no classfinder defined: unable to find
+</I>&gt;<i> implementor for interface de.jost_net.JVerein.rmi.Stammdaten
+</I>[...]
+&gt;<i> Die erforderlichen Klassen befinden sich im Classpath.
+</I>
+Ein DBService ist nicht ohne weiteres in der Lage, zu einem
+angegebenen Interface (hier Stammdaten.class) die passende
+Implementierung zu finden. Das soll er auch gar nicht &quot;out-of-the-box&quot;
+koennen, weil das rechen- und ressourcen-intensiv ist. Dafuer
+gibt es einen Classfinder. Bei deinem Service ist keiner angegeben.
+Daher wirft er die Exception mit dem Text &quot;no classfinder defined&quot;.
+Das macht er also lediglich deshalb, weil er nicht weiss, wo
+er nach einer passenden Implementierung suchen soll.
+
+
+2 Moeglichkeiten:
+
+a) Du verzichtest auf die Moeglichkeit, dass der Service selbst
+nach der passenden Implementierung sucht und uebernimmst das
+selbst. Hierzu genuegt es, wenn du der createObject-Methode nicht
+das Interface sondern direkt die Implementierung uebergibst. Also
+z.Bsp. so:
+
+...createObject(StammdatenImpl.class,&quot;1&quot;);
+
+
+b) Du registrierst im DB-Service einen Classfinder. Der DB-Service
+befragt diesen dann, ob er eine Implementierung zum gewuenschten
+Interface kennt. Schreib hierzu folgenden Code-Schnipsel in den
+Konstruktor deines DBServiceImpl:
+
+MultipleClassLoader cl = Application.getPluginLoader().getPlugin(DeinPlugin.class).getResources().getClassLoader();
+this.setClassloader(cl);
+this.setClassFinder(cl.getClassFinder());
+
+Der uebergebene Classfinder ist jener, der zum Classloader des
+Plugins gehoert. Und der kann die Implementierungen zu genau
+den Klassen finden, die in plugin.xml in der Sektion...
+
+&lt;classfinder&gt;
+  &lt;include&gt;....&lt;/include&gt;
+&lt;/classfinder&gt;
+
+...angegeben sind.
+
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000019.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000023.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#21">[ Datum ]</a>
+              <a href="thread.html#21">[ Thema ]</a>
+              <a href="subject.html#21">[ Betreff (Subject)]</a>
+              <a href="author.html#21">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

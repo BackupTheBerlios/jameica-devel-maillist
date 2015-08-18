@@ -1,0 +1,74 @@
+From hibiscus at willuhn.de  Tue Apr 13 14:06:27 2010
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Tue, 13 Apr 2010 14:06:27 +0200
+Subject: [jameica-devel] SWT-Update auf 3.5.2
+Message-ID: <4BC45E43.5070200@willuhn.de>
+
+Hi zusammen,
+
+die von Jameica verwendeten SWT-Versionen waren ja nun schon
+lange nicht mehr aktuell. Jetzt - nach dem Release von Jameica 1.9 -
+ist die Spielwiese fuer Experimente wieder offen. Also hab ich
+das SWT 3.3 gegen die aktuelle 3.5.2 getauscht. Ist im CVS und
+ab morgen im Nightly-Build.
+
+Getestet hab ich bisher nur unter Linux (32Bit). Noch zu
+testen sind:
+
+[ ] Linux 64Bit
+[ ] Windows 32Bit
+[ ] Windows 64Bit
+[ ] Mac OS X 10.5 32Bit-JVM
+[ ] Mac OS X 10.5 64Bit-JVM (gibts das ueberhaupt)
+[ ] Mac OS X 10.6 32Bit-JVM
+[ ] Mac OS X 10.6 64Bit-JVM
+
+Wenn ihr eines dieser Betriebssysteme habt, wuerde ich mich
+ueber Testrueckmeldungen freuen.
+
+PS: In dem Zusammenhang noch eine kleine Falle, die seinerzeit
+dazu fuehrte, dass ich ein schonmal durchgefuehrtes Update auf
+SWT 3.4 wieder zurueckgezogen hatte: Befindet sich in einem
+modalen Dialog (von AbstractDialog abgeleitet) ein SelectInput,
+so konnte die Selectbox zwar aufgeklappt werden, man konnte
+aber nichts da drin auswaehlen. Grund hierfuer war schlicht ein
+Bug in AbstractDialog, den ich erst jetzt gefunden habe.
+
+Alter Code in AbstractDialog:
+
+new Shell(GUI.getDisplay(),... SWT.APPLICATION_MODAL);
+
+"APPLICATION_MODAL" bewirkt, dass Eingaben ausschliesslich in
+dieser Shell (also die vom Dialog selbst) zulaessig sind. Ist soweit
+korrekt - schliesslich soll man ja waehrenddessen nichts im
+Jameica-Hauptfenster eingeben koennen. Das in Jameica implementierte
+"SelectInput" verwendet jedoch intern ein
+"org.eclipse.swt.custom.CCombo". Und dieses nutzt zum Zeichen
+der Dropdown-Box eine weitere Shell. Die kriegt wegen
+APPLICATION_MODAL keinen Fokus, was zu dem Fehler fuehrte, dass
+man in einem Dialog, der eine Selectbox enthaelt, nichts auswaehlen
+konnte. SWT 3.3 hat das offensichtlich noch toleriert, 3.4+ nicht
+mehr.
+
+
+Neuer Code in AbstractDialog:
+
+new Shell(GUI.getShell(),... SWT.PRIMARY_MODAL);
+
+"PRIMARY_MODAL" bewirkt, dass ausschliesslich in Parent-Shells
+Eingaben unterdrueckt werden. Das betrifft dann also nur noch
+das Jameica-Hauptfenster und nicht mehr die Selectbox. Damit das
+funktioniert, darf der Dialog als Parent nicht aber mehr das Display
+selbst ("GUI.getDisplay()") haben sondern die Shell des Jameica-
+Hauptfensters ("GUI.getShell()").
+
+Damit konnte ich den Fehler - zumindest unter Linux/32Bit beheben.
+Ich hoffe, auf den anderen Plattformen funktioniert das auch korrekt.
+
+Gruss
+Olaf
+
+
+
+
+

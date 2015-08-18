@@ -1,0 +1,583 @@
+From f.koester at tarent.de  Tue Dec 29 18:57:49 2009
+From: f.koester at tarent.de (Fabian =?iso-8859-1?q?K=F6ster?=)
+Date: Tue, 29 Dec 2009 18:57:49 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+Message-ID: <200912291857.53245.f.koester@tarent.de>
+
+Hallo zusammen!
+
+ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich, wie 
+die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+
+In der Datei lib/mckoi/info.xml wird als Quelle die URL http://mckoi.com 
+genannt. In der Download-Seite der Webseite zu dieser URL findet man eine Zip-
+Datei [2], welche neben den Bytecode-Dateien auch den dazugehörigen Sourcecode 
+enthält, jedoch nicht von den selben Klassen wie sie mit Jameica 1.8 
+ausgelieferten werden.
+
+Woher kommen diese?
+
+Gruß,
+Fabian Köster
+
+[1] http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=562862
+[2] http://www.mckoi.com/files/mckoiddb_1.0.01.zip
+
+
+-- 
+tarent Gesellschaft für Softwareentwicklung und IT-Beratung mbH
+Geschäftsführer: Boris Esser, Elmar Geese
+HRB AG Bonn 5168 - Ust-ID: DE122264941
+http://www.tarent.com/
+
+Heilsbachstr. 24, 53123 Bonn,   fon +49 228 52675-0,   fax +49 228 52675-25
+Weigandufer 45,   12059 Berlin, fon +49 30 5682943-30, fax +49 228 52675-25
+Schützenstr. 18,  10117 Berlin, fon +49 30 27594853,   fax +49 30 78709617
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : signature.asc
+Dateityp    : application/pgp-signature
+Dateigröße  : 664 bytes
+Beschreibung: This is a digitally signed message part.
+URL         : <https://lists.berlios.de/pipermail/jameica-devel/attachments/20091229/ab98bf36/attachment.pgp>
+
+From hibiscus at willuhn.de  Wed Dec 30 00:25:13 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 30 Dec 2009 00:25:13 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+Message-ID: <200912300025.13942.hibiscus@willuhn.de>
+
+Hi,
+
+> ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich, wie
+> die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+
+Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die McKoi-
+Datenbank soll ueber kurz oder lang rausfliegen. Daher aktualisiere ich
+die Version auch nicht mehr. Zu dieser Entscheidung bin ich u.a. daher
+gekommen, weil McKoi scheinbar ein verwaistes Projekt war (zumindest
+erschienen da einige Jahre keine neuen Releases mehr). Inzwischen ist
+wohl wieder eine neue Version rausgekommen.
+
+> In der Datei lib/mckoi/info.xml wird als Quelle die URL http://mckoi.com
+> genannt. In der Download-Seite der Webseite zu dieser URL findet man eine
+>  Zip- Datei [2], welche neben den Bytecode-Dateien auch den dazugehörigen
+>  Sourcecode enthält, jedoch nicht von den selben Klassen wie sie mit
+>  Jameica 1.8 ausgelieferten werden.
+
+Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+die aktuelle Version. 
+
+> Woher kommen diese?
+
+Urspruenglich von der von dir genannten Webseite. Dass die Version
+dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+du unter:
+http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/
+
+Gruss
+Olaf
+
+
+From f.koester at tarent.de  Wed Dec 30 03:06:13 2009
+From: f.koester at tarent.de (Fabian =?iso-8859-1?q?K=F6ster?=)
+Date: Wed, 30 Dec 2009 03:06:13 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+In-Reply-To: <200912300025.13942.hibiscus@willuhn.de>
+References: <200912300025.13942.hibiscus@willuhn.de>
+Message-ID: <200912300306.22055.f.koester@tarent.de>
+
+Hi Olaf,
+
+> > ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich,
+> > wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+> 
+> Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+>  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher aktualisiere
+>  ich die Version auch nicht mehr. Zu dieser Entscheidung bin ich u.a. daher
+>  gekommen, weil McKoi scheinbar ein verwaistes Projekt war (zumindest
+>  erschienen da einige Jahre keine neuen Releases mehr). Inzwischen ist wohl
+>  wieder eine neue Version rausgekommen.
+
+Ah ok, so etwas hatte ich bereits vermutet.
+
+> > In der Datei lib/mckoi/info.xml wird als Quelle die URL http://mckoi.com
+> > genannt. In der Download-Seite der Webseite zu dieser URL findet man eine
+> >  Zip- Datei [2], welche neben den Bytecode-Dateien auch den dazugehörigen
+> >  Sourcecode enthält, jedoch nicht von den selben Klassen wie sie mit
+> >  Jameica 1.8 ausgelieferten werden.
+> 
+> Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+> die aktuelle Version.
+> 
+> > Woher kommen diese?
+> 
+> Urspruenglich von der von dir genannten Webseite. Dass die Version
+> dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+> Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+> Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+> du unter:
+> http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/
+
+Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du die 
+Quellen der Libs ins CVS eingespeist hast!
+
+Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann kein 
+großes Problem mehr sein.
+
+Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+
+Gruß,
+Fabian
+
+-- 
+tarent Gesellschaft für Softwareentwicklung und IT-Beratung mbH
+Geschäftsführer: Boris Esser, Elmar Geese
+HRB AG Bonn 5168 - Ust-ID: DE122264941
+http://www.tarent.com/
+
+Heilsbachstr. 24, 53123 Bonn,   fon +49 228 52675-0,   fax +49 228 52675-25
+Weigandufer 45,   12059 Berlin, fon +49 30 5682943-30, fax +49 228 52675-25
+Schützenstr. 18,  10117 Berlin, fon +49 30 27594853,   fax +49 30 78709617
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : signature.asc
+Dateityp    : application/pgp-signature
+Dateigröße  : 664 bytes
+Beschreibung: This is a digitally signed message part.
+URL         : <https://lists.berlios.de/pipermail/jameica-devel/attachments/20091230/88f44fbc/attachment.pgp>
+
+From heiner at jost-net.de  Wed Dec 30 09:32:15 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 30 Dec 2009 09:32:15 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+In-Reply-To: <200912300306.22055.f.koester@tarent.de>
+References: <200912300025.13942.hibiscus@willuhn.de>
+	<200912300306.22055.f.koester@tarent.de>
+Message-ID: <4B3B100F.2030705@jost-net.de>
+
+Hallo Fabian,
+
+auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr. 
+Vermutlich wird die Bibliothek nicht mehr gebraucht.
+
+Heiner
+
+Fabian Köster schrieb:
+> Hi Olaf,
+>
+>   
+>>> ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich,
+>>> wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+>>>       
+>> Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+>>  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher aktualisiere
+>>  ich die Version auch nicht mehr. Zu dieser Entscheidung bin ich u.a. daher
+>>  gekommen, weil McKoi scheinbar ein verwaistes Projekt war (zumindest
+>>  erschienen da einige Jahre keine neuen Releases mehr). Inzwischen ist wohl
+>>  wieder eine neue Version rausgekommen.
+>>     
+>
+> Ah ok, so etwas hatte ich bereits vermutet.
+>
+>   
+>>> In der Datei lib/mckoi/info.xml wird als Quelle die URL http://mckoi.com
+>>> genannt. In der Download-Seite der Webseite zu dieser URL findet man eine
+>>>  Zip- Datei [2], welche neben den Bytecode-Dateien auch den dazugehörigen
+>>>  Sourcecode enthält, jedoch nicht von den selben Klassen wie sie mit
+>>>  Jameica 1.8 ausgelieferten werden.
+>>>       
+>> Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+>> die aktuelle Version.
+>>
+>>     
+>>> Woher kommen diese?
+>>>       
+>> Urspruenglich von der von dir genannten Webseite. Dass die Version
+>> dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+>> Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+>> Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+>> du unter:
+>> http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/
+>>     
+>
+> Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du die 
+> Quellen der Libs ins CVS eingespeist hast!
+>
+> Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann kein 
+> großes Problem mehr sein.
+>
+> Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+>
+> Gruß,
+> Fabian
+>
+>   
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>   
+
+
+From f.koester at tarent.de  Wed Dec 30 14:13:01 2009
+From: f.koester at tarent.de (Fabian =?iso-8859-1?q?K=F6ster?=)
+Date: Wed, 30 Dec 2009 14:13:01 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+In-Reply-To: <4B3B100F.2030705@jost-net.de>
+References: <200912300025.13942.hibiscus@willuhn.de>
+	<200912300306.22055.f.koester@tarent.de>
+	<4B3B100F.2030705@jost-net.de>
+Message-ID: <200912301413.01274.f.koester@tarent.de>
+
+Hallo Heiner,
+
+> auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr.
+> Vermutlich wird die Bibliothek nicht mehr gebraucht.
+
+Die Bibliothek de_willuhn_ds benötigt (zumindest zur Compile-Zeit) die McKoi-
+DB. Jameica wiederum benötigt de_willuhn_ds.
+
+Gruß,
+Fabian
+
+
+> Fabian Köster schrieb:
+> > Hi Olaf,
+> >
+> >>> ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich,
+> >>> wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+> >>
+> >> Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+> >>  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher
+> >> aktualisiere ich die Version auch nicht mehr. Zu dieser Entscheidung bin
+> >> ich u.a. daher gekommen, weil McKoi scheinbar ein verwaistes Projekt war
+> >> (zumindest erschienen da einige Jahre keine neuen Releases mehr).
+> >> Inzwischen ist wohl wieder eine neue Version rausgekommen.
+> >
+> > Ah ok, so etwas hatte ich bereits vermutet.
+> >
+> >>> In der Datei lib/mckoi/info.xml wird als Quelle die URL
+> >>> http://mckoi.com genannt. In der Download-Seite der Webseite zu dieser
+> >>> URL findet man eine Zip- Datei [2], welche neben den Bytecode-Dateien
+> >>> auch den dazugehörigen Sourcecode enthält, jedoch nicht von den selben
+> >>> Klassen wie sie mit Jameica 1.8 ausgelieferten werden.
+> >>
+> >> Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+> >> die aktuelle Version.
+> >>
+> >>> Woher kommen diese?
+> >>
+> >> Urspruenglich von der von dir genannten Webseite. Dass die Version
+> >> dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+> >> Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+> >> Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+> >> du unter:
+> >> http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/
+> >
+> > Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du die
+> > Quellen der Libs ins CVS eingespeist hast!
+> >
+> > Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann
+> > kein großes Problem mehr sein.
+> >
+> > Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+> >
+> > Gruß,
+> > Fabian
+> >
+> >
+> > ------------------------------------------------------------------------
+> >
+> > _______________________________________________
+> > jameica-devel mailing list
+> > jameica-devel at lists.berlios.de
+> > https://lists.berlios.de/mailman/listinfo/jameica-devel
+> 
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+> 
+
+-- 
+tarent Gesellschaft für Softwareentwicklung und IT-Beratung mbH
+Geschäftsführer: Boris Esser, Elmar Geese
+HRB AG Bonn 5168 - Ust-ID: DE122264941
+http://www.tarent.com/
+
+Heilsbachstr. 24, 53123 Bonn,   fon +49 228 52675-0,   fax +49 228 52675-25
+Weigandufer 45,   12059 Berlin, fon +49 30 5682943-30, fax +49 228 52675-25
+Schützenstr. 18,  10117 Berlin, fon +49 30 27594853,   fax +49 30 78709617
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : signature.asc
+Dateityp    : application/pgp-signature
+Dateigröße  : 664 bytes
+Beschreibung: This is a digitally signed message part.
+URL         : <https://lists.berlios.de/pipermail/jameica-devel/attachments/20091230/5269d3be/attachment.pgp>
+
+From heiner at jost-net.de  Wed Dec 30 15:00:34 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 30 Dec 2009 15:00:34 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+In-Reply-To: <200912301413.01274.f.koester@tarent.de>
+References: <200912300025.13942.hibiscus@willuhn.de>	<200912300306.22055.f.koester@tarent.de>	<4B3B100F.2030705@jost-net.de>
+	<200912301413.01274.f.koester@tarent.de>
+Message-ID: <4B3B5D02.1000300@jost-net.de>
+
+Hallo Fabian,
+
+das war mir so nicht bekannt. Dann muss Olaf gelegentlich mal aufräumen ;-)
+
+Heiner
+
+Fabian Köster schrieb:
+> Hallo Heiner,
+>
+>   
+>> auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr.
+>> Vermutlich wird die Bibliothek nicht mehr gebraucht.
+>>     
+>
+> Die Bibliothek de_willuhn_ds benötigt (zumindest zur Compile-Zeit) die McKoi-
+> DB. Jameica wiederum benötigt de_willuhn_ds.
+>
+> Gruß,
+> Fabian
+>
+>
+>   
+>> Fabian Köster schrieb:
+>>     
+>>> Hi Olaf,
+>>>
+>>>       
+>>>>> ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich,
+>>>>> wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+>>>>>           
+>>>> Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+>>>>  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher
+>>>> aktualisiere ich die Version auch nicht mehr. Zu dieser Entscheidung bin
+>>>> ich u.a. daher gekommen, weil McKoi scheinbar ein verwaistes Projekt war
+>>>> (zumindest erschienen da einige Jahre keine neuen Releases mehr).
+>>>> Inzwischen ist wohl wieder eine neue Version rausgekommen.
+>>>>         
+>>> Ah ok, so etwas hatte ich bereits vermutet.
+>>>
+>>>       
+>>>>> In der Datei lib/mckoi/info.xml wird als Quelle die URL
+>>>>> http://mckoi.com genannt. In der Download-Seite der Webseite zu dieser
+>>>>> URL findet man eine Zip- Datei [2], welche neben den Bytecode-Dateien
+>>>>> auch den dazugehörigen Sourcecode enthält, jedoch nicht von den selben
+>>>>> Klassen wie sie mit Jameica 1.8 ausgelieferten werden.
+>>>>>           
+>>>> Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+>>>> die aktuelle Version.
+>>>>
+>>>>         
+>>>>> Woher kommen diese?
+>>>>>           
+>>>> Urspruenglich von der von dir genannten Webseite. Dass die Version
+>>>> dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+>>>> Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+>>>> Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+>>>> du unter:
+>>>> http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/
+>>>>         
+>>> Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du die
+>>> Quellen der Libs ins CVS eingespeist hast!
+>>>
+>>> Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann
+>>> kein großes Problem mehr sein.
+>>>
+>>> Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+>>>
+>>> Gruß,
+>>> Fabian
+>>>
+>>>
+>>> ------------------------------------------------------------------------
+>>>
+>>> _______________________________________________
+>>> jameica-devel mailing list
+>>> jameica-devel at lists.berlios.de
+>>> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>>>       
+>> _______________________________________________
+>> jameica-devel mailing list
+>> jameica-devel at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>>
+>>     
+>
+>   
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+>   
+
+
+From f.koester at tarent.de  Wed Dec 30 16:18:07 2009
+From: f.koester at tarent.de (Fabian =?iso-8859-1?q?K=F6ster?=)
+Date: Wed, 30 Dec 2009 16:18:07 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+In-Reply-To: <4B3B5D02.1000300@jost-net.de>
+References: <200912300025.13942.hibiscus@willuhn.de>
+	<200912301413.01274.f.koester@tarent.de>
+	<4B3B5D02.1000300@jost-net.de>
+Message-ID: <200912301618.12582.f.koester@tarent.de>
+
+Am Mittwoch 30 Dezember 2009 15:00:34 schrieb Heiner Jostkleigrewe:
+> Hallo Fabian,
+> 
+> das war mir so nicht bekannt. Dann muss Olaf gelegentlich mal aufräumen ;-)
+
+Ja :)
+
+Ich habe gerade erst verstanden, dass es von der MckoiDB seit Version 1.0.3 
+(16. August 2004) keine Aktualisierungen mehr gibt. Ich glaube, dass Jameica 
+auch diese Version verwendet.
+
+Die nun veröffentlichte Version ist eine vollständige Neuentwicklung namens 
+MckoiDDB (Mckoi _Distributed_ Database).
+
+Die alte MckoiDB gibt es unter http://www.mckoi.com/Mckoi SQL Database.html.
+
+Werde daher nun diese paketieren.
+
+Gruß,
+Fabian
+ 
+> Fabian Köster schrieb:
+> > Hallo Heiner,
+> >
+> >> auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr.
+> >> Vermutlich wird die Bibliothek nicht mehr gebraucht.
+> >
+> > Die Bibliothek de_willuhn_ds benötigt (zumindest zur Compile-Zeit) die
+> > McKoi- DB. Jameica wiederum benötigt de_willuhn_ds.
+> >
+> > Gruß,
+> > Fabian
+> >
+> >> Fabian Köster schrieb:
+> >>> Hi Olaf,
+> >>>
+> >>>>> ich erstelle gerade Pakete von Jameica für Debian [1] und wundere
+> >>>>> mich, wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+> >>>>
+> >>>> Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+> >>>>  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher
+> >>>> aktualisiere ich die Version auch nicht mehr. Zu dieser Entscheidung
+> >>>> bin ich u.a. daher gekommen, weil McKoi scheinbar ein verwaistes
+> >>>> Projekt war (zumindest erschienen da einige Jahre keine neuen Releases
+> >>>> mehr). Inzwischen ist wohl wieder eine neue Version rausgekommen.
+> >>>
+> >>> Ah ok, so etwas hatte ich bereits vermutet.
+> >>>
+> >>>>> In der Datei lib/mckoi/info.xml wird als Quelle die URL
+> >>>>> http://mckoi.com genannt. In der Download-Seite der Webseite zu
+> >>>>> dieser URL findet man eine Zip- Datei [2], welche neben den
+> >>>>> Bytecode-Dateien auch den dazugehörigen Sourcecode enthält, jedoch
+> >>>>> nicht von den selben Klassen wie sie mit Jameica 1.8 ausgelieferten
+> >>>>> werden.
+> >>>>
+> >>>> Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+> >>>> die aktuelle Version.
+> >>>>
+> >>>>> Woher kommen diese?
+> >>>>
+> >>>> Urspruenglich von der von dir genannten Webseite. Dass die Version
+> >>>> dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+> >>>> Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+> >>>> Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+> >>>> du unter:
+> >>>> http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi
+> >>>>/
+> >>>
+> >>> Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du
+> >>> die Quellen der Libs ins CVS eingespeist hast!
+> >>>
+> >>> Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann
+> >>> kein großes Problem mehr sein.
+> >>>
+> >>> Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+> >>>
+> >>> Gruß,
+> >>> Fabian
+> >>>
+> >>>
+> >>> -----------------------------------------------------------------------
+> >>>-
+> >>>
+> >>> _______________________________________________
+> >>> jameica-devel mailing list
+> >>> jameica-devel at lists.berlios.de
+> >>> https://lists.berlios.de/mailman/listinfo/jameica-devel
+> >>
+> >> _______________________________________________
+> >> jameica-devel mailing list
+> >> jameica-devel at lists.berlios.de
+> >> https://lists.berlios.de/mailman/listinfo/jameica-devel
+> >
+> > ------------------------------------------------------------------------
+> >
+> > _______________________________________________
+> > jameica-devel mailing list
+> > jameica-devel at lists.berlios.de
+> > https://lists.berlios.de/mailman/listinfo/jameica-devel
+> 
+> _______________________________________________
+> jameica-devel mailing list
+> jameica-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/jameica-devel
+> 
+
+-- 
+tarent Gesellschaft für Softwareentwicklung und IT-Beratung mbH
+Geschäftsführer: Boris Esser, Elmar Geese
+HRB AG Bonn 5168 - Ust-ID: DE122264941
+http://www.tarent.com/
+
+Heilsbachstr. 24, 53123 Bonn,   fon +49 228 52675-0,   fax +49 228 52675-25
+Weigandufer 45,   12059 Berlin, fon +49 30 5682943-30, fax +49 228 52675-25
+Schützenstr. 18,  10117 Berlin, fon +49 30 27594853,   fax +49 30 78709617
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : signature.asc
+Dateityp    : application/pgp-signature
+Dateigröße  : 664 bytes
+Beschreibung: This is a digitally signed message part.
+URL         : <https://lists.berlios.de/pipermail/jameica-devel/attachments/20091230/46b91608/attachment.pgp>
+
+From hibiscus at willuhn.de  Wed Dec 30 16:19:55 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 30 Dec 2009 16:19:55 +0100
+Subject: [jameica-devel] Sourcecode von mckoiddb
+In-Reply-To: <4B3B100F.2030705@jost-net.de>
+References: <200912300025.13942.hibiscus@willuhn.de>
+	<200912300306.22055.f.koester@tarent.de>
+	<4B3B100F.2030705@jost-net.de>
+Message-ID: <200912301619.56066.hibiscus@willuhn.de>
+
+Hi,
+
+> auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr.
+> Vermutlich wird die Bibliothek nicht mehr gebraucht.
+
+Doch, ich brauch die noch in SynTAX. Und in Jollina (www.jollina.de)
+wird sie meines Wissens nach auch noch genutzt. Ich werd sie daher
+mal noch drin lassen.
+
+Gruss
+Olaf
+
+

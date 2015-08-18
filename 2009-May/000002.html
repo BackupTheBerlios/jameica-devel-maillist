@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] SearchInput
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-May/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SearchInput&In-Reply-To=%3C200905110003.33775.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000001.html">
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] SearchInput</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SearchInput&In-Reply-To=%3C200905110003.33775.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] SearchInput">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mo Mai 11 00:03:33 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000001.html">[jameica-devel] SearchInput
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000003.html">[jameica-devel] SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#2">[ Datum ]</a>
+              <a href="thread.html#2">[ Thema ]</a>
+              <a href="subject.html#2">[ Betreff (Subject) ]</a>
+              <a href="author.html#2">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> ich finde die Bedienung des SearchInputs nicht so ganz gelungen.
+</I>&gt;<i>
+</I>&gt;<i> Z. B. in Hibiscus bei der Eingabe des Empfängers einer neuen Überweisung
+</I>&gt;<i> wird die Suche im Adressbuch sofort gestartet. Möchte ich einen
+</I>&gt;<i> Empfänger eingeben, der noch nicht im Adressbuch gespeichert ist, muss
+</I>&gt;<i> ich extrem schnell tippen. Ansonsten ist schon ein Wert aus der
+</I>&gt;<i> Auswahlliste ausgewählt. Klicke ich dann wieder in das Eingabefeld, wird
+</I>&gt;<i> der vorher selektierte Wert übernommen. Den muss ich dann wieder löschen
+</I>&gt;<i> und dann wieder von vorne beginnen.
+</I>&gt;<i>
+</I>&gt;<i> Meiner Meinung nach sollte die Vorschlagsliste erst 2 Sekunden (evtl.
+</I>&gt;<i> sollte der Wert auch konfigurierbar sein) nach dem letzten
+</I>&gt;<i> Tastenanschlag aufpoppen. 
+</I>
+Das SearchInput hatte bisher ein Delay von 360ms. Keine Ahnung, wie
+ich auf diesen Wert gekommen bin - vermutlich erschien er mir bei
+meinen Tests am komfortabelsten. Ich habe ihn jetzt mal auf 1000ms -
+also 1 Sekunde - erhoeht. Ich hab den Wert konfigurierbar gemacht.
+Mach einfach ein CVS-Update. Anschliessend wird in .jameica/cfg
+eine Config-Datei &quot;de.willuhn.jameica.gui.input.SearchInput.properties&quot;
+angelegt, in der du den Wert des Parameters &quot;delay&quot; aendern kannst.
+2 Sekunden kamen mir bei meinen Tests etwas zu lang vor.
+
+&gt;<i> Trotz offener Vorschlagsliste muss weiterhin die Eingabe in dem Textfeld
+</I>&gt;<i> möglich sein. Erst durch einen Klick in die Vorschlagsliste wird der 
+</I>&gt;<i> Wert übernommen. 
+</I>
+Das Weitertippen geht (indirekt). Man muss hierzu Escape druecken.
+Dadurch wird das Popup wieder geschlossen und man kann weitertippen.
+Tippt man ohne Escape weiter, oeffnet sich unten rechts neben dem
+Popup ein weiteres, in dem wiederrum ein Suchbegriff eingegeben werden
+kann, um innerhalb der Ergebnisliste nochmals zu suchen. Das ist
+ein Feature von GTK - kann durchaus sein, dass das auf anderen
+Plattformen nicht existiert. Da das Popup mit den Suchergebnissen
+nicht von mir selbst programmiert ist sondern direkt von SWT
+stammt (org.eclipse.swt.custom.PopupList), wuesste ich auch gar
+nicht, wie ich das derzeitige Verhalten unterbinden sollte.
+Und ausserdem finde ich es so eigentlich ganz praktisch.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000001.html">[jameica-devel] SearchInput
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000003.html">[jameica-devel] SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#2">[ Datum ]</a>
+              <a href="thread.html#2">[ Thema ]</a>
+              <a href="subject.html#2">[ Betreff (Subject)]</a>
+              <a href="author.html#2">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

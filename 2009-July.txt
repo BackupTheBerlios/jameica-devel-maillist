@@ -1,0 +1,410 @@
+From hibiscus at willuhn.de  Wed Jul  1 00:46:36 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 1 Jul 2009 00:46:36 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A4A4BF4.5050808@jost-net.de>
+References: <4A477335.4070605@jost-net.de>
+	<200906292338.27715.hibiscus@willuhn.de>
+	<4A4A4BF4.5050808@jost-net.de>
+Message-ID: <200907010046.36884.hibiscus@willuhn.de>
+
+Hi,
+
+> folgende Exception wird geworfen:
+>
+> java.lang.ExceptionInInitializerError
+[...]
+> Caused by: java.lang.NullPointerException at
+> de.willuhn.jameica.system.Application.getConfig(Application.java:285)
+
+Das passiert, wenn man versucht, Plugin-Code ausserhalb
+von Jameica auszufuehren - also ohne das Framework vorher
+gestartet zu haben. Dann existiert die komplette Jameica-
+Infrastruktur nicht. 
+
+Hier gaebe es zwei Moeglichkeiten, das zu umgehen.
+
+1) den zu testenden Code so umbauen, dass er keine Abhaengigkeiten
+   zu Jameica hat (alles, was de.willuhn.util und de.willuhn.ds
+   betrifft, funktioniert auch ohne Jameica). Im konkreten
+   Beispiel StammdatenImpl.class ist das vermutlich ein
+   Aufruf von Application.getConfig() in einer statischen
+   Member-Variable oder in einem static{}-Block. Dort wird
+   der ExceptionInInitializerError geworfen, was dazu fuehrt,
+   dass die Klasse nicht geladen werden kann.
+   Da es nicht immer moeglich ist, saemtliche Jameica-Referenzen
+   zu entfernen, bestuende noch Moeglichkeit 2.
+
+2) Den Test-Code nicht direkt aufrufen sondern indirekt
+   ueber eine Jameica-Instanz (so wie das Markus auch macht).
+
+   Ich hatte das vor langer Zeit auch mal fuer Hibiscus gemacht,
+   dann aber nicht mehr weiter gepflegt. Die Gelegenheit jetzt
+   hab ich mal zum Anlass genommen, das auf einen aktuellen
+   Stand zu bringen. Ist im Hibiscus-CVS unter
+   "hibiscus.junit" eingecheckt.
+   http://cvs.berlios.de/cgi-bin/viewvc.cgi/hibiscus/hibiscus.junit/
+
+   Es ist ebenfalls ein Jameica-Plugin, bei dem jedoch in
+   plugin.xml eine Abhaengigkeit zu Hibiscus deklariert ist,
+   sodass sichergestellt wird, dass Hibiscus VOR dem Tester
+   geladen wird.
+
+   Das Projekt enthaelt eine vorgefertigte Launch-Konfiguration
+   mit dem Namen "Hibiscus-Tests", die automatisch in Eclipse
+   angelegt werden sollte, sobald das Projekt geoeffnet wird.
+   Im Wesentlichen wird hierbei die main()-Methode von
+   de.willuhn.jameica.hbci.junit.AllTests gestartet. Die
+   darin enthaltene Funktion suite() erstellt eine passende
+   Jameica-Konfiguration und startet dann Jameica. Die Tests
+   selbst werden dann in TestPlugin#init() aufgerufen.
+   Wichtig ist, dass die Launch-Konfiguration in Eclipse
+   so eingestellt ist, dass sie aus dem Jameica-Verzeichnis
+   heraus startet. Launch-Configuration->Arguments->Working directory
+   auf "Other" mit dem Wert "${workspace_loc:jameica}" stellen.
+   In der beliegenden Launch-Config ist das bereits so
+   eingestellt.
+
+Gruss
+Olaf
+   
+
+
+From heiner at jost-net.de  Wed Jul  1 09:33:38 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 01 Jul 2009 09:33:38 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <200907010046.36884.hibiscus@willuhn.de>
+References: <4A477335.4070605@jost-net.de>	<200906292338.27715.hibiscus@willuhn.de>	<4A4A4BF4.5050808@jost-net.de>
+	<200907010046.36884.hibiscus@willuhn.de>
+Message-ID: <4A4B1152.9040506@jost-net.de>
+
+Hallo Olaf,
+
+> 2) Den Test-Code nicht direkt aufrufen sondern indirekt
+>    ueber eine Jameica-Instanz (so wie das Markus auch macht).
+>
+>    Ich hatte das vor langer Zeit auch mal fuer Hibiscus gemacht,
+>    dann aber nicht mehr weiter gepflegt. Die Gelegenheit jetzt
+>    hab ich mal zum Anlass genommen, das auf einen aktuellen
+>    Stand zu bringen. Ist im Hibiscus-CVS unter
+>    "hibiscus.junit" eingecheckt.
+>    http://cvs.berlios.de/cgi-bin/viewvc.cgi/hibiscus/hibiscus.junit/
+>
+>   
+genau so etwas habe ich gesucht. Der erste Test in JVerein läuft 
+bereits. Vielen Dank.
+
+Heiner
+
+
+From heiner at jost-net.de  Wed Jul  1 09:33:53 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 01 Jul 2009 09:33:53 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A4912E4.6030504@emedia-solutions-wolf.de>
+References: <4A477335.4070605@jost-net.de>	<200906290018.21973.hibiscus@willuhn.de>	<4A490F34.5060308@jost-net.de>
+	<4A4912E4.6030504@emedia-solutions-wolf.de>
+Message-ID: <4A4B1161.1020908@jost-net.de>
+
+Hallo Markus,
+
+> ich denke ich kann mich hier mal getrost einmischen. Welcher Teil des
+> ganzen Test-Plugins ist denn nicht universell einsetzbar?
+>   
+ich wollte mit meiner Äußerung nicht an der Qualität deiner Software 
+zweifeln. Das liegt mir fern. Es ist ja ein recht komplexes Thema. Ich 
+hatte wohl nicht den richtigen Durchblick.
+
+Mit dem von Olaf Willuhn zur Verfügung gestellten Projekt hibiscus.junit 
+bin ich auch bei JVerein schnell zu einem Ergebnis gekommen.
+
+Vielen Dank für deine Bemühungen.
+
+Heiner
+
+
+From markus at emedia-solutions-wolf.de  Wed Jul  1 09:37:10 2009
+From: markus at emedia-solutions-wolf.de (Markus Wolf)
+Date: Wed, 01 Jul 2009 09:37:10 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A4B1161.1020908@jost-net.de>
+References: <4A477335.4070605@jost-net.de>	<200906290018.21973.hibiscus@willuhn.de>	<4A490F34.5060308@jost-net.de>	<4A4912E4.6030504@emedia-solutions-wolf.de>
+	<4A4B1161.1020908@jost-net.de>
+Message-ID: <4A4B1226.3000300@emedia-solutions-wolf.de>
+
+Hallo Heiner,
+
+>> ich denke ich kann mich hier mal getrost einmischen. Welcher Teil des
+>> ganzen Test-Plugins ist denn nicht universell einsetzbar?
+>>   
+> ich wollte mit meiner Äußerung nicht an der Qualität deiner Software 
+> zweifeln. Das liegt mir fern. Es ist ja ein recht komplexes Thema. Ich 
+> hatte wohl nicht den richtigen Durchblick.
+> 
+das hab ich auch nicht so aufgefasst. Ich würde aber gerne die
+Flexibilität und Qualität verbessern.
+Also wenn du noch weißt wo es gehackt hat, dann kannst du mir das ja
+gerne noch schreiben. :)
+
+> Mit dem von Olaf Willuhn zur Verfügung gestellten Projekt hibiscus.junit 
+> bin ich auch bei JVerein schnell zu einem Ergebnis gekommen.
+> 
+Ist ja recht ähnlich, nur das man dabei sehr viel noch manuell machen
+muss und das ganze sich nicht per Continuous-Integration und
+CodeCoverage 'überprüfen' läßt. (Zumindest nicht so einfach wie ich mir
+das vorstelle). :)
+
+> Vielen Dank für deine Bemühungen.
+> 
+Immer gerne.
+
+Gruß
+Markus
+-- 
+> emedia-solutions wolf    web: http://www.emedia-solutions-wolf.de
+> Eimsbüttler Straße 115  mail: markus at emedia-solutions-wolf.de
+> 22769 Hamburg            pgp: http://wwwkeys.de.pgp.net
+> +49 40 432 635 83      taxid: 02 / 372 / 39601
+
+
+From hibiscus at willuhn.de  Wed Jul  1 10:29:52 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Wed, 1 Jul 2009 10:29:52 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A4B1226.3000300@emedia-solutions-wolf.de>
+References: <4A477335.4070605@jost-net.de> <4A4B1161.1020908@jost-net.de>
+	<4A4B1226.3000300@emedia-solutions-wolf.de>
+Message-ID: <200907011029.52522.hibiscus@willuhn.de>
+
+Hi,
+
+> > Mit dem von Olaf Willuhn zur Verfügung gestellten Projekt hibiscus.junit
+> > bin ich auch bei JVerein schnell zu einem Ergebnis gekommen.
+>
+> Ist ja recht ähnlich, nur das man dabei sehr viel noch manuell machen
+> muss und das ganze sich nicht per Continuous-Integration und
+> CodeCoverage 'überprüfen' läßt. (Zumindest nicht so einfach wie ich mir
+> das vorstelle). :)
+
+Ja. Das stimmt. Es ist eine sehr rudimentaere Loesung. Reicht halt
+nur zum Ausfuehren von JUnit-Tests. ;)
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Wed Jul  1 10:35:47 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Wed, 01 Jul 2009 10:35:47 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A4B1226.3000300@emedia-solutions-wolf.de>
+References: <4A477335.4070605@jost-net.de>	<200906290018.21973.hibiscus@willuhn.de>	<4A490F34.5060308@jost-net.de>	<4A4912E4.6030504@emedia-solutions-wolf.de>	<4A4B1161.1020908@jost-net.de>
+	<4A4B1226.3000300@emedia-solutions-wolf.de>
+Message-ID: <4A4B1FE3.5040404@jost-net.de>
+
+Hallo Markus,
+
+> Also wenn du noch weißt wo es gehackt hat, dann kannst du mir das ja
+> gerne noch schreiben. :)
+>
+>   
+momentan fehlt mir der Durchblick. Deshalb wäre eine Dokumentation sehr 
+gut. Am besten mit einer Step-by-Step-Anleitung.
+
+Heiner
+
+
+From markus at emedia-solutions-wolf.de  Wed Jul  1 10:41:44 2009
+From: markus at emedia-solutions-wolf.de (Markus Wolf)
+Date: Wed, 01 Jul 2009 10:41:44 +0200
+Subject: [jameica-devel] JUnit-Test von Jameica-Plugins
+In-Reply-To: <4A4B1FE3.5040404@jost-net.de>
+References: <4A477335.4070605@jost-net.de>	<200906290018.21973.hibiscus@willuhn.de>	<4A490F34.5060308@jost-net.de>	<4A4912E4.6030504@emedia-solutions-wolf.de>	<4A4B1161.1020908@jost-net.de>	<4A4B1226.3000300@emedia-solutions-wolf.de>
+	<4A4B1FE3.5040404@jost-net.de>
+Message-ID: <4A4B2148.9070305@emedia-solutions-wolf.de>
+
+>> Also wenn du noch weißt wo es gehackt hat, dann kannst du mir das ja
+>> gerne noch schreiben. :)
+>>
+>>   
+> momentan fehlt mir der Durchblick. Deshalb wäre eine Dokumentation sehr 
+> gut. Am besten mit einer Step-by-Step-Anleitung.
+> 
+Wird gemacht. :)
+-- 
+> emedia-solutions wolf    web: http://www.emedia-solutions-wolf.de
+> Eimsbüttler Straße 115  mail: markus at emedia-solutions-wolf.de
+> 22769 Hamburg            pgp: http://wwwkeys.de.pgp.net
+> +49 40 432 635 83      taxid: 02 / 372 / 39601
+
+
+From hibiscus at willuhn.de  Thu Jul 16 12:34:57 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Thu, 16 Jul 2009 12:34:57 +0200
+Subject: [jameica-devel] [jameica-gui] Support fuer Sub-Menus in Contextmenus
+Message-ID: <200907161234.57490.hibiscus@willuhn.de>
+
+Hi zusammen,
+
+mir ist erst jetzt aufgefallen, dass es in Jameica gar keine Moeglichkeit gab,
+in Contextmenus weitere Untermenus anzulegen. Die hatten bisher also nur eine
+Ebene. Gerade bei recht langen Contextmenus kann es durchaus sinnvoll sein,
+zusammengehoerende Menu-Items in ein Sub-Menu auszulagern.
+
+Das hab ich jetzt erweitert. Die Klasse "ContextMenu" hat nun neben der
+Methode "addItem(ContextMenuItem)" (zum Hinzufuegen von Menu-Eintraegen) noch
+eine neue Funktion "addMenu(ContextMenu)" erhalten.
+Damit kann man mehrere Menus ineinander verschachteln.
+
+Wichtig ist hierbei jedoch, dass das ContextMenu einen Namen hat, damit
+es als Sub-Menu angezeigt werden kann. Beispiel.
+
+public class TopMenu extends ContextMenu
+{
+  public TopMenu()
+  {
+    this.addItem(...);
+    this.addMenu(new SubMenu()); // hier wird das Submenu eingefuegt
+    this.addItem(...);
+    this.addItem(ContextMenuItem.SEPARATOR);
+    this.addItem(...);
+
+  }  
+}
+
+public class SubMenu extends ContextMenu
+{
+  public SubMenu()
+  {
+    this.setText("Sub-Menu");
+    this.setImage(SWTUtil.getImage("computer.png")); // optional: Icon
+    this.addItem(...);
+  }
+}
+
+
+Alternativ koennte man natuerlich auch einen neuen Konstruktor ...
+
+public SubMenu(String text)
+{
+  this.setText(text);
+}
+
+... wenn man den Namen des Sub-Menus im Top-Menu angeben will.
+
+
+Gruss
+Olaf
+
+
+From heiner at jost-net.de  Thu Jul 16 19:05:06 2009
+From: heiner at jost-net.de (Heiner Jostkleigrewe)
+Date: Thu, 16 Jul 2009 19:05:06 +0200
+Subject: [jameica-devel] Neue Entwicklerversion
+Message-ID: <4A5F5DC2.8000505@jost-net.de>
+
+Hallo,
+
+ich habe gerade eine neue Entwicklerversion zur Verfügung gestellt.
+
+Neben einigen Bugfixes gibt es folgende Änderungen:
+
+    * Die Mitgliedsseite wurde neu strukturiert. Die Zahlungsangaben
+      wurden in einen separaten Tab verschoben.
+    * Auf der Jameica-Startseite kann eine Liste der aktuellen
+      Geburtstage eingeblendet werden.
+
+Die Changelog-Datei ist unter http://188.92.201.78/changelog.php zu 
+finden. Die Dokumentation wurde entsprechend angepasst. Im Übrigen könnt 
+ich euch schon mal eine Preview der neuen Homepage ansehen.
+
+
+Heiner
+
+
+From hibiscus at willuhn.de  Fri Jul 17 14:30:15 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Fri, 17 Jul 2009 14:30:15 +0200
+Subject: [jameica-devel] Erfolgs- und Fehlermeldungen aus der Statusleiste
+	fuer GUI-Unit-Test abfragen
+Message-ID: <200907171430.15440.hibiscus@willuhn.de>
+
+Hi,
+
+der Code ist gerade entstanden, weil Heiner fuer JVerein automatisierte
+GUI-Tests mittels SWTBot baut und dafuer unter anderem auch die
+System-Meldungen in der Statusleiste auslesen will, um z.Bsp. herauszufinden,
+ob ein Datensatz erfolgreich gespeichert werden konnte.
+
+Die Statusleiste ist ja auch nur ein SWT-Widget. Daher koennte man
+deren Text-Inhalt auch direkt mit SWTBot auslesen. Das hat aber
+ein paar Nachteil:
+
+1) um herauszufinden, ob es sich um eine Erfolgs- oder Fehlermeldung
+   handelt, muesste man entweder die Textfarbe (rot, gruen) ermitteln
+   oder den Textinhalt auslesen und interpretieren. Wird der Hinweis-
+   Text mal umformuliert, schlaegt der Unit-Test ggf. unnoetig fehl.
+
+2) man kriegt immer nur die aktuell angezeigte Meldung. Es kann
+   aber z.Bsp. sein, dass zwei Meldungen unmittelbar aufeinander folgen
+   und dadurch die erste Meldung gleich wieder "ueberdeckt" wird.
+
+3) Die Anzeige auf der Statusleiste erfolgt asynchron. Es kann also
+   durchaus sein, dass sie Zehntel-Sekunden verzoegert erscheint, und
+   zu dem Zeitpunkt, zu dem man die Statusbar auswertest, noch gar
+   nicht da ist. Sprich: Wenn man z.Bsp. unmittelbar nach dem Speichern
+   eines Objektes mit SWTBot in der Statusleiste nachschaut, kann
+   es sein, dass da "Objekt gespeichert" noch gar nicht drin steht.
+
+Die Alternative lautet - wie immer - Jameica-Messaging. ;)
+
+Der Statusbar-Text wird generell via Jameica-Messaging geschickt.
+Die Klasse "StatusbarTextItem" macht ja auch nichts anderes, als
+Nachrichten vom Typ "StatusbarMessage" zu abonnieren und anzuzeigen.
+
+Damit sich das fuer Unit-Tests besser handhaben laesst, hab
+ich eine Hilfsklasse "MessageCollector" geschrieben und in
+Jameica eingecheckt. Mit der kann man Messages beliebiger Art
+mitschneiden.
+
+Code-Beispiel fuer den o.g. Anwendungsfall:
+
+
+// Collector erzeugen
+MessageCollector collector = new MessageCollector();
+
+// Festlegen, welche Art von Nachricht wir mitschneiden wollen
+// Wir moechten die Textmeldungen aus der Statuszeile
+collector.collect(StatusBarMessage.class);
+
+// Registrieren.
+Application.getMessagingFactory().registerMessageConsumer(collector);
+
+// Das "collector"-Objekt kann man jetzt irgendwo in
+// einer statischen Variable speichern, damit man jederzeit
+// Zugriff darauf hat.
+
+
+// Hier kann jetzt der Unit-Test durchgefuehrt werden.
+// Z.Bsp. Mitglied speichern
+.....
+
+// Checken, ob in der Statusleiste Erfolg gemeldet wurde:
+StatusbarMessage m = (StatusbarMessage) collector.pop();
+if (m.getType == StatusbarMessage.TYPE_ERROR)
+  throw new Exception("Test fehlgeschlagen, Speichern nicht erfolgreich");
+
+   
+// Collector nach Beenden der Tests wieder deregistrieren.
+Application.getMessagingFactory().unRegisterMessageConsumer(collector);
+
+
+
+Natuerlich kann der MessageCollector auch fuer andere
+Zwecke genutzt werden. 
+
+Gruss
+Olaf
+
+

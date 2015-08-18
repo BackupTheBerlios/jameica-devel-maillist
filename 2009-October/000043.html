@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-October/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SpinnerInput%20in%20jameica%20und%20automatischer%0A%09Update-Check%20in%20jameica.update%20-%20Nachtrag&In-Reply-To=%3C200910281914.46815.hibiscus%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000042.html">
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20SpinnerInput%20in%20jameica%20und%20automatischer%0A%09Update-Check%20in%20jameica.update%20-%20Nachtrag&In-Reply-To=%3C200910281914.46815.hibiscus%40willuhn.de%3E"
+           TITLE="[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update - Nachtrag">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Mi Okt 28 19:14:46 CET 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000042.html">[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000044.html">[jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#43">[ Datum ]</a>
+              <a href="thread.html#43">[ Thema ]</a>
+              <a href="subject.html#43">[ Betreff (Subject) ]</a>
+              <a href="author.html#43">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hi nochmal,
+
+&gt;<i> Bei Gelegenheit erweitere ich das sicher noch so, dass
+</I>&gt;<i> statt des lastmodified-Timestamp auch die 3. Stelle
+</I>&gt;<i> der Versionsnummer (Patch-Version) verwendet wird. Also
+</I>&gt;<i> z.Bsp. bei 1.8.4 die &quot;4&quot;. Bisher nutze ich aber noch nirgends
+</I>&gt;<i> 3-stellige Versionsnummern ;)
+</I>
+Habs grad noch eingebaut. Ein Update wird jetzt als solches
+erkannt, wenn
+
+a) die online verfuegbare Version 3-stellig ist (also
+   ein Patchlevel besitzt, z.Bsp. 1.8.3) und sie hoeher als
+   die installierte ist. In dem Fall wird der last-modified-
+   Wert ignoriert. Auf diese Weise kann man auch Nightly-
+   Builds (die ja jede Nacht neu erzeugt werden und sich daher
+   dauernd das last-modified aendert) via Auto-Update ausliefern,
+   ohne dass der User jeden Tag einen Hinweis ueber eine neue
+   Version erhaelt.
+
+   Aber auch hier gilt: Falls &quot;Nur benachrichtigen&quot; aktiviert
+   ist, erfolgt der Hinweis nur einmal. Wenn der User den
+   Hinweis wegklickt und die neue Version nicht installiert,
+   wird er erst dann wieder benachrichtigt, wenn eine noch
+   neuere Version verfuegbar ist.
+
+b) oder wenn die online verfuegbare Version 2-stellig ist
+   (also z.Bsp. 1.8) und last-modified seit der letzten
+   Pruefung aktualisiert wurde.
+
+In beiden Faellen gilt ausserdem: Ist die online verfuegbare
+Versionsnummer kleiner als die installierte, wird das
+Update natuerlich ignoriert.
+
+Zusammengefasst also:
+
+ - wenn die Version 3-stellig ist, muss sie hoeher als die
+   installierte sein
+ - wenn die Version 2-stellig ist, kann sie identisch sein.
+   last-modified muss aber aktueller sein.
+
+Gruss
+Olaf
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000042.html">[jameica-devel] SpinnerInput in jameica und automatischer	Update-Check in jameica.update
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000044.html">[jameica-devel] Tipp: Versionsnummer des Plugins in build.xml	direkt aus plugin.xml auslesen
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#43">[ Datum ]</a>
+              <a href="thread.html#43">[ Thema ]</a>
+              <a href="subject.html#43">[ Betreff (Subject)]</a>
+              <a href="author.html#43">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

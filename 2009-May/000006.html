@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Neuer Konstruktor für SearchInput
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-May/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%3D%3Fiso-8859-15%3Fq%3FNeuer_Konstruktor_f%3DFCr_SearchInp%3F%3D%0A%09%3D%3Fiso-8859-15%3Fq%3Fut%3F%3D&In-Reply-To=%3C4A0DC077.3010807%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000005.html">
+   <LINK REL="Next"  HREF="000007.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Neuer Konstruktor für SearchInput</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%3D%3Fiso-8859-15%3Fq%3FNeuer_Konstruktor_f%3DFCr_SearchInp%3F%3D%0A%09%3D%3Fiso-8859-15%3Fq%3Fut%3F%3D&In-Reply-To=%3C4A0DC077.3010807%40jost-net.de%3E"
+           TITLE="[jameica-devel] Neuer Konstruktor für SearchInput">heiner at jost-net.de
+                  </A><BR>
+    <I>Fr Mai 15 21:20:23 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000005.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000007.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#6">[ Datum ]</a>
+              <a href="thread.html#6">[ Thema ]</a>
+              <a href="subject.html#6">[ Betreff (Subject) ]</a>
+              <a href="author.html#6">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo Olaf,
+
+ich habe der Klasse SearchInput einen neuen Konstruktor hinzugefügt. 
+Damit ist es möglich den angezeigten Initialtexte (Suche...) individuell 
+einzustellen.
+
+
+  /**
+   * Erzeugt eine neue Such-Box.
+   */
+  public SearchInput()
+  {
+    this(Application.getI18n().tr(&quot;Suche...&quot;));
+  }
+
+  /**
+   * Erzeugt eine neue Such-Box mit Vorgabe des searchstrings
+   */
+  public SearchInput(String searchstring)
+  {
+    super();
+    this.search = searchstring;
+  }
+
+
+Würdest du die Änderung bitte ins CVS einchecken?
+
+Heiner
+-------------- nächster Teil --------------
+Ein Dateianhang mit Binärdaten wurde abgetrennt...
+Dateiname   : SearchInput.java
+Dateityp    : text/x-java
+Dateigröße  : 13651 bytes
+Beschreibung: nicht verfügbar
+URL         : &lt;<A HREF="https://lists.berlios.de/pipermail/jameica-devel/attachments/20090515/9d8181ce/attachment.java">https://lists.berlios.de/pipermail/jameica-devel/attachments/20090515/9d8181ce/attachment.java</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000005.html">[jameica-devel] NEU: TablePart#setRememberState(boolean)
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000007.html">[jameica-devel] Neuer Konstruktor für SearchInput
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#6">[ Datum ]</a>
+              <a href="thread.html#6">[ Thema ]</a>
+              <a href="subject.html#6">[ Betreff (Subject)]</a>
+              <a href="author.html#6">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

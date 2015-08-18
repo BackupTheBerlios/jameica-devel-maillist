@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Sourcecode von mckoiddb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-December/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Sourcecode%20von%20mckoiddb&In-Reply-To=%3C4B3B100F.2030705%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000048.html">
+   <LINK REL="Next"  HREF="000050.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Sourcecode von mckoiddb</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Sourcecode%20von%20mckoiddb&In-Reply-To=%3C4B3B100F.2030705%40jost-net.de%3E"
+           TITLE="[jameica-devel] Sourcecode von mckoiddb">heiner at jost-net.de
+                  </A><BR>
+    <I>Mi Dez 30 09:32:15 CET 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000048.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000050.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#49">[ Datum ]</a>
+              <a href="thread.html#49">[ Thema ]</a>
+              <a href="subject.html#49">[ Betreff (Subject) ]</a>
+              <a href="author.html#49">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo Fabian,
+
+auch das Jameica-Plugin JVerein benötigt die McKoi-Datenbank nicht mehr. 
+Vermutlich wird die Bibliothek nicht mehr gebraucht.
+
+Heiner
+
+Fabian Köster schrieb:
+&gt;<i> Hi Olaf,
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;<i> ich erstelle gerade Pakete von Jameica für Debian [1] und wundere mich,
+</I>&gt;&gt;&gt;<i> wie die binäre Jar-Datei lib/mckoi/mckoidb.jar zustande kam?
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> Ich bin - zumindest bei Hibiscus - inzwischen auf H2 umgestiegen. Die
+</I>&gt;&gt;<i>  McKoi- Datenbank soll ueber kurz oder lang rausfliegen. Daher aktualisiere
+</I>&gt;&gt;<i>  ich die Version auch nicht mehr. Zu dieser Entscheidung bin ich u.a. daher
+</I>&gt;&gt;<i>  gekommen, weil McKoi scheinbar ein verwaistes Projekt war (zumindest
+</I>&gt;&gt;<i>  erschienen da einige Jahre keine neuen Releases mehr). Inzwischen ist wohl
+</I>&gt;&gt;<i>  wieder eine neue Version rausgekommen.
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> Ah ok, so etwas hatte ich bereits vermutet.
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;<i> In der Datei lib/mckoi/info.xml wird als Quelle die URL <A HREF="http://mckoi.com">http://mckoi.com</A>
+</I>&gt;&gt;&gt;<i> genannt. In der Download-Seite der Webseite zu dieser URL findet man eine
+</I>&gt;&gt;&gt;<i>  Zip- Datei [2], welche neben den Bytecode-Dateien auch den dazugehörigen
+</I>&gt;&gt;&gt;<i>  Sourcecode enthält, jedoch nicht von den selben Klassen wie sie mit
+</I>&gt;&gt;&gt;<i>  Jameica 1.8 ausgelieferten werden.
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> Wie gesagt - die bei Jameica beiliegende ist offensichtlich nicht mehr
+</I>&gt;&gt;<i> die aktuelle Version.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Woher kommen diese?
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> Urspruenglich von der von dir genannten Webseite. Dass die Version
+</I>&gt;&gt;<i> dort jetzt nicht mehr verfuegbar ist, dafuer kann ich ja nichts.
+</I>&gt;&gt;<i> Unter anderem fuer solche Faelle habe ich die Source-Libs der externen
+</I>&gt;&gt;<i> Komponenten mit ins CVS eingecheckt. Die gesuchte Datei findest
+</I>&gt;&gt;<i> du unter:
+</I>&gt;&gt;<i> <A HREF="http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/">http://cvs.berlios.de/cgi-bin/viewvc.cgi/jameica/jameica/lib.src/mckoi/</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> Nein, dafür kannst du natürlich nichts :) Super Sache daher, dass du die 
+</I>&gt;<i> Quellen der Libs ins CVS eingespeist hast!
+</I>&gt;<i>
+</I>&gt;<i> Werde darauf basierend neue mckoi-Pakete bauen und der Rest dürfte dann kein 
+</I>&gt;<i> großes Problem mehr sein.
+</I>&gt;<i>
+</I>&gt;<i> Danke für die Hilfe und deine Arbeiten an Jameica/Hibiscus!
+</I>&gt;<i>
+</I>&gt;<i> Gruß,
+</I>&gt;<i> Fabian
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> jameica-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000048.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000050.html">[jameica-devel] Sourcecode von mckoiddb
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#49">[ Datum ]</a>
+              <a href="thread.html#49">[ Thema ]</a>
+              <a href="subject.html#49">[ Betreff (Subject)]</a>
+              <a href="author.html#49">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

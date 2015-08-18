@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2011-July/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%3D%3Futf-8%3Fq%3FBekannte_Probleme_Hibiscus/Jameica_%3F%3D%0A%20%3D%3Futf-8%3Fq%3F%3DC3%3DBCber_CIFS-Share%3D3F%3F%3D&In-Reply-To=%3C4E2569C4.9050408%40willuhn.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000063.html">
+   <LINK REL="Next"  HREF="000065.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?</H1>
+    <B>Olaf Willuhn</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20%3D%3Futf-8%3Fq%3FBekannte_Probleme_Hibiscus/Jameica_%3F%3D%0A%20%3D%3Futf-8%3Fq%3F%3DC3%3DBCber_CIFS-Share%3D3F%3F%3D&In-Reply-To=%3C4E2569C4.9050408%40willuhn.de%3E"
+           TITLE="[jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?">hibiscus at willuhn.de
+                  </A><BR>
+    <I>Di Jul 19 13:25:56 CEST 2011</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000063.html">[jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000065.html">[jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#64">[ Datum ]</a>
+              <a href="thread.html#64">[ Thema ]</a>
+              <a href="subject.html#64">[ Betreff (Subject) ]</a>
+              <a href="author.html#64">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hallo,
+
+&gt;<i> hier läuft Hibiscus/Jameica 2.0 gespeichert auf einem mit Samba auf Linux
+</I>&gt;<i> (Ubuntu 11.x) bereitgestelltem Netzwerkshare. Die Hibiscus-Daten liegen auf
+</I>&gt;<i> einem Share, Hibiscus auf einem anderen. Die Anbindung ist 100mbit Netzwerk.
+</I>&gt;<i> Der Client ist 64bit Windows 7.
+</I>&gt;<i> Wenn Hibiscus jetzt vom Share gestartet wird und ein lokales (auf dem Client
+</I>&gt;<i> gespeichertes) Datenverzeichnis verwenden soll, startet und reagiert
+</I>&gt;<i> Hibiscus auch angemessen schnell. Wenn ich Daten vom Share benutze mit dem
+</I>&gt;<i> Hibiscus vom Share dauert es bis zu 5 Minuten bis Hibiscus gestartet ist.
+</I>&gt;<i> Hibiscus bleibt beim &quot;Überprüfe Datenbank&quot;-Teil des Ladens stehen und
+</I>&gt;<i> reagiert dort nicht mehr für ca. 5 Minuten. Wenn man die Zeit abwartet, lädt
+</I>&gt;<i> Hibiscus ganz normal.
+</I>&gt;<i> 
+</I>&gt;<i> Ich überlegte, dass die Datenbank von Hibiscus evtl. Probleme mit
+</I>&gt;<i> CIFS-Shares oder Netzwerklaufwerken haben könnte - ist dahingehend irgendwas
+</I>&gt;<i> bekannt? Funktioniert Hibiscus sonst normal auf Netzwerkshares?
+</I>
+Das Problem gabs schonmal - ist hier beschrieben:
+
+<A HREF="https://www.willuhn.de/bugzilla/show_bug.cgi?id=595">https://www.willuhn.de/bugzilla/show_bug.cgi?id=595</A>
+
+Lag damals an der H2-Datenbank und konnte durch eine aktuellere Version
+des Datenbank-Treibers behoben werden. Scheint so, als ob der Fehler
+jetzt wiedergeboren wurde. Allerdings verwendet Jameica eine aktuelle
+h2.jar. Du koenntest also hoechstens mal auf www.h2database.com (oder
+dort in der Mailingliste) nachfragen, ob das Problem bekannt ist.
+
+Gruss
+Olaf
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.16 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOJWnEAAoJEFqO2c/A22xwtpoH/3XKO7S8Ly3z4H1fE0XI3BzI
+9RWHGlTtzvcD/rK5Uw6jBFT83jOjPrt1X1tr9sY201q+YSmmtQV+oWRti4u3WjM0
+LlssqWkfXhB94C7hr3YWcn2n+lA4ly+rhFVj/F7RAzibn63pElXwZJfqI1T1fskm
+iMXB+2QdW+uHTKFh80H+iuDiyxwT2zBkn3cwLbDbBguEWHymK3SGQkWp3Z0SKprA
+PxsqfEJ1QAgNW+NXazHKpEhalJGdvb8b90HRLPbF1jUuVDM4e1k0LyTNrYNY++8D
+r7fAtFAMDk/i0d0vJhV1cYsh3Htf8jbZJhIaafQF8bFvK+r2cxkgT7al7DT4t3w=
+=H+Uh
+-----END PGP SIGNATURE-----
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000063.html">[jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000065.html">[jameica-devel] Bekannte Probleme Hibiscus/Jameica über CIFS-Share?
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#64">[ Datum ]</a>
+              <a href="thread.html#64">[ Thema ]</a>
+              <a href="subject.html#64">[ Betreff (Subject)]</a>
+              <a href="author.html#64">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

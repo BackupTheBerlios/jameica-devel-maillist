@@ -1,0 +1,146 @@
+From hibiscus at willuhn.de  Tue Sep 29 17:27:53 2009
+From: hibiscus at willuhn.de (Olaf Willuhn)
+Date: Tue, 29 Sep 2009 17:27:53 +0200
+Subject: [jameica-devel] Bequemes Datei-Archiv mit dem jameica.messaging
+	Plugin
+Message-ID: <200909291727.53367.hibiscus@willuhn.de>
+
+Hi,
+
+hatte ja letztens schon im Blog erwaehnt, dass ich
+kuerzlich ein paar weitere Jameica-Plattform-Erweiterungen
+veroeffentlicht hatte. Unter anderem auch das Plugin
+"jameica.messaging". Ich moechte es hier mal kurz vorstellen.
+
+Hauptaufgabe des Plugins ist es, Daten jeglicher Art (egal ob PDF,
+XML oder sonstwas) entgegenzunehmen, lokal in ~/.jameica zu archivieren
+und mit einer UUID zu versehen, anhand derer es spaeter wieder abgerufen
+werden kann. Mit Hilfe sog. "Channels" kann das Archiv auch strukturiert
+werden. Wenn als Channel also beispielsweise "dokumente.rechnungen.kunde1"
+angegeben ist, werden die Dateien in einem Unterverzeichnis
+dokumente/rechnungen/kunde1 abgelegt. Ausserdem kann man die Dateien
+noch Properties versehen, in denen man z.Bsp. speichern kann, wann die
+Datei erzeugt wurde, von welchem User sie stammt, usw.
+
+Das Plugin entstand urspruenglich, weil ich in einem
+Projekt XML-Dateien via HTTPS an ein POS-System schicken
+musste und die Requests und Responses archiviert werden
+sollen, um spaeter feststellen zu koennen, ob die Buchungen
+tatsaechlich so uebertragen wurden, wie sie fakturiert wurden.
+
+Das Archiv kann auf verschiedenste Arten ueber das Netzwerk angesprochen
+werden. Ist nur "jameica.messaging" installiert, koennen Dateien
+lediglich via RAW TCP uebergeben werden. Das Protokoll hat zwar
+keinerlei Authentifizierung, dafuer ist es aber so banal, dass
+man Dateien mittels "netcat" aus einem Terminal-Fenster heraus
+uebertragen kann - ohne jegliche Programmierkenntnisse. Der Server
+lauscht per Default auf TCP-Port 9000.
+
+1) Senden einer Datei an den Server:
+
+$> echo "put meine.dokumente" | cat - Rechnung.pdf | netcat 192.168.1.1 9000
+547b58ea-32f6-4044-916d-73f8e5b69dd0
+
+Die Datei "Rechnung.pdf" wird hierbei an den Server 192.168.1.1
+gesendet und dort im Ordner "meine/dokumente" abgelegt.
+
+Der Befehl liefert die vergebene UUID auf der Shell zurueck.
+
+
+
+2) Anhand dieser UUID kann die Datei anschliessend wieder abgerufen werden:
+
+$> echo "get 547b58e......" | netcat 192.168.1.1 9000 > Kopie.pdf
+
+
+
+3) Wir koennen sie nun noch mit beliebigen Attributen versehen:
+
+$> cat test.props
+Benutzer=Olaf Willuhn
+Erstellt=29.09.2009
+$> echo "putmeta 547b58e......" | cat - test.props | netcat 192.168.1.1 9000
+
+
+
+4) und sie wieder vom Server loeschen
+
+$> echo "delete 547b58e......" | netcat 192.168.1.1 9000
+
+
+
+Wenn ausserdem noch das Plugin "jameica.webadmin" installiert ist,
+wird automatisch und zusaetzlich ein REST-Service bereitgestellt,
+mit dem man die Dateien auch ueber einen Browser hochladen und
+abrufen kann. Nach Installation des Plugins "jameica.xmlrpc"
+kommt noch ein XML-RPC-Connector hinzu. Und bei Installation
+von "jameica.soap" noch ein SOAP-Connector. Derzeit baue ich auch
+noch an einem webdav-Connector, damit man das Archiv auch als
+Netzlaufwerk mounten kann. Das funktioniert aber noch nicht
+so richtig zuverlaessig.
+
+
+Moechte man direkt aus Jameica heraus Dateien an den Archiv-Server
+uebergeben, geht das recht einfach und quasi konfigurationsfrei.
+Grund: Jameica enthaelt schon seit langer Zeit einen Lookup-Service,
+ueber den man mittels Multicast nach Jameica-Services im LAN suchen
+kann. Wenn Jameica im Server-Mode laeuft, announced es seine
+Services automatisch auf diese Weise. Der Client kann also die
+IP und den Port des Archiv-Servers automatisch finden - vorausgesetzt
+beide befindet sich im gleichen LAN.
+
+Wir nehmen also als Szenario an, dass sich im LAN auf einem
+Server eine Jameica-Installation befindet, auf der das Plugin
+"jameica.messaging" installiert ist und diese mit dem Server-Parameter
+"-d" gestartet wurde.
+
+Dann kann man von den Clients aus mit folgendem Code Dateien
+abliefern und abrufen:
+
+// Dieser Aufruf ist wichtig. Er fuehrt dazu, dass der Archiv-
+// Server via Multicast ausfindig gemacht wird. Es genuegt,
+// den Aufruf einmal pro Jameica-Sitzung auf dem Client
+// durchzufuehren.
+Application.getBootLoader().getBootable(ArchiveService.class);
+
+
+InputStream is = null;
+OutputStream os = null;
+
+try {
+  
+  // Datei senden
+  // Statt einem InputStream kann auch ein byte[] uebergeben werden
+  is = new FileInputStream("/tmp/Rechnung.pdf");
+  QueryMessage qm = new QueryMessage("meine.dokumente",is);
+  Application.getMessagingFactory().getMessagingQueue("jameica.messaging.put").sendSyncMessage(qm);
+      
+  String uuid = qm.getData().toString();
+  System.out.println("UUID: " + uuid);
+      
+  // Datei wieder abrufen
+  qm = new QueryMessage(uuid,null);
+  Application.getMessagingFactory().getMessagingQueue("jameica.messaging.get").sendSyncMessage(qm);
+  os = new FileOutputStream("/tmp/Kopie.pdf");
+  os.write((byte[]) qm.getData());
+      
+  // Datei loeschen
+  qm = new QueryMessage(uuid,null);
+  Application.getMessagingFactory().getMessagingQueue("jameica.messaging.del").sendSyncMessage(qm);
+}
+finally {
+  if (is != null)
+    is.close();
+      
+  if (os != null)
+    os.close();
+}
+
+Herunterladen kann man das alles - bei Interesse - von
+http://www.willuhn.de/products/jameica/download_ext.php
+
+
+Viel Spass beim Ausprobieren ;)
+Olaf
+
+

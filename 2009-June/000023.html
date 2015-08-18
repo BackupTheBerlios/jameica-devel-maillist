@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] JUnit-Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A490F34.5060308%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000021.html">
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] JUnit-Test von Jameica-Plugins</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20JUnit-Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A490F34.5060308%40jost-net.de%3E"
+           TITLE="[jameica-devel] JUnit-Test von Jameica-Plugins">heiner at jost-net.de
+                  </A><BR>
+    <I>Mo Jun 29 21:00:04 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000021.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000024.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#23">[ Datum ]</a>
+              <a href="thread.html#23">[ Thema ]</a>
+              <a href="subject.html#23">[ Betreff (Subject) ]</a>
+              <a href="author.html#23">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo Olaf,
+
+vielen Dank für deine Antwort. Jetzt klemmt es bei der Prüfung der 
+Bankverbindung:
+
+ public final static boolean checkAccountCRC(String blz, String kontonummer)
+  {
+    QueryMessage q = new QueryMessage(blz + &quot;:&quot; + kontonummer);
+    Application.getMessagingFactory().getMessagingQueue(
+        &quot;hibiscus.query.accountcrc&quot;).sendSyncMessage(q);
+    Object data = q.getData();
+
+    // Wenn wir keine oder eine ungueltige Antwort erhalten haben,
+    // ist Hibiscus vermutlich nicht installiert. In dem Fall
+    // lassen wir die Konto/BLZ-Kombination mangels besserer
+    // Informationen zu
+    return (data == null || !(data instanceof Boolean)) ? true
+        : ((Boolean) data).booleanValue();
+  }
+
+Wenn das gelöst ist, wird es vermutlich weitere Probleme geben.
+
+Ich habe mich bereits mit Markus Wolf wegen Webbot-Tests in Verbindung 
+gesetzt. Er hat mir Code zur Verfügung gestellt. Der ist allerdings 
+nicht universell einsetzbar. Jameica stellt sich an der Stelle recht 
+störrisch an. Andersherum ausgedrückt bin ich zu blöd zu erkennen, wie 
+die Komponenten zusammenspielen.
+
+Wirst du evtl. Jameica um JUnit- und Webbot-Support erweitern? Der Test 
+der Plugins mit JUnit und Webbot dient sicherlich der Qualitätsverbesserung.
+
+Heiner
+
+Olaf Willuhn schrieb:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> ich habe folgende Klassen zum Test eines DB-Objektes erstellt:
+</I>&gt;&gt;<i>     
+</I>&gt;<i> [...]
+</I>&gt;<i>   
+</I>&gt;&gt;<i> st = (Stammdaten) JVereinPluginTest.getDB().createObject(Stammdaten.class, &quot;1&quot;);
+</I>&gt;&gt;<i>     
+</I>&gt;<i> [...]
+</I>&gt;<i>   
+</I>&gt;&gt;<i>     db = new DBServiceImpl(driver, url, user, password);
+</I>&gt;&gt;<i>     db.start();
+</I>&gt;&gt;<i>     
+</I>&gt;<i> [...]
+</I>&gt;<i>   
+</I>&gt;&gt;<i>     java.lang.Exception: no classfinder defined: unable to find
+</I>&gt;&gt;<i> implementor for interface de.jost_net.JVerein.rmi.Stammdaten
+</I>&gt;&gt;<i>     
+</I>&gt;<i> [...]
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Die erforderlichen Klassen befinden sich im Classpath.
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> Ein DBService ist nicht ohne weiteres in der Lage, zu einem
+</I>&gt;<i> angegebenen Interface (hier Stammdaten.class) die passende
+</I>&gt;<i> Implementierung zu finden. Das soll er auch gar nicht &quot;out-of-the-box&quot;
+</I>&gt;<i> koennen, weil das rechen- und ressourcen-intensiv ist. Dafuer
+</I>&gt;<i> gibt es einen Classfinder. Bei deinem Service ist keiner angegeben.
+</I>&gt;<i> Daher wirft er die Exception mit dem Text &quot;no classfinder defined&quot;.
+</I>&gt;<i> Das macht er also lediglich deshalb, weil er nicht weiss, wo
+</I>&gt;<i> er nach einer passenden Implementierung suchen soll.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 2 Moeglichkeiten:
+</I>&gt;<i>
+</I>&gt;<i> a) Du verzichtest auf die Moeglichkeit, dass der Service selbst
+</I>&gt;<i> nach der passenden Implementierung sucht und uebernimmst das
+</I>&gt;<i> selbst. Hierzu genuegt es, wenn du der createObject-Methode nicht
+</I>&gt;<i> das Interface sondern direkt die Implementierung uebergibst. Also
+</I>&gt;<i> z.Bsp. so:
+</I>&gt;<i>
+</I>&gt;<i> ...createObject(StammdatenImpl.class,&quot;1&quot;);
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> b) Du registrierst im DB-Service einen Classfinder. Der DB-Service
+</I>&gt;<i> befragt diesen dann, ob er eine Implementierung zum gewuenschten
+</I>&gt;<i> Interface kennt. Schreib hierzu folgenden Code-Schnipsel in den
+</I>&gt;<i> Konstruktor deines DBServiceImpl:
+</I>&gt;<i>
+</I>&gt;<i> MultipleClassLoader cl = Application.getPluginLoader().getPlugin(DeinPlugin.class).getResources().getClassLoader();
+</I>&gt;<i> this.setClassloader(cl);
+</I>&gt;<i> this.setClassFinder(cl.getClassFinder());
+</I>&gt;<i>
+</I>&gt;<i> Der uebergebene Classfinder ist jener, der zum Classloader des
+</I>&gt;<i> Plugins gehoert. Und der kann die Implementierungen zu genau
+</I>&gt;<i> den Klassen finden, die in plugin.xml in der Sektion...
+</I>&gt;<i>
+</I>&gt;<i> &lt;classfinder&gt;
+</I>&gt;<i>   &lt;include&gt;....&lt;/include&gt;
+</I>&gt;<i> &lt;/classfinder&gt;
+</I>&gt;<i>
+</I>&gt;<i> ...angegeben sind.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Gruss
+</I>&gt;<i> Olaf
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> jameica-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000021.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000024.html">[jameica-devel] JUnit-Test von Jameica-Plugins
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#23">[ Datum ]</a>
+              <a href="thread.html#23">[ Thema ]</a>
+              <a href="subject.html#23">[ Betreff (Subject)]</a>
+              <a href="author.html#23">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [jameica-devel] Test von Jameica-Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jameica-devel/2009-June/index.html" >
+   <LINK REL="made"  HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A3D2F54.9080809%40jost-net.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <LINK REL="Previous"  HREF="000016.html">
+   <LINK REL="Next"  HREF="000018.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[jameica-devel] Test von Jameica-Plugins</H1>
+    <B>Heiner Jostkleigrewe</B> 
+    <A
+    HREF="mailto:jameica-devel%40lists.berlios.de?Subject=Re%3A%20%5Bjameica-devel%5D%20Test%20von%20Jameica-Plugins&In-Reply-To=%3C4A3D2F54.9080809%40jost-net.de%3E"
+           TITLE="[jameica-devel] Test von Jameica-Plugins">heiner at jost-net.de
+                  </A><BR>
+    <I>Sa Jun 20 20:49:56 CEST 2009</I>
+    <P><UL>
+        <LI>Vorherige Nachricht: <A HREF="000016.html">[jameica-devel] Test von Jameica-Plugins
+</A></li>
+        <LI>Nächste Nachricht: <A HREF="000018.html">[jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B> 
+              <a href="date.html#17">[ Datum ]</a>
+              <a href="thread.html#17">[ Thema ]</a>
+              <a href="subject.html#17">[ Betreff (Subject) ]</a>
+              <a href="author.html#17">[ Autor ]</a>
+         </LI>
+       </UL>
+    <HR>
+<!--beginarticle-->
+<PRE>Hallo Markus,
+
+hast du Beispielcode für die Nutzung von SWTBot mit Jameica, bzw. einem 
+Plugin? Die Doku ist recht knapp gehalten.
+
+Heiner
+
+Markus Wolf schrieb:
+&gt;<i> -----BEGIN PGP SIGNED MESSAGE-----
+</I>&gt;<i> Hash: SHA1
+</I>&gt;<i>
+</I>&gt;<i> Hallo Heiner,
+</I>&gt;<i>
+</I>&gt;<i> klar kann ich dir dabei helfen. Hab das maven-jameica-test-plugin
+</I>&gt;<i> geschrieben. Wo genau ist denn das Problem? Nutzt du Maven um dein
+</I>&gt;<i> Plugin zu bauen?
+</I>&gt;<i> Theoretisch ist es auch möglich nur JUnit (z.B. mit Ant) zum testen zu
+</I>&gt;<i> verwenden, aber das habe ich nie probiert, da ich alles mit Maven mache.
+</I>&gt;<i>
+</I>&gt;<i> Du kannst auch den SWTBot direkt nutzen (mache ich im maven-plugin
+</I>&gt;<i> auch), aber dann kannst du das nicht so einfach in einem
+</I>&gt;<i> Integration-Test-Server ausführen. Mit dem Maven-Plugin ist es einfach
+</I>&gt;<i> möglich z.B. alle Tests auf einem Nightly-Build auszuführen oder bei
+</I>&gt;<i> jedem SVN/CVS Commit.
+</I>&gt;<i>
+</I>&gt;<i> Gruß
+</I>&gt;<i> Markus
+</I>&gt;<i>
+</I>&gt;<i> Heiner Jostkleigrewe schrieb:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hallo,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ich bin auf der Suche nach einem Tool zum Test eines Jameica-Plugins.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Im Netz habe ich dazu swtbot (<A HREF="http://www.eclipse.org/swtbot/">http://www.eclipse.org/swtbot/</A>) und  
+</I>&gt;&gt;<i> maven-jameica-test-plugin 
+</I>&gt;&gt;<i> (<A HREF="http://www.emedia-solutions-wolf.de/web/guest/products/maven-jameica-test-plugin">http://www.emedia-solutions-wolf.de/web/guest/products/maven-jameica-test-plugin</A>) 
+</I>&gt;&gt;<i> gefunden.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Ich habe da aber noch so meine Probleme, dass ans Laufen zu bringen. 
+</I>&gt;&gt;<i> Kann mir jemand auf die Sprünge helfen?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Heiner
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> jameica-devel mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> - --
+</I>&gt;<i>   
+</I>&gt;&gt;<i> emedia-solutions wolf    web: <A HREF="http://www.emedia-solutions-wolf.de">http://www.emedia-solutions-wolf.de</A>
+</I>&gt;&gt;<i> Eimsbüttler Straße 115  mail: <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">markus at emedia-solutions-wolf.de</A>
+</I>&gt;&gt;<i> 22769 Hamburg            pgp: <A HREF="http://wwwkeys.de.pgp.net">http://wwwkeys.de.pgp.net</A>
+</I>&gt;&gt;<i> +49 40 432 635 83      taxid: 02 / 372 / 39601
+</I>&gt;&gt;<i>     
+</I>&gt;<i> -----BEGIN PGP SIGNATURE-----
+</I>&gt;<i> Version: GnuPG v1.4.9 (GNU/Linux)
+</I>&gt;<i> Comment: Using GnuPG with Mozilla - <A HREF="http://enigmail.mozdev.org">http://enigmail.mozdev.org</A>
+</I>&gt;<i>
+</I>&gt;<i> iEYEARECAAYFAko9JFoACgkQeyJE91ndMG4VBgCfYO1+n03f87XRxaPzcQXBqME3
+</I>&gt;<i> aXoAn1+KUay7Y637TUg95rRH5r/3Tufu
+</I>&gt;<i> =1AYB
+</I>&gt;<i> -----END PGP SIGNATURE-----
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> jameica-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">jameica-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/jameica-devel">https://lists.berlios.de/mailman/listinfo/jameica-devel</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Vorherige Nachricht: <A HREF="000016.html">[jameica-devel] Test von Jameica-Plugins
+</A></li>
+	<LI>Nächste Nachricht: <A HREF="000018.html">[jameica-devel] Blobs der H2-DB nicht Jameica-kompatibel
+</A></li>
+         <LI> <B>Nachrichten sortiert nach:</B>
+              <a href="date.html#17">[ Datum ]</a>
+              <a href="thread.html#17">[ Thema ]</a>
+              <a href="subject.html#17">[ Betreff (Subject)]</a>
+              <a href="author.html#17">[ Autor ]</a>
+         </LI>
+       </UL>
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jameica-devel">Mehr Informationen &uuml;ber die Mailingliste jameica-devel</a><br>
+</body></html>
